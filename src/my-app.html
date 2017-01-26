@@ -1,0 +1,75 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../bower_components/paper-styles/typography.html">
+
+<dom-module id="my-app">
+
+  <template>
+    <style>
+      iron-pages {
+        position: absolute;
+        top: 0;
+        bottom: 3em;
+        width: 100%;
+        overflow-y: auto;
+        color: var(--primary-text-color);
+        background-color: var(--primary-background-color);
+        @apply(--paper-font-display);
+      }
+      paper-tabs {
+        position: fixed;
+        bottom: 0;
+        height: 3em;
+        width: 100%;
+        background-color: var(--primary-color);
+        color: var(--primary-background-color);
+        --paper-tabs-selection-bar-color: var(--accent-color);
+        @apply(--paper-font-menu);
+      }
+    </style>
+
+    <iron-pages
+      selected="[[page]]"
+      attr-for-selected="name">
+      <about-view name="about"></about-view>
+      <map-view name="map"></map-view>
+    </iron-pages>
+    <paper-tabs
+      selected="{{page}}"
+      attr-for-selected="name"
+      scrollable
+      fit-container
+      align-bottom>
+      <paper-tab name="about">About</paper-tab>
+      <paper-tab name="map">Map</paper-tab>
+    </paper-tabs>
+  </template>
+
+  <script>
+      Polymer({
+          is: 'my-app',
+
+          properties: {
+              page: {
+                  type: String,
+                  reflectToAttribute: true,
+                  value: 'about',
+                  observer: '_pageChanged',
+              }
+          },
+
+          _pageChanged: function(page) {
+              // Load page import on demand. Show 404 page if fails
+              var resolvedPageUrl = this.resolveUrl(page + '-view.html');
+              this.importHref(resolvedPageUrl, null, this._showPage404, true);
+          },
+
+          _showPage404: function() {
+              this.page = 'my-view404';
+          },
+      });
+  </script>
+</dom-module>

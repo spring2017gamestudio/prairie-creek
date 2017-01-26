@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-styles/typography.html">
+<link rel="import" href="../bower_components/google-map/google-map.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="map-view">
+  <template>
+    <style include="shared-styles">
+    .content {
+      @apply(--paper-font-body1);
+    }
+    google-map {
+      height: 600px;
+    }
+    </style>
+    <div class="content">
+      <google-map zoom = "17" latitude="[[latitude]]" longitude="[[longitude]]" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM" fit-to-markers>
+        <google-map-marker latitude="40.135326" longitude="-85.278264"></google-map-marker>
+        <google-map-marker latitude="40.137244" longitude="-85.284714"></google-map-marker>
+        <google-map-marker latitude="40.132397" longitude="-85.279364"></google-map-marker>
+      </google-map>
+      <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
+    </div>
+
+    <br>
+    <h1>This is a checkbox demo.</h1>
+    <paper-checkbox>Reservoir Campgrounds</paper-checkbox>
+    <br>
+    <paper-checkbox>Prarie View Restaurant and Pub</paper-checkbox>
+    <br>
+    <paper-checkbox>Dry Dock Marina</paper-checkbox>
+  </template>
+  <script>
+    Polymer({
+      is: 'map-view',
+      properties: {
+        latitude: {
+          type: Number,
+          value: 40.137256
+        },
+        longitude: {
+          type: Number,
+          value: -85.282802
+        }
+      },
+
+      _useCurrentLocation: function() {
+        var that = this;
+        navigator.geolocation.getCurrentPosition((position) => {
+          var coords = position.coords;
+          that.latitude = coords.latitude;
+          that.longitude = coords.longitude;
+        });
+      }
+    });
+  </script>
+</dom-module>
