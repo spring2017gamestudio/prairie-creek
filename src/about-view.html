@@ -1,6 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-styles/typography.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="about-view">
@@ -16,17 +18,40 @@
       web components. The map view shows how we can access
       location information and show interactive maps.
     </div>
-    <p>What is 2+2 ?</p>
-    <paper-button raised>1</paper-button>
-    <paper-button raised>2</paper-button>
-    <paper-button raised>3</paper-button>
-    <paper-button raised>4</paper-button>
+    <div>
+      <p>What is 2+2 ?</p>
+      <paper-button raised on-click="_wrongSelection">1</paper-button>
+      <paper-button raised on-click="_wrongSelection">2</paper-button>
+      <paper-button raised on-click="_wrongSelection">3</paper-button>
+      <paper-button raised on-click="_correctSelection">4</paper-button>
+  </div>
+
+  <div>
+    <iron-pages attr-for-selected="id" selected="[[selected]]">
+      <div id="correct">
+        <p>Correct Answer!</p>
+      </div>
+      <div id="wrong">
+        <p>Wrong Answer!</p>
+      </div>
+    </iron-pages>
+  </div>
 
 
   </template>
   <script>
     Polymer({
-      is: 'about-view'
+      is: 'about-view',
+      properties:{
+        selected:String
+      },
+      _wrongSelection: function(){
+          this.selected="wrong";
+      },
+      _correctSelection: function(){
+        this.selected="correct";
+      }
+
     });
   </script>
 </dom-module>
