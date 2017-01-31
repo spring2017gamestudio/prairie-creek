@@ -53,6 +53,15 @@
           var coords = position.coords;
           that.latitude = coords.latitude;
           that.longitude = coords.longitude;
+          var marker = document.getElementsByTagName("google-map-marker");
+          var checkbox = document.getElementsByTagName("paper-checkbox");
+          for(i=0;i<marker.length;i++){
+            var distance = Math.sqrt(Math.pow((marker[i].latitude-that.latitude),2)
+              +Math.pow((marker[i].longitude-that.longitude),2));
+            if(distance<.0015){
+              checkbox[i].checked = true;
+            }
+          }
         });
       }
     });
