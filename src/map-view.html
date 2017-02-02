@@ -1,8 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-styles/typography.html">
 <link rel="import" href="../bower_components/google-map/google-map.html">
+<link rel="import" href="proximity-checkbox.html">
 
 <link rel="import" href="shared-styles.html">
 
@@ -18,20 +18,23 @@
     </style>
     <div class="content">
       <google-map zoom = "17" latitude="[[latitude]]" longitude="[[longitude]]" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM" fit-to-markers>
-        <google-map-marker latitude="40.137244" longitude="-85.284714"></google-map-marker>
-        <google-map-marker latitude="40.135326" longitude="-85.278264"></google-map-marker>
-        <google-map-marker latitude="40.132397" longitude="-85.279364"></google-map-marker>
+        <template is="dom-repeat" items="[[locations]]" item="item">
+          <google-map-marker latitude="[[item.latitude]]" longitude="[[item.longitude]]">
+          </google-map-marker>
+        </template>
       </google-map>
       <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
     </div>
 
     <br>
     <h1>This is a checkbox demo.</h1>
-    <paper-checkbox>Reservoir Campgrounds</paper-checkbox>
-    <br>
-    <paper-checkbox>Prarie View Restaurant and Pub</paper-checkbox>
-    <br>
-    <paper-checkbox>Dry Dock Marina</paper-checkbox>
+    <template is="dom-repeat" items="[[locations]]" item="item">
+      <proximity-checkbox
+        marker-latitude="[[item.latitude]]" marker-longitude="[[item.longitude]]"
+        current-latitude="[[latitude]]" current-longitude="[[longitude]]">
+        [[item.name]]
+      </proximity-checkbox>
+    </template>
   </template>
   <script>
     Polymer({
@@ -44,26 +47,38 @@
         longitude: {
           type: Number,
           value: -85.282802
+        },
+        locations: {
+          type: Array,
+          readOnly: true,
+          value: function() { return [
+            {
+              latitude: 40.137244,
+              longitude: -85.284714,
+              name: "Reservoir Campgrounds"
+            },
+            {
+              latitude: 40.135326,
+              longitude: -85.278264,
+              name: "Prairie View Restaurant and Pub"
+            },
+            {
+              latitude: 40.132397,
+              longitude: -85.279364,
+              name: "Dry Dock Marina"
+            }
+          ];}
         }
       },
 
       _useCurrentLocation: function() {
         var that = this;
-        navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition(function(position) {
           var coords = position.coords;
           that.latitude = coords.latitude;
           that.longitude = coords.longitude;
-          var marker = document.getElementsByTagName("google-map-marker");
-          var checkbox = document.getElementsByTagName("paper-checkbox");
-          for(i=0;i<marker.length;i++){
-            var distance = Math.sqrt(Math.pow((marker[i].latitude-that.latitude),2)
-              +Math.pow((marker[i].longitude-that.longitude),2));
-            if(distance<.0015){
-              checkbox[i].checked = true;
-            }
-          }
         });
-      }
+      },
     });
   </script>
 </dom-module>

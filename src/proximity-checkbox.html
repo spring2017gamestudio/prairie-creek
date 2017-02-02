@@ -1,0 +1,67 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<dom-module id="proximity-checkbox">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <paper-checkbox id="checkbox" checked="[[checked]]" disabled>
+      <content></content>
+    </paper-checkbox>
+  </template>
+  <script>
+    Polymer({
+      is: 'proximity-checkbox',
+      properties: {
+        markerLatitude: Number,
+        markerLongitude: Number,
+        currentLatitude: Number,
+        currentLongitude: Number,
+        distance: {
+          type: Number,
+          notify: true,
+          computed: '_updateDistance(currentLatitude,currentLongitude)'
+        },
+        checked: {
+          type: Boolean,
+          notify: true,
+          computed: '_updateChecked(distance)'
+        },
+        range: {
+          type: Number,
+          value: 0.0015
+        }
+      },
+
+      ready: function() {
+        this._updateDistance(this.currentLatitude, this.currentLongitude);
+      },
+
+      observers: [
+        '_updateDistance(currentLatitude, currentLongitude)'
+      ],
+
+      _updateDistance: function(currentLatitude, currentLongitude) {
+        var dx = currentLongitude - this.markerLongitude;
+        var dy = currentLatitude - this.markerLatitude;
+        return Math.sqrt(dx*dx + dy*dy);
+      },
+
+      _updateChecked: function(distance) {
+        if (distance < this.range) {
+          return true;
+        }
+        // Have we never been checked?
+        else if (this.checked === undefined){
+          return false;
+        }
+        else {
+          return this.checked;
+        }
+      }
+    });
+  </script>
+</dom-module>
