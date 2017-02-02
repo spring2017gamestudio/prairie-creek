@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-styles/typography.html">
 <link rel="import" href="../bower_components/google-map/google-map.html">
 <link rel="import" href="proximity-checkbox.html">
@@ -15,6 +16,9 @@
     google-map {
       height: 400px;
     }
+    paper-input {
+      width: 20em;
+    }
     </style>
     <div class="content">
       <google-map zoom = "17" latitude="[[latitude]]" longitude="[[longitude]]" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM" fit-to-markers>
@@ -25,6 +29,9 @@
       </google-map>
       <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
     </div>
+    <paper-input type="number" id="latitudeOverride" label="Latitude"></paper-input>
+    <paper-input type="number" id="longitudeOverride" label="Longitude"></paper-input>
+    <paper-button raised on-tap="_overrideLocation">Override Location</paper-button>
 
     <br>
     <h1>This is a checkbox demo.</h1>
@@ -79,6 +86,11 @@
           that.longitude = coords.longitude;
         });
       },
+
+      _overrideLocation: function() {
+        this.latitude = this.$.latitudeOverride.value;
+        this.longitude = this.$.longitudeOverride.value;
+      }
     });
   </script>
 </dom-module>
