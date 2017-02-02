@@ -10,10 +10,6 @@ function doCompile {
 
   # Build the application
   polymer build
-
-  # This script expects the compile script output in 'out', so we'll
-  # move the bundled output files there.
-  mv build/bundled/* out
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
@@ -40,6 +36,10 @@ rm -rf out/* out/.gitignore out/.travis.yml || exit 0
 
 # Run our compile script
 doCompile
+
+# This script expects the compile script output in 'out', so we'll
+# move the bundled output files there.
+mv build/bundled/* out
 
 # Now let's go have some fun with the cloned repo
 cd out
