@@ -1,0 +1,35 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="map-data">
+  <script>
+    Polymer({
+      is: 'map-data',
+      properties: {
+        data: {
+          type: Array,
+          readOnly: true,
+          notify: true,
+          value: function(){
+            return [
+              {
+                latitude: 40.137244,
+                longitude: -85.284714,
+                name: "Reservoir Campgrounds"
+              },
+              {
+                latitude: 40.135326,
+                longitude: -85.278264,
+                name: "Prairie View Restaurant and Pub"
+              },
+              {
+                latitude: 40.132397,
+                longitude: -85.279364,
+                name: "Dry Dock Marina"
+              }
+            ];
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>

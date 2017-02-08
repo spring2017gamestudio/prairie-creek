@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../map-data/map-data.html">
 
 <dom-module id="my-app">
 
@@ -31,11 +32,14 @@
       }
     </style>
 
+    <map-data data="{{data}}">
+    </map-data>
+
     <iron-pages
       selected="[[page]]"
       attr-for-selected="name">
       <about-view name="about"></about-view>
-      <map-view name="map"></map-view>
+      <map-view name="map" locations="[[data]]"></map-view>
     </iron-pages>
     <paper-tabs
       selected="{{page}}"
