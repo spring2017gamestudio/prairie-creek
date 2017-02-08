@@ -1,9 +1,9 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="../bower_components/paper-styles/default-theme.html">
-<link rel="import" href="../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
 
 <dom-module id="my-app">
 
@@ -63,7 +63,7 @@
 
           _pageChanged: function(page) {
               // Load page import on demand. Show 404 page if fails
-              var resolvedPageUrl = this.resolveUrl(page + '-view.html');
+              var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
               this.importHref(resolvedPageUrl, null, this._showPage404, true);
           },
 
