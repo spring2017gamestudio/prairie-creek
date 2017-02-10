@@ -15,7 +15,9 @@
     }
     </style>
 
-    <user-location id="userLocation" latitude="{{latitude}}" longitude="{{longitude}}"></user-location>
+    <user-location latitude="{{latitude}}" longitude="{{longitude}}"></user-location>
+    Latitude: {{latitude}}, Longitude: {{longitude}}
+    <br/>
 
     <div class="content">
       This is a minimum working example shell of a locative game
@@ -53,21 +55,18 @@
   <script>
     Polymer({
       is: 'about-view',
+
       properties:{
-        selected:String
-      },
-      _wrongSelection: function(){
-          this.selected="wrong";
-      },
-      _correctSelection: function(){
-        this.selected="correct";
+        selected: String
       },
 
-      ready: function(){
-        console.log("Called Ready function in about-view. Should call getUserLocation in user-location next.")
-        this.$.userLocation.getUserLocation;
+      _wrongSelection: function() {
+          this.selected = "wrong";
+      },
+
+      _correctSelection: function() {
+        this.selected = "correct";
       }
-
     });
   </script>
 </dom-module>
