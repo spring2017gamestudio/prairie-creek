@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>hot-spot-id tdd-test</title>
+
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../bower_components/web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../../src/hot-spot-id/hot-spot-id.html">
+
+  </head>
+  <body>
+
+  <test-fixture id="has-locations">
+    <template>
+      <hot-spot-id
+        locations = '[{"latitude":"10","longitude":"10"},{"latitude":"11","longitude":"10"}]'
+        current-latitude = "10"
+        current-longitude = "10">
+      </hot-spot-id>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('check location distance', function() {
+      var element;
+
+      setup(function() {
+        element = fixture('has-locations');
+      });
+
+      test('the locations exist', function() {
+        assert.notEqual(null,element.locations);
+      });
+
+      test('the distances exist', function() {
+        assert.notEqual(null,element.distance);
+      });
+
+      test('at the first location', function() {
+        assert.equal(0,element.distance);
+      });
+
+      test('current location is set', function() {
+        var item = element.nearestLocation;
+        assert.equal(10,item.longitude);
+      })
+    });
+  </script>
+
+  </body>
+</html>

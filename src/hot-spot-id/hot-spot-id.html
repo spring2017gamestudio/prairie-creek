@@ -1,0 +1,78 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="hot-spot-id">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+      is: 'hot-spot-id',
+      properties: {
+        currentLatitude: 10,
+        currentLongitude: 10,
+        currentLocalIndex: -1,
+        locations: {
+          type: Array,
+          value: [
+            {
+              latitude:10,
+              longitude:10
+            }
+        ]},
+        distance: {
+          type: Number,
+          notify: true,
+          computed: '_updateDistance(currentLatitude,currentLongitude)'
+        },
+        range: {
+          type: Number,
+          value: 0.00015537
+        }
+      },
+
+      ready: function() {
+        this._updateDistance(this.currentLatitude,this.currentLongitude);
+      },
+
+      observers: [
+        '_updateDistance(currentLatitude,currentLongitude)',
+        '_updateNearestLocation()'
+      ],
+
+      _updateDistance: function(currentLatitude,currentLongitude) {
+        var locations = this.locations;
+        var newDist;
+        var saveDist;
+        var dx;
+        var dy;
+
+        for(var i=0;i<locations.length;i++) {
+          dx = currentLatitude - locations[i].latitude;
+          dy = currentLongitude - locations[i].longitude;
+          newDist = Math.sqrt(dx*dx + dy*dy);
+          if(newDist < saveDist && saveDist != null) {
+            saveDist = newDist;
+            this.currentLocalIndex = i;
+          }
+          else if(saveDist == null) {
+            saveDist = newDist;
+            this.currentLocalIndex = i;
+          }
+        }
+
+        return saveDist;
+      },
+
+      _updateNearestLocation: function() {
+        var locations = this.locations;
+        if(this.distance < this.range) {
+          return locations[this.currentLocalIndex];
+        }
+      }
+    });
+  </script>
+</dom-module>
