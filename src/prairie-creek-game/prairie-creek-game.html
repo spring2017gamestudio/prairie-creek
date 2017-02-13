@@ -37,7 +37,7 @@
     <iron-pages
       selected="[[page]]"
       attr-for-selected="name">
-      <title-view> name="title"></title-view>
+      <title-view name="title" page="{{page}}"></title-view>
       <intro-view name="intro"></intro-view>
       <map-view name="map" locations="[[data]]"></map-view>
       <timer-view name="timer"></timer-view>
@@ -55,7 +55,7 @@
               page: {
                   type: String,
                   reflectToAttribute: true,
-                  value: 'about',
+                  value: 'title',
                   observer: '_pageChanged',
               }
           },

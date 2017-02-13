@@ -1,3 +1,7 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+
 <dom-module id="title-view">
   <template>
     <style>
@@ -6,10 +10,21 @@
       }
     </style>
     Title view placeholder
+    <paper-button raised on-tap="_next">Next</paper-button>
   </template>
   <script>
     Polymer({
-      is: 'title-view'
+      is: 'title-view',
+      properties: {
+        page: {
+          type: String,
+          notify: true
+        }
+      },
+
+      _next: function() {
+        this.page = 'intro';
+      }
     });
   </script>
 </dom-module>
