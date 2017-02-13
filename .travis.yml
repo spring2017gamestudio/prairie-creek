@@ -18,6 +18,7 @@ env:
     - ENCRYPTION_LABEL: "7d12bcb643dd"
     - COMMIT_AUTHOR_EMAIL: "travis@travis-ci.org"
 notifications:
-  slack: spring2017gamestudio:6dJBgWAqevmNSXeSJ1R3zWvH
-    on_success: never
-    on_failure: always
+  slack:
+    - spring2017gamestudio: 6dJBgWAqevmNSXeSJ1R3zWvH
+    - on_success: never
+    - on_failure: always
