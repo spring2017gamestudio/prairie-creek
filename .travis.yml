@@ -19,3 +19,5 @@ env:
     - COMMIT_AUTHOR_EMAIL: "travis@travis-ci.org"
 notifications:
   slack: spring2017gamestudio:6dJBgWAqevmNSXeSJ1R3zWvH
+    on_success: never
+    on_failure: always
