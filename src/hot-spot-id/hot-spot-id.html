@@ -12,66 +12,56 @@
     Polymer({
       is: 'hot-spot-id',
       properties: {
-        currentLatitude: 10,
-        currentLongitude: 10,
-        currentLocalIndex: -1,
-        locations: {
-          type: Array,
-          value: [
-            {
-              latitude:10,
-              longitude:10
-            }
-        ]},
-        distance: {
-          type: Number,
-          notify: true,
-          computed: '_updateDistance(currentLatitude,currentLongitude)'
+        currentLatitude: Number,
+        currentLongitude: Number,
+        range: Number,
+        markedLocations: {
+          type: Array
         },
-        range: {
-          type: Number,
-          value: 0.00015537
+        location: {
+          type: String,
+          computed: '_getCurrentLocation(currentLatitude,currentLongitude)'
+        },
+        currentMarkedLocation: {
+          type: String,
+          computed: '_getCurrentMarkedLocation(location,markedLocations)'
         }
-      },
-
-      ready: function() {
-        this._updateDistance(this.currentLatitude,this.currentLongitude);
       },
 
       observers: [
-        '_updateDistance(currentLatitude,currentLongitude)',
-        '_updateNearestLocation()'
+        '_getCurrentLocation(currentLatitude,currentLongitude)',
+        '_getCurrentMarkedLocation(location,markedLocations)'
       ],
 
-      _updateDistance: function(currentLatitude,currentLongitude) {
-        var locations = this.locations;
-        var newDist;
-        var saveDist;
-        var dx;
-        var dy;
-
-        for(var i=0;i<locations.length;i++) {
-          dx = currentLatitude - locations[i].latitude;
-          dy = currentLongitude - locations[i].longitude;
-          newDist = Math.sqrt(dx*dx + dy*dy);
-          if(newDist < saveDist && saveDist != null) {
-            saveDist = newDist;
-            this.currentLocalIndex = i;
-          }
-          else if(saveDist == null) {
-            saveDist = newDist;
-            this.currentLocalIndex = i;
-          }
-        }
-
-        return saveDist;
+      _getCurrentLocation: function(currentLatitude,currentLongitude) {
+        return this._generateLocationJSON(currentLatitude,currentLongitude);
       },
 
-      _updateNearestLocation: function() {
-        var locations = this.locations;
-        if(this.distance < this.range) {
-          return locations[this.currentLocalIndex];
+      _getCurrentMarkedLocation: function(location,markedLocations) {
+        var saveDist;
+        var newDist;
+        var dx;
+        var dy;
+        var temp;
+
+        for(var i = 0;i < markedLocations.length;i++) {
+          dx = location.latitude - markedLocations[i].latitude;
+          dy = location.longitude - markedLocations[i].longitude;
+          newDist = Math.sqrt(dx*dx + dy*dy);
+          if(saveDist != undefined && (newDist < saveDist && newDist <= this.range)) {
+            saveDist = newDist;
+            temp = i;
+          }
+          else if(saveDist == undefined && newDist <= this.range) {
+            saveDist = newDist;
+            temp = i;
+          }
         }
+        return markedLocations[temp];
+      },
+
+      _generateLocationJSON: function(latitude,longitude) {
+        return {"latitude":latitude,"longitude":longitude};
       }
     });
   </script>
