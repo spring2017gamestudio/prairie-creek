@@ -1,3 +1,6 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
 <dom-module id="intro-view">
   <template>
     <style>
@@ -6,10 +9,21 @@
       }
     </style>
     Intro view placeholder
+    <paper-button raised on-tap="_next">To Map</paper-button>
   </template>
   <script>
     Polymer({
-      is: 'intro-view'
+      is: 'intro-view',
+      properties: {
+        page: {
+          type: String,
+          notify: true
+        }
+      },
+
+      _next: function() {
+        this.page = 'map';
+      }
     });
   </script>
 </dom-module>
