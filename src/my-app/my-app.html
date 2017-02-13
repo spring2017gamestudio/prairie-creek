@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../map-data/map-data.html">
+<link rel="import" href="../user-location/user-location.html">
 
 <dom-module id="my-app">
 
@@ -35,11 +36,13 @@
     <map-data data="{{data}}">
     </map-data>
 
+    <user-location latitude="{{latitude}}" longitude="{{longitude}}" update-rate="{{updateRate}}"></user-location>
+
     <iron-pages
       selected="[[page]]"
       attr-for-selected="name">
       <about-view name="about"></about-view>
-      <map-view name="map" locations="[[data]]"></map-view>
+      <map-view name="map" locations="[[data]]" latitude="[[latitude]]" longitude="[[longitude]]" update-rate="[[updateRate]]"></map-view>
     </iron-pages>
     <paper-tabs
       selected="{{page}}"

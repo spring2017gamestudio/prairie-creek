@@ -1,0 +1,39 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="user-location">
+  <script>
+    Polymer({
+      is: 'user-location',
+      properties: {
+        latitude: {
+          type: Number,
+          notify: true,
+          readOnly: true,
+          value: 0
+        },
+        longitude: {
+          type: Number,
+          notify: true,
+          readOnly: true,
+          value: 0
+        },
+        updateRate: {
+          type: Number,
+          notify: true,
+          readOnly: true,
+          value: 5
+        }
+      },
+
+      ready: function() {
+        var that = this;
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var coords = position.coords;
+          that._setLatitude(coords.latitude);
+          that._setLongitude(coords.latitude);
+          console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
+        });
+      }
+    });
+  </script>
+</dom-module>

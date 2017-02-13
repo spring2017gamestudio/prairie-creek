@@ -2,6 +2,8 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../user-location/user-location.html">
+
 
 <link rel="import" href="../shared-styles/shared-styles.html">
 
@@ -12,6 +14,11 @@
       @apply(--paper-font-body1);
     }
     </style>
+
+    <user-location latitude="{{latitude}}" longitude="{{longitude}}"></user-location>
+    Latitude: {{latitude}}, Longitude: {{longitude}}
+    <br/>
+
     <div class="content">
       This is a minimum working example shell of a locative game
       set at Prairie Creek Reservoir. It is written using Polymer
@@ -48,16 +55,18 @@
   <script>
     Polymer({
       is: 'about-view',
-      properties:{
-        selected:String
-      },
-      _wrongSelection: function(){
-          this.selected="wrong";
-      },
-      _correctSelection: function(){
-        this.selected="correct";
-      }
 
+      properties:{
+        selected: String
+      },
+
+      _wrongSelection: function() {
+          this.selected = "wrong";
+      },
+
+      _correctSelection: function() {
+        this.selected = "correct";
+      }
     });
   </script>
 </dom-module>
