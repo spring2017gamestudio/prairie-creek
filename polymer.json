@@ -1,9 +1,14 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app/my-app.html",
+  "shell": "src/prairie-creek-game/prairie-creek-game.html",
   "fragments": [
-    "src/about-view/about-view.html",
-    "src/map-view/map-view.html"
+    "src/checklist-view/checklist-view.html",
+    "src/collection-view/collcetion-view.html",
+    "src/intro-view/intro-view.html",
+    "src/map-view/map-view.html",
+    "src/timer-view/timer-view.html",
+    "src/title-view/title-view.html",
+    "src/wudgie-view/wudgie-view.html"
   ],
   "sourceGlobs": [
     "src/**/*",

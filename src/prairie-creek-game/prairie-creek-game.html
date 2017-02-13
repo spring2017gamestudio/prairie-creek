@@ -1,12 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../map-data/map-data.html">
 
-<dom-module id="my-app">
+<dom-module id="prairie-creek-game">
 
   <template>
     <style>
@@ -38,23 +37,19 @@
     <iron-pages
       selected="[[page]]"
       attr-for-selected="name">
-      <about-view name="about"></about-view>
+      <title-view> name="title"></title-view>
+      <intro-view name="intro"></intro-view>
       <map-view name="map" locations="[[data]]"></map-view>
+      <timer-view name="timer"></timer-view>
+      <checklist-view name="checklist"></checklist-view>
+      <wudgie-view name="wudgie"></wudgie-view>
+      <collection-view name="collection"></collection-view>
     </iron-pages>
-    <paper-tabs
-      selected="{{page}}"
-      attr-for-selected="name"
-      scrollable
-      fit-container
-      align-bottom>
-      <paper-tab name="about">About</paper-tab>
-      <paper-tab name="map">Map</paper-tab>
-    </paper-tabs>
   </template>
 
   <script>
       Polymer({
-          is: 'my-app',
+          is: 'prairie-creek-game',
 
           properties: {
               page: {
