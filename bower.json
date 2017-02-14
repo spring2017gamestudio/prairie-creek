@@ -16,7 +16,8 @@
     "google-map": "GoogleWebComponents/google-map#^1.1.14",
     "paper-button": "PolymerElements/paper-button#^1.0.14",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
-    "paper-input": "PolymerElements/paper-input#^1.1.23"
+    "paper-input": "PolymerElements/paper-input#^1.1.23",
+    "app-route": "PolymerElements/app-route#^0.9.3"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

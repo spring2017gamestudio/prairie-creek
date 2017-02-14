@@ -1,10 +1,14 @@
 <script>
   ViewBehavior = {
     properties: {
-      page: {
-        type: String,
+      routeData: {
+        type: Object,
         notify: true
       }
+    },
+
+    _goToPage: function(page) {
+      this.set('routeData.page', page);
     }
   };
 </script>
