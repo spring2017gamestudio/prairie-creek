@@ -1,0 +1,26 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../view-behavior/view-behavior.html">
+
+<dom-module id="wudgie-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    Wudgie Cam placeholder
+    <paper-button raised on-tap="_next">Go to collections screen</paper-button>
+  </template>
+  <script>
+    Polymer({
+      is: 'wudgie-view',
+      behaviors: [ViewBehavior],
+
+      _next: function() {
+        this.page = 'collection';
+      }
+    });
+  </script>
+</dom-module>

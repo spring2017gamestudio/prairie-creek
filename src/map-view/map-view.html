@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../proximity-checkbox/proximity-checkbox.html">
 
+<link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 
 <dom-module id="map-view">
@@ -34,6 +35,7 @@
       <paper-input type="number" id="latitudeOverride" label="Latitude"></paper-input>
       <paper-input type="number" id="longitudeOverride" label="Longitude"></paper-input>
       <paper-button raised on-tap="_overrideLocation">Override Location</paper-button>
+      <paper-button raised on-tap="_next">Go to timer</paper-button>
       <br>
       <h1>This is a checkbox demo.</h1>
       <template is="dom-repeat" items="[[locations]]" item="item">
@@ -48,6 +50,7 @@
   <script>
     Polymer({
       is: 'map-view',
+      behaviors: [ViewBehavior],
       properties: {
         latitude: {
           type: Number,
@@ -75,6 +78,10 @@
       _overrideLocation: function() {
         this.latitude = this.$.latitudeOverride.value;
         this.longitude = this.$.longitudeOverride.value;
+      },
+
+      _next: function() {
+        this.page = 'timer';
       }
     });
   </script>
