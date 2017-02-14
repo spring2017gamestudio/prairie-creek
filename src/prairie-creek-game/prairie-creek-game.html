@@ -24,6 +24,7 @@
       <checklist-view name="checklist" route-data="{{routeData}}"></checklist-view>
       <wudgie-view name="wudgie" route-data="{{routeData}}"></wudgie-view>
       <collection-view name="collection" route-data="{{routeData}}"></collection-view>
+      <missing-view name="missing" route-data="{{routeData}}"></missing-view>
     </iron-pages>
   </template>
 
@@ -58,7 +59,7 @@
           },
 
           _showPage404: function() {
-              this.page = 'my-view404';
+              this.set('routeData.page', 'missing');
           },
       });
   </script>
