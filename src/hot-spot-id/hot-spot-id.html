@@ -1,0 +1,13 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+
+</head><body><dom-module id="hot-spot-id">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </template>
+  <script>Polymer({is:"hot-spot-id",properties:{currentLatitude:Number,currentLongitude:Number,range:Number,markedLocations:{type:Array},location:{type:String,computed:"_getCurrentLocation(currentLatitude,currentLongitude)"},currentMarkedLocation:{type:String,computed:"_getCurrentMarkedLocation(location,markedLocations)"}},observers:["_getCurrentLocation(currentLatitude,currentLongitude)","_getCurrentMarkedLocation(location,markedLocations)"],_getCurrentLocation:function(t,e){return this._generateLocationJSON(t,e)},_getCurrentMarkedLocation:function(t,e){for(var r,n,o,i,a,u=0;u<e.length;u++)o=t.latitude-e[u].latitude,i=t.longitude-e[u].longitude,n=Math.sqrt(o*o+i*i),void 0!=r&&n<r&&n<=this.range?(r=n,a=u):void 0==r&&n<=this.range&&(r=n,a=u);return e[a]},_generateLocationJSON:function(t,e){return{latitude:t,longitude:e}}});</script>
+</dom-module>
+</body></html>
