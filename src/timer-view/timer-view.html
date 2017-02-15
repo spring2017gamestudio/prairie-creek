@@ -1,0 +1,13 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><dom-module id="timer-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    Timer view placeholder
+    <paper-button raised="" on-tap="_next">Go to checklist</paper-button>
+  </template>
+  <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],_next:function(){this._goToPage("checklist")}});</script>
+</dom-module>
+</body></html>
