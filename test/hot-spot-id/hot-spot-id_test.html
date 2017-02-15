@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>hot-spot-id tdd-test</title>
+
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../bower_components/web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../../src/hot-spot-id/hot-spot-id.html">
+
+  </head>
+  <body>
+
+    <test-fixture id="nowhere">
+      <template>
+        <hot-spot-id>
+        </hot-spot-id>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="no range">
+      <template>
+        <hot-spot-id
+          current-latitude = "13"
+          current-longitude = "14"
+          marked-locations = '[{"latitude":13,"longitude":14}]'>
+        </hot-spot-id>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="has location">
+      <template>
+        <hot-spot-id
+          current-latitude = "10"
+          current-longitude = "10">
+        </hot-spot-id>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="has marked location">
+      <template>
+        <hot-spot-id
+          current-latitude = "13"
+          current-longitude = "14"
+          range = "5"
+          marked-locations = '[{"latitude":13,"longitude":14}]'>
+        </hot-spot-id>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="has multiple marked locations">
+      <template>
+        <hot-spot-id
+          current-latitude = "0"
+          current-longitude = "0"
+          range = "5"
+          marked-locations = '[{"latitude":13,"longitude":14},{"latitude":3,"longitude":4}]'>
+        </hot-spot-id>
+      </template>
+    </test-fixture>
+
+  <script>
+    suite('not at any location', function() {
+      var element;
+
+      setup(function() {
+        element = fixture('nowhere');
+      });
+
+      test('location is undefined, meaning we are nowhere', function() {
+        assert.isUndefined(element.location);
+      });
+    });
+
+    suite('has no range', function() {
+      var element;
+
+      setup(function() {
+        element = fixture('no range');
+      });
+
+      test('range is undefined, meaning we are not near a marked location', function() {
+        assert.isUndefined(element.currentMarkedLocation);
+      });
+    });
+
+    suite('has current location', function() {
+      var element;
+
+      setup(function() {
+        element = fixture('has location');
+      });
+
+      test('I am at location with latitude 10 and longitude 10', function() {
+        assert.deepEqual(element.location, {latitude:10,longitude:10});
+        assert.equal(element.location.latitude,10);
+        assert.equal(element.location.longitude,10);
+      });
+
+      test('My current location changed to latitude 13 and longitude 14', function() {
+        element.currentLatitude = 13;
+        element.currentLongitude = 14;
+        assert.deepEqual(element.location,{latitude:13,longitude:14});
+      });
+    });
+
+    suite('has stored a marked location', function() {
+      var element;
+
+      setup(function() {
+        element = fixture('has marked location')
+      });
+
+      test('My first marked location is at latitude 13 and longitude 14', function() {
+        assert.deepEqual(element.markedLocations[0],{latitude:13,longitude:14});
+      });
+
+      test('on top of marked location, current location is at latitude 13 and longitude 14', function() {
+        assert.deepEqual(element.currentMarkedLocation,{latitude:13,longitude:14});
+      });
+
+      test('within range of marked location, meaning current marked location is latitude 13 and longitude 14', function() {
+        element.currentLatitude = 10;
+        element.currentLongitude = 10;
+        assert.deepEqual(element.currentMarkedLocation,{latitude:13,longitude:14});
+      });
+
+      test('not within range of marked location, meaning current marked location is undefined', function() {
+        element.currentLatitude = 0;
+        element.currentLongitude = 0;
+        assert.isUndefined(element.currentMarkedLocation);
+      });
+    });
+
+    suite('has stored many marked locations', function() {
+      var element;
+
+      setup(function() {
+        element = fixture('has multiple marked locations')
+      });
+
+      test('within range of first marked location then move and be in range of second', function() {
+        assert.deepEqual(element.currentMarkedLocation,{latitude:3,longitude:4});
+        element.currentLatitude = 10;
+        element.currentLongitude = 10;
+        assert.deepEqual(element.currentMarkedLocation,{latitude:13,longitude:14});
+      })
+    });
+  </script>
+
+  </body>
+</html>
