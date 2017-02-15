@@ -46,16 +46,22 @@
           },
 
           observers: [
+            '_onRoutePathChanged(route.path)',
             '_pageChanged(routeData.page)'
           ],
 
-          _pageChanged: function(page) {
-            if (!page) {
-              this.set('routeData.page', 'title');
-              return;
+          _onRoutePathChanged: function(path) {
+            // If we do not have an initial URL, redirect to title.
+            if (!path) {
+              this.set('route.path', '/title');
             }
-            var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
-            this.importHref(resolvedPageUrl, null, this._showPage404, true);
+          },
+
+          _pageChanged: function(page) {
+            if (page) {
+              var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
+              this.importHref(resolvedPageUrl, null, this._showPage404, true);
+            }
           },
 
           _showPage404: function() {
