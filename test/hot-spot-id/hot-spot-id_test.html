@@ -38,13 +38,24 @@
       </template>
     </test-fixture>
 
-    <test-fixture id="has marked locations">
+    <test-fixture id="has marked location">
       <template>
         <hot-spot-id
           current-latitude = "13"
           current-longitude = "14"
           range = "5"
           marked-locations = '[{"latitude":13,"longitude":14}]'>
+        </hot-spot-id>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="has multiple marked locations">
+      <template>
+        <hot-spot-id
+          current-latitude = "0"
+          current-longitude = "0"
+          range = "5"
+          marked-locations = '[{"latitude":13,"longitude":14},{"latitude":3,"longitude":4}]'>
         </hot-spot-id>
       </template>
     </test-fixture>
@@ -94,11 +105,11 @@
       });
     });
 
-    suite('has stored marked locations', function() {
+    suite('has stored a marked location', function() {
       var element;
 
       setup(function() {
-        element = fixture('has marked locations')
+        element = fixture('has marked location')
       });
 
       test('My first marked location is at latitude 13 and longitude 14', function() {
@@ -114,11 +125,26 @@
         element.currentLongitude = 10;
         assert.deepEqual(element.currentMarkedLocation,{latitude:13,longitude:14});
       });
-      
+
       test('not within range of marked location, meaning current marked location is undefined', function() {
         element.currentLatitude = 0;
         element.currentLongitude = 0;
         assert.isUndefined(element.currentMarkedLocation);
+      });
+    });
+
+    suite('has stored many marked locations', function() {
+      var element;
+
+      setup(function() {
+        element = fixture('has multiple marked locations')
+      });
+
+      test('within range of first marked location then move and be in range of second', function() {
+        assert.deepEqual(element.currentMarkedLocation,{latitude:3,longitude:4});
+        element.currentLatitude = 10;
+        element.currentLongitude = 10;
+        assert.deepEqual(element.currentMarkedLocation,{latitude:13,longitude:14});
       })
     });
   </script>
