@@ -6,6 +6,7 @@
     "src/collection-view/collection-view.html",
     "src/intro-view/intro-view.html",
     "src/map-view/map-view.html",
+    "src/missing-view/missing-view",
     "src/timer-view/timer-view.html",
     "src/title-view/title-view.html",
     "src/wudgie-view/wudgie-view.html"

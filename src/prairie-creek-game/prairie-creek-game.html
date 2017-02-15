@@ -1,49 +1,30 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../title-view/title-view.html">
 <link rel="import" href="../map-data/map-data.html">
 
 <dom-module id="prairie-creek-game">
 
   <template>
-    <style>
-      iron-pages {
-        position: absolute;
-        top: 0;
-        bottom: 3em;
-        width: 100%;
-        overflow-y: auto;
-        color: var(--primary-text-color);
-        background-color: var(--primary-background-color);
-        @apply(--paper-font-display);
-      }
-      paper-tabs {
-        position: fixed;
-        bottom: 0;
-        height: 3em;
-        width: 100%;
-        background-color: var(--primary-color);
-        color: var(--primary-background-color);
-        --paper-tabs-selection-bar-color: var(--accent-color);
-        @apply(--paper-font-menu);
-      }
-    </style>
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}"></app-route>
+    <map-data data="{{mapData}}"></map-data>
 
-    <map-data data="{{data}}">
-    </map-data>
-
-    <iron-pages
-      selected="[[page]]"
-      attr-for-selected="name">
-      <title-view name="title" page="{{page}}"></title-view>
-      <intro-view name="intro" page="{{page}}"></intro-view>
-      <map-view name="map" locations="[[data]]" page="{{page}}"></map-view>
-      <timer-view name="timer" page="{{page}}"></timer-view>
-      <checklist-view name="checklist" page="{{page}}"></checklist-view>
-      <wudgie-view name="wudgie" page="{{page}}"></wudgie-view>
-      <collection-view name="collection" page="{{page}}"></collection-view>
+    <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
+      <title-view name="title" route-data="{{routeData}}"></title-view>
+      <intro-view name="intro" route-data="{{routeData}}"></intro-view>
+      <map-view name="map" locations="[[mapData]]" route-data="{{routeData}}"></map-view>
+      <timer-view name="timer" route-data="{{routeData}}"></timer-view>
+      <checklist-view name="checklist" route-data="{{routeData}}"></checklist-view>
+      <wudgie-view name="wudgie" route-data="{{routeData}}"></wudgie-view>
+      <collection-view name="collection" route-data="{{routeData}}"></collection-view>
+      <missing-view name="missing" route-data="{{routeData}}"></missing-view>
     </iron-pages>
   </template>
 
@@ -52,22 +33,33 @@
           is: 'prairie-creek-game',
 
           properties: {
-              page: {
-                  type: String,
-                  reflectToAttribute: true,
-                  value: 'title',
-                  observer: '_pageChanged',
+              mapData: {
+                type: Object
+              },
+              route: {
+                type: Object,
+              },
+              routeData: {
+                type: Object,
+                notify: true,
               }
           },
 
+          observers: [
+            '_pageChanged(routeData.page)'
+          ],
+
           _pageChanged: function(page) {
-              // Load page import on demand. Show 404 page if fails
-              var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
-              this.importHref(resolvedPageUrl, null, this._showPage404, true);
+            if (!page) {
+              this.set('routeData.page', 'title');
+              return;
+            }
+            var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
+            this.importHref(resolvedPageUrl, null, this._showPage404, true);
           },
 
           _showPage404: function() {
-              this.page = 'my-view404';
+              this.set('routeData.page', 'missing');
           },
       });
   </script>
