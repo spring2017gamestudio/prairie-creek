@@ -1295,6 +1295,6 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
     </iron-pages>
   </template>
 
-  <script>Polymer({is:"prairie-creek-game",properties:{mapData:{type:Object},route:{type:Object},routeData:{type:Object,notify:!0}},observers:["_pageChanged(routeData.page)"],_pageChanged:function(e){if(!e)return void this.set("routeData.page","title");var t=this.resolveUrl("../"+e+"-view/"+e+"-view.html");this.importHref(t,null,this._showPage404,!0)},_showPage404:function(){this.set("routeData.page","missing")}});</script>
+  <script>Polymer({is:"prairie-creek-game",properties:{mapData:{type:Object},route:{type:Object},routeData:{type:Object,notify:!0}},observers:["_onRoutePathChanged(route.path)","_pageChanged(routeData.page)"],_onRoutePathChanged:function(e){e||this.set("route.path","/title")},_pageChanged:function(e){if(e){var t=this.resolveUrl("../"+e+"-view/"+e+"-view.html");this.importHref(t,null,this._showPage404,!0)}},_showPage404:function(){this.set("routeData.page","missing")}});</script>
 </dom-module>
 </body></html>
