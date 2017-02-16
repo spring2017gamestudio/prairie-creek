@@ -10,13 +10,23 @@
         display: block;
       }
     </style>
-    Timer view placeholder
+    [[prompt]]
+    <div>
+      (Timer will go here)
+    </div>
     <paper-button raised on-tap="_next">Go to checklist</paper-button>
   </template>
   <script>
     Polymer({
       is: 'timer-view',
       behaviors: [ViewBehavior],
+
+      properties: {
+        prompt: {
+          type: String,
+          value: "Listen to what's around wherever you are (placeholder)",
+        }
+      },
 
       _next: function() {
         this._goToPage('checklist');
