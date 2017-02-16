@@ -37,7 +37,7 @@
 
       <div class="debugging-and-temporary">
         <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
-        <paper-button raised on-tap="_next">Go to timer</paper-button>
+        <paper-button raised on-tap="_next">Fake arrival</paper-button>
       </div>
     </div>
   </template>
@@ -70,7 +70,7 @@
       },
 
       _next: function() {
-        this._goToPage('timer');
+        this._goToPage('arrival');
       }
     });
   </script>
