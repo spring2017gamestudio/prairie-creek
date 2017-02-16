@@ -1263,15 +1263,17 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
 
 </style><dom-module id="title-view" assetpath="../title-view/">
   <template>
-    <style>
+    <style include="shared-styles">
       :host {
         display: block;
       }
     </style>
-    Title view placeholder
-    <paper-button raised="" on-tap="_next">Next</paper-button>
+    <h1>Ball State Hunt</h1>
+    <img src="../../images/charlie.png">
+    <h2>Please proceed to Ball State University to play</h2>
+    <paper-button raised="" on-tap="_directions">Directions</paper-button>
   </template>
-  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],_next:function(){this._goToPage("intro")}});</script>
+  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],_directions:function(){this._goToPage("intro")}});</script>
 </dom-module>
 <dom-module id="map-data" assetpath="../map-data/">
   <script>Polymer({is:"map-data",properties:{data:{type:Array,notify:!0,value:function(){return[{latitude:40.204896,longitude:-85.408598,name:"Half Circle Drive"},{latitude:40.204747,longitude:-85.408142,name:"SW Corner of Petty & Neely"},{latitude:40.204456,longitude:-85.408254,name:"In-Between Front Doors of RB"}]}}}});</script>
