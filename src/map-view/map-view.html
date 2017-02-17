@@ -31,8 +31,18 @@
         <google-map-marker latitude="[[latitude]]" longitude="[[longitude]]">
         </google-map-marker>
       </google-map>
+      <div>
+        [[locations.0.name]] has been visited:[[locations.0.visited]]
+      </div>
+      <div>
+        [[locations.1.name]] has been visited:[[locations.1.visited]]
+      </div>
+      <div>
+        [[locations.2.name]] has been visited:[[locations.2.visited]]
+      </div>
+
       <hot-spot-id current-latitude="[[latitude]]" current-longitude="[[longitude]]"
-      marked-locations="{{locations}}" range="1" current-marked-location="{{currentMarkedLocation}}"></hot-spot-id>
+      marked-locations="{{locations}}" range="0.00015537" current-marked-location="{{currentMarkedLocation}}"></hot-spot-id>
       <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
       <paper-input type="number" id="latitudeOverride" label="Latitude"></paper-input>
       <paper-input type="number" id="longitudeOverride" label="Longitude"></paper-input>
@@ -61,13 +71,15 @@
           type: Number,
         },
         locations: {
-          type: Array
+          type: Array,
+          notify: true
         },
         updateRate: {
           type: Number
         },
         currentMarkedLocation:{
-          type:Object
+          type:Object,
+          notify:true
         }
       },
       observers: [
@@ -76,6 +88,9 @@
 
       _markVisited: function(){
         this.currentMarkedLocation.visited=true;
+        var locations=this.locations;
+        this.locations={};
+        this.locations=locations;
       },
 
       _useCurrentLocation: function() {
