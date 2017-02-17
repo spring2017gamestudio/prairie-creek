@@ -1278,17 +1278,21 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
 <dom-module id="map-data" assetpath="../map-data/">
   <script>Polymer({is:"map-data",properties:{data:{type:Array,notify:!0,value:function(){return[{latitude:40.203797,longitude:-85.408037,name:"Bell Tower"},{latitude:40.203295,longitude:-85.407271,name:"Frog Baby"},{latitude:40.204366,longitude:-85.406887,name:"Architecture Building"}]}}}});</script>
 </dom-module>
+<dom-module id="user-location" assetpath="../user-location/">
+  <script>Polymer({is:"user-location",properties:{latitude:{type:Number,notify:!0,readOnly:!0,value:0},longitude:{type:Number,notify:!0,readOnly:!0,value:0},updateRate:{type:Number,notify:!0,readOnly:!0,value:5}},ready:function(){var t=this;navigator.geolocation.getCurrentPosition(function(e){var i=e.coords;t._setLatitude(i.latitude),t._setLongitude(i.latitude),console.log("Latitude is ",t.latitude," and longitude is ",t.longitude)})}});</script>
+</dom-module>
 </div><dom-module id="prairie-creek-game">
 
   <template>
     <app-location route="{{route}}" use-hash-as-path=""></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}"></app-route>
     <map-data data="{{mapData}}"></map-data>
+    <user-location latitude="{{latitude}}" longitude="{{longitude}}" update-rate="{{updateRate}}"></user-location>
 
     <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
       <title-view name="title" route-data="{{routeData}}"></title-view>
       <intro-view name="intro" route-data="{{routeData}}"></intro-view>
-      <map-view name="map" locations="[[mapData]]" route-data="{{routeData}}"></map-view>
+      <map-view name="map" locations="[[mapData]]" latitude="[[latitude]]" longitude="[[longitude]]" route-data="{{routeData}}"></map-view>
       <arrival-view name="arrival" route-data="{{routeData}}"></arrival-view>
       <timer-view name="timer" route-data="{{routeData}}"></timer-view>
       <checklist-view name="checklist" route-data="{{routeData}}"></checklist-view>
