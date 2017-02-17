@@ -5,9 +5,9 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
-
 <link rel="import" href="../title-view/title-view.html">
 <link rel="import" href="../map-data/map-data.html">
+<link rel="import" href="../user-location/user-location.html">
 
 <dom-module id="prairie-creek-game">
 
@@ -15,11 +15,12 @@
     <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}"></app-route>
     <map-data data="{{mapData}}"></map-data>
+    <user-location latitude="{{latitude}}" longitude="{{longitude}}" update-rate="{{updateRate}}"></user-location>
 
     <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
       <title-view name="title" route-data="{{routeData}}"></title-view>
       <intro-view name="intro" route-data="{{routeData}}"></intro-view>
-      <map-view name="map" locations="[[mapData]]" route-data="{{routeData}}"></map-view>
+      <map-view name="map" locations="[[mapData]]" latitude="[[latitude]]" longitude="[[longitude]]" route-data="{{routeData}}"></map-view>
       <arrival-view name="arrival" route-data="{{routeData}}"></arrival-view>
       <timer-view name="timer" route-data="{{routeData}}"></timer-view>
       <checklist-view name="checklist" route-data="{{routeData}}"></checklist-view>
