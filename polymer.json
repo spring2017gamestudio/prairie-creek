@@ -2,6 +2,7 @@
   "entrypoint": "index.html",
   "shell": "src/prairie-creek-game/prairie-creek-game.html",
   "fragments": [
+    "src/arrival-view/arrival-view.html",
     "src/checklist-view/checklist-view.html",
     "src/collection-view/collection-view.html",
     "src/intro-view/intro-view.html",

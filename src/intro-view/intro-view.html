@@ -12,7 +12,6 @@
     </style>
     <h1>Visit all 3 locations found on the map</h1>
     <paper-button raised on-tap="_back">Back</paper-button>
-    <paper-button raised on-tap="_skip">Skip</paper-button>
     <paper-button raised on-tap="_next">Next</paper-button>
   </template>
   <script>
@@ -22,10 +21,6 @@
 
       _back: function() {
         this._goToPage('title');
-      },
-
-      _skip: function(){
-        this._goToPage('map');
       },
 
       _next: function() {
