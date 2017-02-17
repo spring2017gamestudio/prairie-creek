@@ -19,11 +19,12 @@
           type: Array
         },
         location: {
-          type: String,
+          type: Object,
           computed: '_getCurrentLocation(currentLatitude,currentLongitude)'
         },
         currentMarkedLocation: {
-          type: String,
+          type: Object,
+          notify: true,
           computed: '_getCurrentMarkedLocation(location,markedLocations)'
         }
       },

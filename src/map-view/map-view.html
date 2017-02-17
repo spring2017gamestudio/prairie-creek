@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../proximity-checkbox/proximity-checkbox.html">
+<link rel="import" href="../hot-spot-id/hot-spot-id.html">
 
 <link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
@@ -30,7 +31,8 @@
         <google-map-marker latitude="[[latitude]]" longitude="[[longitude]]">
         </google-map-marker>
       </google-map>
-
+      <hot-spot-id current-latitude="[[latitude]]" current-longitude="[[longitude]]"
+      marked-locations="{{locations}}" range="1" current-marked-location="{{currentMarkedLocation}}"></hot-spot-id>
       <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
       <paper-input type="number" id="latitudeOverride" label="Latitude"></paper-input>
       <paper-input type="number" id="longitudeOverride" label="Longitude"></paper-input>
@@ -63,7 +65,17 @@
         },
         updateRate: {
           type: Number
+        },
+        currentMarkedLocation:{
+          type:Object
         }
+      },
+      observers: [
+        '_markVisited(currentMarkedLocation)'
+      ],
+
+      _markVisited: function(){
+        this.currentMarkedLocation.visited=true;
       },
 
       _useCurrentLocation: function() {
@@ -82,7 +94,7 @@
 
       _next: function() {
         this._goToPage('timer');
-      }
+      },
     });
   </script>
 </dom-module>

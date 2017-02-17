@@ -19,7 +19,7 @@
     <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
       <title-view name="title" route-data="{{routeData}}"></title-view>
       <intro-view name="intro" route-data="{{routeData}}"></intro-view>
-      <map-view name="map" locations="[[mapData]]" route-data="{{routeData}}"></map-view>
+      <map-view name="map" locations="[[mapData]]" route-data="{{routeData}}" current-marked-location="{{currentMarkedLocation}}"></map-view>
       <timer-view name="timer" route-data="{{routeData}}"></timer-view>
       <checklist-view name="checklist" route-data="{{routeData}}"></checklist-view>
       <wudgie-view name="wudgie" route-data="{{routeData}}"></wudgie-view>
