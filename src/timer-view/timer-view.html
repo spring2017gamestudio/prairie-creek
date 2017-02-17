@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-timer/iron-timer.html">
 
 <link rel="import" href="../view-behavior/view-behavior.html">
 
@@ -12,7 +13,8 @@
     </style>
     [[prompt]]
     <div>
-      (Timer will go here)
+      <p id="countdown">30</p>
+      <iron-timer id="timer" start-time="1"></iron-timer>
     </div>
     <paper-button raised on-tap="_next">Go to checklist</paper-button>
   </template>
