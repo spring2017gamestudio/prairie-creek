@@ -12,7 +12,7 @@
 <dom-module id="prairie-creek-game">
 
   <template>
-    <app-location route="{{route}}"></app-location>
+    <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}"></app-route>
     <map-data data="{{mapData}}"></map-data>
     <user-location latitude="{{latitude}}" longitude="{{longitude}}" update-rate="{{updateRate}}"></user-location>
@@ -21,6 +21,7 @@
       <title-view name="title" route-data="{{routeData}}"></title-view>
       <intro-view name="intro" route-data="{{routeData}}"></intro-view>
       <map-view name="map" locations="[[mapData]]" latitude="[[latitude]]" longitude="[[longitude]]" route-data="{{routeData}}"></map-view>
+      <arrival-view name="arrival" route-data="{{routeData}}"></arrival-view>
       <timer-view name="timer" route-data="{{routeData}}"></timer-view>
       <checklist-view name="checklist" route-data="{{routeData}}"></checklist-view>
       <wudgie-view name="wudgie" route-data="{{routeData}}"></wudgie-view>
@@ -47,16 +48,22 @@
           },
 
           observers: [
+            '_onRoutePathChanged(route.path)',
             '_pageChanged(routeData.page)'
           ],
 
-          _pageChanged: function(page) {
-            if (!page) {
-              this.set('routeData.page', 'title');
-              return;
+          _onRoutePathChanged: function(path) {
+            // If we do not have an initial URL, redirect to title.
+            if (!path) {
+              this.set('route.path', '/title');
             }
-            var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
-            this.importHref(resolvedPageUrl, null, this._showPage404, true);
+          },
+
+          _pageChanged: function(page) {
+            if (page) {
+              var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
+              this.importHref(resolvedPageUrl, null, this._showPage404, true);
+            }
           },
 
           _showPage404: function() {

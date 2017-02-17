@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="hot-spot-id">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer({
+      is: 'hot-spot-id',
+      properties: {
+        currentLatitude: Number,
+        currentLongitude: Number,
+        range: Number,
+        markedLocations: {
+          type: Array
+        },
+        location: {
+          type: String,
+          computed: '_getCurrentLocation(currentLatitude,currentLongitude)'
+        },
+        currentMarkedLocation: {
+          type: String,
+          computed: '_getCurrentMarkedLocation(location,markedLocations)'
+        }
+      },
+
+      observers: [
+        '_getCurrentLocation(currentLatitude,currentLongitude)',
+        '_getCurrentMarkedLocation(location,markedLocations)'
+      ],
+
+      _getCurrentLocation: function(currentLatitude,currentLongitude) {
+        return this._generateLocationJSON(currentLatitude,currentLongitude);
+      },
+
+      _getCurrentMarkedLocation: function(location,markedLocations) {
+        var saveDist;
+        var newDist;
+        var dx;
+        var dy;
+        var temp;
+
+        for(var i = 0;i < markedLocations.length;i++) {
+          dx = location.latitude - markedLocations[i].latitude;
+          dy = location.longitude - markedLocations[i].longitude;
+          newDist = Math.sqrt(dx*dx + dy*dy);
+          if(saveDist != undefined && (newDist < saveDist && newDist <= this.range)) {
+            saveDist = newDist;
+            temp = i;
+          }
+          else if(saveDist == undefined && newDist <= this.range) {
+            saveDist = newDist;
+            temp = i;
+          }
+        }
+        return markedLocations[temp];
+      },
+
+      _generateLocationJSON: function(latitude,longitude) {
+        return {"latitude":latitude,"longitude":longitude};
+      }
+    });
+  </script>
+</dom-module>
