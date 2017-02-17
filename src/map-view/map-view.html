@@ -72,11 +72,11 @@
         console.log("Debug Mode On");
       },
 
-      _debugLocation: function(event){}
-        debugger;
-        var position = event.detail.latLng;
-        console.log(position);
-        this.$.current.position = position;
+      _debugLocation: function(event){
+        var latitude = event.detail.latLng.lat();
+        var longitude = event.detail.latLng.lng();
+        this.$.current.latitude = latitude;
+        this.$.current.longitude = longitude;
       },
 
       _useCurrentLocation: function() {
