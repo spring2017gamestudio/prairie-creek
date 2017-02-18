@@ -1,6 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-timer/iron-timer.html">
+
 
 <dom-module id="user-location">
+  <template>
+    <div>
+      <iron-timer id="locationTimer" start-time="[[updateRate]]" current-time="0" on-iron-timer-end="_updateLocation"></iron-timer>
+    </div>
+  </template>
   <script>
     Polymer({
       is: 'user-location',
@@ -26,11 +33,24 @@
       },
 
       ready: function() {
+        this.$.locationTimer.start();
         var that = this;
         navigator.geolocation.getCurrentPosition(function(position) {
           var coords = position.coords;
           that._setLatitude(coords.latitude);
-          that._setLongitude(coords.latitude);
+          that._setLongitude(coords.longitude);
+          console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
+        });
+      },
+
+      _updateLocation: function(){
+        this.$.locationTimer.reset();
+        this.$.locationTimer.start();
+        var that = this;
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var coords = position.coords;
+          that._setLatitude(coords.latitude);
+          that._setLongitude(coords.longitude);
           console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
         });
       }
