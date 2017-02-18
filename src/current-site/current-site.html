@@ -1,48 +1,48 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="current-location">
-  <indexOfLocationlate>
+<dom-module id="current-site">
+  <indexOfsitelate>
     <style>
       :host {
         display: block;
       }
     </style>
-  </indexOfLocationlate>
+  </indexOfsitelate>
   <script>
     Polymer({
-      is: 'current-location',
+      is: 'current-site',
       properties: {
         latitude: Number,
         longitude: Number,
         range: Number,
-        locations: {
+        sites: {
           type: Array
         },
-        location: {
+        site: {
           type: Object,
           notify: true,
-          computed: '_determineLocation(latitude,longitude,locations)'
+          computed: '_determineSite(latitude,longitude,sites)'
         },
       },
 
-      _determineLocation: function(latitude, longitude, locations) {
+      _determineSite: function(latitude, longitude, sites) {
         const BIG_DISTANCE = 1000000; // An arbitrary number that any real distance will be less than
         var saveDist = BIG_DISTANCE;
         var distance;
         var dx;
         var dy;
-        var indexOfLocation;
+        var indexOfSite;
 
-        for(var i = 0; i < locations.length; i++) {
-          dx = latitude - locations[i].latitude;
-          dy = longitude - locations[i].longitude;
+        for(var i = 0; i < sites.length; i++) {
+          dx = latitude - sites[i].latitude;
+          dy = longitude - sites[i].longitude;
           distance = Math.sqrt(dx*dx + dy*dy);
-          if (distance < saveDist && distance <= locations[i].range) {
+          if (distance < saveDist && distance <= sites[i].range) {
             saveDist = distance;
-            indexOfLocation = i;
+            indexOfSite = i;
           }
         }
-        return (saveDist == BIG_DISTANCE) ? undefined : locations[indexOfLocation];
+        return (saveDist == BIG_DISTANCE) ? undefined : sites[indexOfSite];
       }
 
     });
