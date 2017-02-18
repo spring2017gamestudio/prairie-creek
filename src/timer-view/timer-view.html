@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-timer/iron-timer.html">
 
 <link rel="import" href="../view-behavior/view-behavior.html">
 
@@ -12,9 +13,10 @@
     </style>
     [[prompt]]
     <div>
-      (Timer will go here)
+      [[secondsRemaining]]
+      <iron-timer id="timer" start-time="1" current-time="{{secondsRemaining}}" on-iron-timer-end="_timerEnd"></iron-timer>
     </div>
-    <paper-button raised on-tap="_next">Go to checklist</paper-button>
+    <paper-button id="button" raised on-tap="_next" disabled$="[[!buttonEnabled]]">Go to checklist</paper-button>
   </template>
   <script>
     Polymer({
@@ -25,12 +27,37 @@
         prompt: {
           type: String,
           value: "Listen to what's around wherever you are (placeholder)",
+        },
+
+        secondsRemaining: {
+          type: Number,
+          value: 30
+        },
+
+        buttonEnabled: {
+          type: Boolean,
+          computed: '_hasNoSecondsRemaining(secondsRemaining)'
         }
       },
 
       _next: function() {
         this._goToPage('checklist');
+      },
+
+      ready: function(){
+        this.$.timer.start();
+        console.log("started");
+      },
+
+      _timerEnd: function(){
+        this.$.timer.pause();
+      },
+
+      _hasNoSecondsRemaining: function(secondsRemaining){
+        return secondsRemaining== 0
       }
+
+
     });
   </script>
 </dom-module>
