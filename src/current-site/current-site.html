@@ -1,0 +1,13 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+
+</head><body><dom-module id="current-site">
+  <indexofsitelate>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </indexofsitelate>
+  <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,computed:"_determineSite(latitude,longitude,sites)"}},_determineSite:function(e,t,i){const r=1e6;for(var n,u,o,d,s=r,a=0;a<i.length;a++)u=e-i[a].latitude,o=t-i[a].longitude,n=Math.sqrt(u*u+o*o),n<s&&n<=i[a].range&&(s=n,d=a);return s==r?void 0:i[d]}});</script>
+</dom-module>
+</body></html>

@@ -627,6 +627,8 @@
       <p>
         Please visit one of these locations.
       </p>
+      <br>
+      Currently at [[currentSite.name]]
 
       <div class="debugging-and-temporary">
         <paper-button raised="" on-tap="_useCurrentLocation">Use Current Location</paper-button>
@@ -635,6 +637,6 @@
       <paper-button raised="" on-tap="_debugModeOn">Debug Mode</paper-button>
     </div>
   </template>
-  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number},longitude:{type:Number},locations:{type:Array},updateRate:{type:Number}},_debugModeOn:function(){this.$.map.setAttribute("click-events",!0),console.log("Debug Mode On")},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.$.current.latitude=e,this.$.current.longitude=i},_useCurrentLocation:function(){var t=this;navigator.geolocation.getCurrentPosition(function(e){var i=e.coords;t.latitude=i.latitude,t.longitude=i.longitude})},_next:function(){this._goToPage("arrival")}});</script>
+  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object}},_debugModeOn:function(){this.$.map.setAttribute("click-events",!0),console.log("Debug Mode On")},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.latitude=e,this.longitude=i},_useCurrentLocation:function(){var t=this;navigator.geolocation.getCurrentPosition(function(e){var i=e.coords;t.latitude=i.latitude,t.longitude=i.longitude})},_next:function(){this._goToPage("arrival")}});</script>
 </dom-module>
 </body></html>
