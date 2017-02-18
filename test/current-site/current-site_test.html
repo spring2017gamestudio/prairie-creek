@@ -1,0 +1,108 @@
+<html>
+
+<head>
+  <meta name="viewport"
+        content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>current-location tdd-test</title>
+
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../bower_components/web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import"
+          href="../../src/current-site/current-site.html">
+
+</head>
+
+<body>
+  <test-fixture id="no-site">
+    <template>
+      <current-site>
+      </current-site>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="default">
+    <template>
+      <current-site latitude="13"
+                    longitude="14">
+      </current-site>
+    </template>
+  </test-fixture>
+
+
+  <script>
+    const mapData = [
+      {
+        latitude: 13,
+        longitude: 14,
+        range: 1,
+      },
+      {
+        latitude: 3,
+        longitude: 4,
+        range: 1
+      }
+    ];
+
+    describe('no latitude nor longitude', function () {
+      var element;
+
+      before(function () {
+        element = fixture('no-site');
+      });
+
+      it('is undefined site', function () {
+        expect(element.site).to.be.undefined;
+      });
+    });
+
+    describe('at first site', function () {
+      var element;
+
+      before(function () {
+        element = fixture('default');
+        element.sites = mapData;
+      });
+
+      it('sets site to be the first site', function () {
+        console.log(element.sites);
+        expect(element.site).to.deep.equal(element.sites[0]);
+      });
+
+      describe('moving out of range after having been at a site', function () {
+        it('within range of first marked site then move and be in range of second', function () {
+          element.latitude = 0;
+          element.longitude = 0;
+          expect(element.site).to.be.undefined;
+        })
+      });
+
+      describe('moving in range of another site after having been at one', function () {
+        it('sets location to the new one', function () {
+          element.latitude = 3;
+          element.longitude = 4;
+          expect(element.site).to.deep.equal(element.sites[1]);
+        });
+      });
+    });
+
+    describe('out of range of any site', function () {
+      var element;
+
+      before(function () {
+        element = fixture('default');
+        element.sites = mapData;
+        element.latitude = 0;
+        element.longitude = 0;
+      });
+
+      it('sets site to undefined', function () {
+        expect(element.site).to.be.undefined;
+      });
+    });
+  </script>
+
+</body>
+
+</html>
