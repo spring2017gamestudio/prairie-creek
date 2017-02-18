@@ -16,7 +16,7 @@
     </style>
     [[currentSite.question]]
     <template is="dom-repeat" items="[[currentSite.responses]]" item="item">
-      <paper-checkbox>[[item]]</paper-checkbox>
+      <paper-checkbox>[[item.text]]</paper-checkbox>
     </template>
     <paper-button raised on-tap="_next">See a pukwudgie</paper-button>
   </template>

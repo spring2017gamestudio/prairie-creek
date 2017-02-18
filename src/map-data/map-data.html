@@ -17,7 +17,18 @@
                 range: 0.001,
                 question: 'What did you smell?',
                 responses: [
-                  'Fresh air', 'Exhaust fumes', 'Fried food'
+                  {
+                    text: 'Fresh air',
+                    value: +2
+                  },
+                  {
+                    text: 'Exhaust fumes',
+                    value: -2
+                  },
+                  {
+                    text: 'Fried food',
+                    value: -1
+                  }
                 ]
               },
               {
@@ -27,7 +38,18 @@
                 range: 0.001,
                 question: 'What did you see?',
                 responses: [
-                  'Water', 'Plants', 'Litter'
+                  {
+                    text: 'Water',
+                    value: +3
+                  },
+                  {
+                    text: 'Plants',
+                    value: +2
+                  },
+                  {
+                    text: 'Litter',
+                    value: -4
+                  }
                 ]
               },
               {
@@ -37,7 +59,18 @@
                 range: 0.001,
                 question: 'What did you hear?',
                 responses: [
-                  'Birds', 'Music', 'Traffic'
+                  {
+                    text: 'Birds',
+                    value: +2
+                  },
+                  {
+                    text: 'Music',
+                    value: 0
+                  },
+                  {
+                    text: 'Traffic',
+                    value: -3
+                  }
                 ]
               }
             ];
