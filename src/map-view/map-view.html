@@ -34,6 +34,8 @@
       <p>
         Please visit one of these locations.
       </p>
+      <br>
+      Currently at [[currentSite.name]]
 
       <div class="debugging-and-temporary">
         <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
@@ -49,15 +51,17 @@
       properties: {
         latitude: {
           type: Number,
+          notify: true
         },
         longitude: {
           type: Number,
+          notify: true
         },
         locations: {
           type: Array
         },
-        updateRate: {
-          type: Number
+        currentSite: {
+          type: Object
         }
       },
 
@@ -69,8 +73,8 @@
       _debugLocation: function(event){
         var latitude = event.detail.latLng.lat();
         var longitude = event.detail.latLng.lng();
-        this.$.current.latitude = latitude;
-        this.$.current.longitude = longitude;
+        this.latitude = latitude;
+        this.longitude = longitude;
       },
 
       _useCurrentLocation: function() {
