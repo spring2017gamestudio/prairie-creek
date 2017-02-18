@@ -1,68 +1,50 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="current-location">
-  <template>
+  <indexOfLocationlate>
     <style>
       :host {
         display: block;
       }
     </style>
-  </template>
+  </indexOfLocationlate>
   <script>
     Polymer({
       is: 'current-location',
       properties: {
-        currentLatitude: Number,
-        currentLongitude: Number,
+        latitude: Number,
+        longitude: Number,
         range: Number,
-        markedLocations: {
+        locations: {
           type: Array
         },
         location: {
-          type: String,
-          computed: '_getCurrentLocation(currentLatitude,currentLongitude)'
+          type: Object,
+          notify: true,
+          computed: '_determineLocation(latitude,longitude,locations)'
         },
-        currentMarkedLocation: {
-          type: String,
-          computed: '_getCurrentMarkedLocation(location,markedLocations)'
-        }
       },
 
-      observers: [
-        '_getCurrentLocation(currentLatitude,currentLongitude)',
-        '_getCurrentMarkedLocation(location,markedLocations)'
-      ],
-
-      _getCurrentLocation: function(currentLatitude,currentLongitude) {
-        return this._generateLocationJSON(currentLatitude,currentLongitude);
-      },
-
-      _getCurrentMarkedLocation: function(location,markedLocations) {
-        var saveDist;
-        var newDist;
+      _determineLocation: function(latitude, longitude, locations) {
+        const BIG_DISTANCE = 1000000; // An arbitrary number that any real distance will be less than
+        var saveDist = BIG_DISTANCE;
+        var distance;
         var dx;
         var dy;
-        var temp;
+        var indexOfLocation;
 
-        for(var i = 0;i < markedLocations.length;i++) {
-          dx = location.latitude - markedLocations[i].latitude;
-          dy = location.longitude - markedLocations[i].longitude;
-          newDist = Math.sqrt(dx*dx + dy*dy);
-          if(saveDist != undefined && (newDist < saveDist && newDist <= this.range)) {
-            saveDist = newDist;
-            temp = i;
-          }
-          else if(saveDist == undefined && newDist <= this.range) {
-            saveDist = newDist;
-            temp = i;
+        for(var i = 0; i < locations.length; i++) {
+          dx = latitude - locations[i].latitude;
+          dy = longitude - locations[i].longitude;
+          distance = Math.sqrt(dx*dx + dy*dy);
+          if (distance < saveDist && distance <= locations[i].range) {
+            saveDist = distance;
+            indexOfLocation = i;
           }
         }
-        return markedLocations[temp];
-      },
-
-      _generateLocationJSON: function(latitude,longitude) {
-        return {"latitude":latitude,"longitude":longitude};
+        return (saveDist == BIG_DISTANCE) ? undefined : locations[indexOfLocation];
       }
+
     });
   </script>
 </dom-module>

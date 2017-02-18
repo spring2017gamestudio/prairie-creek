@@ -22,72 +22,84 @@
     </template>
   </test-fixture>
 
-  <test-fixture id="has marked location">
+  <test-fixture id="default">
     <template>
-      <current-location current-latitude="13"
-                   current-longitude="14"
-                   range="5"
-                   marked-locations='[{"latitude":13,"longitude":14}]'>
-        </current-location>
+      <current-location latitude="13"
+                        longitude="14"
+                        </current-location>
     </template>
   </test-fixture>
 
-  <test-fixture id="has multiple marked locations">
-    <template>
-      <current-location current-latitude="0"
-                   current-longitude="0"
-                   range="5"
-                   marked-locations='[{"latitude":13,"longitude":14},{"latitude":3,"longitude":4}]'>
-        </current-location>
-    </template>
-  </test-fixture>
 
   <script>
-    suite('not at any location', function () {
+    const mapData = [
+      {
+        latitude: 13,
+        longitude: 14,
+        range: 1,
+      },
+      {
+        latitude: 3,
+        longitude: 4,
+        range: 1
+      }
+    ];
+
+    describe('not at any location', function () {
       var element;
 
-      setup(function () {
+      before(function () {
         element = fixture('no-location');
       });
 
-      test('location is undefined', function () {
-        assert.isUndefined(element.location);
+      it('is undefined location', function () {
+        expect(element.location).to.be.undefined;
       });
     });
 
-    suite('has stored a marked location', function () {
+    describe('at first location', function () {
       var element;
 
-      setup(function () {
-        element = fixture('has marked location')
+      before(function () {
+        element = fixture('default');
+        element.locations = mapData;
       });
 
-      test('within range of marked location', function () {
-        element.currentLatitude = 10;
-        element.currentLongitude = 10;
-        assert.deepEqual(element.currentMarkedLocation, { latitude: 13, longitude: 14 });
+      it('sets location to be the first location', function () {
+        console.log(element.locations);
+        expect(element.location).to.deep.equal(element.locations[0]);
       });
 
-      test('not within range of marked location', function () {
-        element.currentLatitude = 0;
-        element.currentLongitude = 0;
-        assert.isUndefined(element.currentMarkedLocation);
+      describe('moving out of range after having been at a location', function () {
+        it('within range of first marked location then move and be in range of second', function () {
+          element.latitude = 0;
+          element.longitude = 0;
+          expect(element.location).to.be.undefined;
+        })
+      });
+
+      describe('moving in range of another location after having been at one', function() {
+        it('sets location to the new one', function() {
+          element.latitude = 3;
+          element.longitude = 4;
+          expect(element.location).to.deep.equal(element.locations[1]);
+        });
       });
     });
 
-    suite('has stored many marked locations', function () {
+    describe('out of range of any location', function () {
       var element;
 
-      setup(function () {
-        element = fixture('has multiple marked locations')
+      before(function () {
+        element = fixture('default');
+        element.locations = mapData;
+        element.latitude = 0;
+        element.longitude = 0;
       });
 
-      test('within range of first marked location then move and be in range of second', function () {
-        assert.deepEqual(element.currentMarkedLocation, { latitude: 3, longitude: 4 });
-        element.currentLatitude = 10;
-        element.currentLongitude = 10;
-        assert.deepEqual(element.currentMarkedLocation, { latitude: 13, longitude: 14 });
-      })
+      it('sets location to undefined', function () {
+        expect(element.location).to.be.undefined;
+      });
     });
   </script>
 
