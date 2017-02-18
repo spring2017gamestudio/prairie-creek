@@ -1,0 +1,80 @@
+<html>
+
+<head>
+  <meta name="viewport"
+        content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>checklist-view bdd test</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
+
+
+    <link rel="import"
+          href="../src/checklist-view/checklist-view.html">
+
+</head>
+
+<body>
+  <test-fixture id="basic">
+    <template>
+      <checklist-view>
+      </checklist-view>
+    </template>
+  </test-fixture>
+
+
+  <script>
+    describe('no items checked', function () {
+      var element;
+
+      before(function () {
+        element = fixture('basic');
+      });
+
+      it('sets responses to empty array', function () {
+        expect(element.responses).to.exist;
+        expect(element.responses).to.be.empty;
+      });
+    });
+
+    const site = {
+      name: "Bell Tower",
+      question: 'What did you smell?',
+      responses: [
+        {
+          text: 'Fresh air',
+          value: +2
+        },
+        {
+          text: 'Exhaust fumes',
+          value: -2
+        },
+        {
+          text: 'Fried food',
+          value: -1
+        }
+      ]
+    };
+
+    describe('first item checked', function () {
+      var element;
+
+      before(function (done) {
+        element = fixture('basic');
+        element.currentSite = site;
+        flush(done);
+      });
+
+      it('sets responses to contain only the right item', function () {
+        var checkbox = element.$$('.checkbox');
+        MockInteractions.tap(checkbox);
+        expect(element.responses.length).to.equal(1);
+        expect(element.responses[0]).to.deep.equal(site.responses[0]);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
