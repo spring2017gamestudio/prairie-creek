@@ -13,10 +13,10 @@
     </style>
     [[prompt]]
     <div>
-      <p id="countdown">30</p>
-      <iron-timer id="timer" start-time="1"></iron-timer>
+      [[secondsRemaining]]
+      <iron-timer id="timer" start-time="1" current-time="{{secondsRemaining}}" on-iron-timer-end="_timerEnd"></iron-timer>
     </div>
-    <paper-button raised on-tap="_next">Go to checklist</paper-button>
+    <paper-button id="button" raised on-tap="_next" disabled$="[[!buttonEnabled]]">Go to checklist</paper-button>
   </template>
   <script>
     Polymer({
@@ -27,12 +27,37 @@
         prompt: {
           type: String,
           value: "Listen to what's around wherever you are (placeholder)",
+        },
+
+        secondsRemaining: {
+          type: Number,
+          value: 3
+        },
+
+        buttonEnabled: {
+          type: Boolean,
+          computed: '_hasNoSecondsRemaining(secondsRemaining)'
         }
       },
 
       _next: function() {
         this._goToPage('checklist');
+      },
+
+      ready: function(){
+        this.$.timer.start();
+        console.log("started");
+      },
+
+      _timerEnd: function(){
+        this.$.timer.pause();
+      },
+
+      _hasNoSecondsRemaining: function(secondsRemaining){
+        return secondsRemaining== 0
       }
+
+
     });
   </script>
 </dom-module>
