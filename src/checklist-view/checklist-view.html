@@ -16,7 +16,7 @@
     </style>
     [[currentSite.question]]
     <template is="dom-repeat" items="[[currentSite.responses]]" item="item">
-      <paper-checkbox>[[item.text]]</paper-checkbox>
+      <paper-checkbox item="[[item]]">[[item.text]]</paper-checkbox>
     </template>
     <paper-button raised on-tap="_next">See a pukwudgie</paper-button>
   </template>
@@ -25,7 +25,15 @@
       is: 'checklist-view',
       behaviors: [ViewBehavior],
       properties: {
-        currentSite: Object
+        currentSite: Object,
+        selection: {
+          type: Array,
+          value: function () { return [] }
+        },
+        responses: {
+          type: Array,
+          value: function() { return [] }
+        }
       },
 
       _next: function() {
