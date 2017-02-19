@@ -18,6 +18,7 @@
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
     "paper-input": "PolymerElements/paper-input#^1.1.23",
     "app-route": "PolymerElements/app-route#^0.9.3",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.4.0",
     "iron-timer": "Collaborne/iron-timer#^1.0.3"
   },
   "devDependencies": {
