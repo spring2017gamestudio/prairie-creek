@@ -81,7 +81,7 @@
         expect(element.responses).to.empty;
       });
 
-      it('sets repsonses to contain two items', function() {
+      it('sets responses to contain two items', function() {
         var checkbox1 = Polymer.dom(element.root).querySelectorAll('.checkbox')[0];
         var checkbox2 = Polymer.dom(element.root).querySelectorAll('.checkbox')[1];
         MockInteractions.tap(checkbox1);
@@ -91,7 +91,7 @@
         expect(element.responses[1]).to.deep.equal(site.responses[1]);
       });
 
-      it('sets repsonses to contain only the right item', function() {
+      it('sets responses to contain only the right item', function() {
         var checkbox1 = Polymer.dom(element.root).querySelectorAll('.checkbox')[0];
         var checkbox2 = Polymer.dom(element.root).querySelectorAll('.checkbox')[1];
         MockInteractions.tap(checkbox1);
