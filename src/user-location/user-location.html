@@ -36,7 +36,7 @@
       },
 
       ready: function() {
-        this.$.locationTimer.start();
+        //this.$.locationTimer.start();
         var that = this;
         navigator.geolocation.getCurrentPosition(function(position) {
           var coords = position.coords;
@@ -47,8 +47,8 @@
       },
 
       _updateLocation: function(){
-        this.$.locationTimer.reset();
-        this.$.locationTimer.start();
+        //this.$.locationTimer.reset();
+        //this.$.locationTimer.start();
         var that = this;
         navigator.geolocation.getCurrentPosition(function(position) {
           var coords = position.coords;
