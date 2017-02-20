@@ -9,6 +9,7 @@
     "src/map-view/map-view.html",
     "src/missing-view/missing-view.html",
     "src/timer-view/timer-view.html",
+    "src/title-view/title-view.html",
     "src/wudgie-view/wudgie-view.html"
   ],
   "sourceGlobs": [
