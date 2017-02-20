@@ -1497,7 +1497,7 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
       <intro-view name="intro" route-data="{{routeData}}"></intro-view>
       <map-view name="map" locations="[[mapData]]" latitude="{{latitude}}" longitude="{{longitude}}" current-site="[[currentSite]]" route-data="{{routeData}}">
       </map-view>
-      <arrival-view name="arrival" route-data="{{routeData}}"></arrival-view>
+      <arrival-view name="arrival" route-data="{{routeData}}" location-name="[[currentSite.name]]"></arrival-view>
       <timer-view name="timer" route-data="{{routeData}}"></timer-view>
       <checklist-view name="checklist" current-site="[[currentSite]]" route-data="{{routeData}}">
       </checklist-view>
