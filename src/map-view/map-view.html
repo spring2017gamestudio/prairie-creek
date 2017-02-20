@@ -65,6 +65,16 @@
         }
       },
 
+      observers: [
+        '_updateIfAtLocation(currentSite)'
+      ],
+
+      _updateIfAtLocation: function(currentSite) {
+        if (currentSite !== null){
+          this._goToPage('arrival');
+        }
+      },
+
       _debugModeOn: function() {
         this.$.map.setAttribute('click-events', true);
         console.log("Debug Mode On");
@@ -85,10 +95,6 @@
           that.longitude = coords.longitude;
         });
       },
-
-      _next: function() {
-        this._goToPage('arrival');
-      }
     });
   </script>
 </dom-module>

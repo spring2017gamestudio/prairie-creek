@@ -23,18 +23,18 @@
     <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
       <title-view name="title" route-data="{{routeData}}"></title-view>
       <intro-view name="intro" route-data="{{routeData}}"></intro-view>
-      <map-view 
-        name="map" 
-        locations="[[mapData]]" 
-        latitude="{{latitude}}" 
-        longitude="{{longitude}}" 
+      <map-view
+        name="map"
+        locations="[[mapData]]"
+        latitude="{{latitude}}"
+        longitude="{{longitude}}"
         current-site="[[currentSite]]"
         route-data="{{routeData}}">
       </map-view>
-      <arrival-view name="arrival" route-data="{{routeData}}"></arrival-view>
+      <arrival-view name="arrival" route-data="{{routeData}}" location-name="[[currentSite.name]]"></arrival-view>
       <timer-view name="timer" route-data="{{routeData}}"></timer-view>
-      <checklist-view 
-        name="checklist" 
+      <checklist-view
+        name="checklist"
         current-site="[[currentSite]]"
         route-data="{{routeData}}">
       </checklist-view>
