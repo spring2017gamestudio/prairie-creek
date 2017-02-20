@@ -12,6 +12,6 @@
     </div>
     <paper-button id="button" raised="" on-tap="_next" disabled$="[[!buttonEnabled]]">Go to checklist</paper-button>
   </template>
-  <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],properties:{prompt:{type:String,value:"Listen to what's around wherever you are (placeholder)"},secondsRemaining:{type:Number,value:30},buttonEnabled:{type:Boolean,computed:"_hasNoSecondsRemaining(secondsRemaining)"}},_next:function(){this._goToPage("checklist")},ready:function(){this.$.timer.start(),console.log("started")},_timerEnd:function(){this.$.timer.pause()},_hasNoSecondsRemaining:function(e){return 0==e}});</script>
+  <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],properties:{prompt:{type:String,value:"Observe your surroundings"},secondsRemaining:{type:Number,value:30},buttonEnabled:{type:Boolean,computed:"_hasNoSecondsRemaining(secondsRemaining)"}},_next:function(){this._goToPage("checklist")},ready:function(){this.$.timer.start(),console.log("started")},_timerEnd:function(){this.$.timer.pause()},_hasNoSecondsRemaining:function(e){return 0==e}});</script>
 </dom-module>
 </body></html>
