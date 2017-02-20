@@ -10,7 +10,6 @@
 
 
 
-
 </head><body><div hidden="" by-vulcanize=""><script>!function(){function e(){document.body.removeAttribute("unresolved")}window.WebComponents?addEventListener("WebComponentsReady",e):"interactive"===document.readyState||"complete"===document.readyState?e():addEventListener("DOMContentLoaded",e)}(),window.Polymer={Settings:function(){var e=window.Polymer||{};if(!e.noUrlSettings)for(var t,r=location.search.slice(1).split("&"),i=0;i<r.length&&(t=r[i]);i++)t=t.split("="),t[0]&&(e[t[0]]=t[1]||!0);return e.wantShadow="shadow"===e.dom,e.hasShadow=Boolean(Element.prototype.createShadowRoot),e.nativeShadow=e.hasShadow&&!window.ShadowDOMPolyfill,e.useShadow=e.wantShadow&&e.hasShadow,e.hasNativeImports=Boolean("import"in document.createElement("link")),e.useNativeImports=e.hasNativeImports,e.useNativeCustomElements=!window.CustomElements||window.CustomElements.useNative,e.useNativeShadow=e.useShadow&&e.nativeShadow,e.usePolyfillProto=!e.useNativeCustomElements&&!Object.__proto__,e.hasNativeCSSProperties=!navigator.userAgent.match("AppleWebKit/601")&&window.CSS&&CSS.supports&&CSS.supports("box-shadow","0 0 0 var(--foo)"),e.useNativeCSSProperties=e.hasNativeCSSProperties&&e.lazyRegister&&e.useNativeCSSProperties,e.isIE=navigator.userAgent.match("Trident"),e}()},function(){var e=window.Polymer;window.Polymer=function(e){"function"==typeof e&&(e=e.prototype),e||(e={}),e=t(e);var r=e===e.constructor.prototype?e.constructor:null,i={prototype:e};e.extends&&(i.extends=e.extends),Polymer.telemetry._registrate(e);var s=document.registerElement(e.is,i);return r||s};var t=function(e){var t=Polymer.Base;return e.extends&&(t=Polymer.Base._getExtendedPrototype(e.extends)),e=Polymer.Base.chainObject(e,t),e.registerCallback(),e};if(e)for(var r in e)Polymer[r]=e[r];Polymer.Class=function(e){return e.factoryImpl||(e.factoryImpl=function(){}),t(e).constructor}}(),Polymer.telemetry={registrations:[],_regLog:function(e){console.log("["+e.is+"]: registered")},_registrate:function(e){this.registrations.push(e),Polymer.log&&this._regLog(e)},dumpRegistrations:function(){this.registrations.forEach(this._regLog)}},Object.defineProperty(window,"currentImport",{enumerable:!0,configurable:!0,get:function(){return(document._currentScript||document.currentScript||{}).ownerDocument}}),Polymer.RenderStatus={_ready:!1,_callbacks:[],whenReady:function(e){this._ready?e():this._callbacks.push(e)},_makeReady:function(){this._ready=!0;for(var e=0;e<this._callbacks.length;e++)this._callbacks[e]();this._callbacks=[]},_catchFirstRender:function(){requestAnimationFrame(function(){Polymer.RenderStatus._makeReady()})},_afterNextRenderQueue:[],_waitingNextRender:!1,afterNextRender:function(e,t,r){this._watchNextRender(),this._afterNextRenderQueue.push([e,t,r])},hasRendered:function(){return this._ready},_watchNextRender:function(){if(!this._waitingNextRender){this._waitingNextRender=!0;var e=function(){Polymer.RenderStatus._flushNextRender()};this._ready?requestAnimationFrame(e):this.whenReady(e)}},_flushNextRender:function(){var e=this;setTimeout(function(){e._flushRenderCallbacks(e._afterNextRenderQueue),e._afterNextRenderQueue=[],e._waitingNextRender=!1})},_flushRenderCallbacks:function(e){for(var t,r=0;r<e.length;r++)t=e[r],t[1].apply(t[0],t[2]||Polymer.nar)}},window.HTMLImports?HTMLImports.whenReady(function(){Polymer.RenderStatus._catchFirstRender()}):Polymer.RenderStatus._catchFirstRender(),Polymer.ImportStatus=Polymer.RenderStatus,Polymer.ImportStatus.whenLoaded=Polymer.ImportStatus.whenReady,function(){"use strict";var e=Polymer.Settings;Polymer.Base={__isPolymerInstance__:!0,_addFeature:function(e){this.mixin(this,e)},registerCallback:function(){if("max"===e.lazyRegister)this.beforeRegister&&this.beforeRegister();else{this._desugarBehaviors();for(var t,r=0;r<this.behaviors.length;r++)t=this.behaviors[r],t.beforeRegister&&t.beforeRegister.call(this);this.beforeRegister&&this.beforeRegister()}this._registerFeatures(),e.lazyRegister||this.ensureRegisterFinished()},createdCallback:function(){if(e.disableUpgradeEnabled){if(this.hasAttribute("disable-upgrade"))return this._propertySetter=t,void(this.__data__={});this.__hasInitialized=!0}this.__initialize()},__initialize:function(){this.__hasRegisterFinished||this._ensureRegisterFinished(this.__proto__),Polymer.telemetry.instanceCount++,this.root=this;for(var e,t=0;t<this.behaviors.length;t++)e=this.behaviors[t],e.created&&e.created.call(this);this.created&&this.created(),this._initFeatures()},ensureRegisterFinished:function(){this._ensureRegisterFinished(this)},_ensureRegisterFinished:function(t){if(t.__hasRegisterFinished!==t.is||!t.is){if("max"===e.lazyRegister){t._desugarBehaviors();for(var r,i=0;i<t.behaviors.length;i++)r=t.behaviors[i],r.beforeRegister&&r.beforeRegister.call(t)}t.__hasRegisterFinished=t.is,t._finishRegisterFeatures&&t._finishRegisterFeatures();for(var s,o=0;o<t.behaviors.length;o++)s=t.behaviors[o],s.registered&&s.registered.call(t);t.registered&&t.registered(),e.usePolyfillProto&&t!==this&&t.extend(this,t)}},attachedCallback:function(){var e=this;Polymer.RenderStatus.whenReady(function(){e.isAttached=!0;for(var t,r=0;r<e.behaviors.length;r++)t=e.behaviors[r],t.attached&&t.attached.call(e);e.attached&&e.attached()})},detachedCallback:function(){var e=this;Polymer.RenderStatus.whenReady(function(){e.isAttached=!1;for(var t,r=0;r<e.behaviors.length;r++)t=e.behaviors[r],t.detached&&t.detached.call(e);e.detached&&e.detached()})},attributeChangedCallback:function(e,t,r){this._attributeChangedImpl(e);for(var i,s=0;s<this.behaviors.length;s++)i=this.behaviors[s],i.attributeChanged&&i.attributeChanged.call(this,e,t,r);this.attributeChanged&&this.attributeChanged(e,t,r)},_attributeChangedImpl:function(e){this._setAttributeToProperty(this,e)},extend:function(e,t){if(e&&t)for(var r,i=Object.getOwnPropertyNames(t),s=0;s<i.length&&(r=i[s]);s++)this.copyOwnProperty(r,t,e);return e||t},mixin:function(e,t){for(var r in t)e[r]=t[r];return e},copyOwnProperty:function(e,t,r){var i=Object.getOwnPropertyDescriptor(t,e);i&&Object.defineProperty(r,e,i)},_logger:function(e,t){switch(1===t.length&&Array.isArray(t[0])&&(t=t[0]),e){case"log":case"warn":case"error":console[e].apply(console,t)}},_log:function(){var e=Array.prototype.slice.call(arguments,0);this._logger("log",e)},_warn:function(){var e=Array.prototype.slice.call(arguments,0);this._logger("warn",e)},_error:function(){var e=Array.prototype.slice.call(arguments,0);this._logger("error",e)},_logf:function(){return this._logPrefix.concat(this.is).concat(Array.prototype.slice.call(arguments,0))}},Polymer.Base._logPrefix=function(){var e=window.chrome&&!/edge/i.test(navigator.userAgent)||/firefox/i.test(navigator.userAgent);return e?["%c[%s::%s]:","font-weight: bold; background-color:#EEEE00;"]:["[%s::%s]:"]}(),Polymer.Base.chainObject=function(e,t){return e&&t&&e!==t&&(Object.__proto__||(e=Polymer.Base.extend(Object.create(t),e)),e.__proto__=t),e},Polymer.Base=Polymer.Base.chainObject(Polymer.Base,HTMLElement.prototype),Polymer.BaseDescriptors={};var t;if(e.disableUpgradeEnabled){t=function(e,t){this.__data__[e]=t};var r=Polymer.Base.attributeChangedCallback;Polymer.Base.attributeChangedCallback=function(e,t,i){this.__hasInitialized||"disable-upgrade"!==e||(this.__hasInitialized=!0,this._propertySetter=Polymer.Bind._modelApi._propertySetter,this.__initialize()),r.call(this,e,t,i)}}window.CustomElements?Polymer.instanceof=CustomElements.instanceof:Polymer.instanceof=function(e,t){return e instanceof t},Polymer.isInstance=function(e){return Boolean(e&&e.__isPolymerInstance__)},Polymer.telemetry.instanceCount=0}(),function(){function e(){if(o)for(var e,t=document._currentScript||document.currentScript,r=t&&t.ownerDocument||document,i=r.querySelectorAll("dom-module"),s=i.length-1;s>=0&&(e=i[s]);s--){if(e.__upgraded__)return;CustomElements.upgrade(e)}}var t={},r={},i=function(e){return t[e]||r[e.toLowerCase()]},s=function(){return document.createElement("dom-module")};s.prototype=Object.create(HTMLElement.prototype),Polymer.Base.mixin(s.prototype,{createdCallback:function(){this.register()},register:function(e){e=e||this.id||this.getAttribute("name")||this.getAttribute("is"),e&&(this.id=e,t[e]=this,r[e.toLowerCase()]=this)},import:function(t,r){if(t){var s=i(t);return s||(e(),s=i(t)),s&&r&&(s=s.querySelector(r)),s}}}),Object.defineProperty(s.prototype,"constructor",{value:s,configurable:!0,writable:!0});var o=window.CustomElements&&!CustomElements.useNative;document.registerElement("dom-module",s)}(),Polymer.Base._addFeature({_prepIs:function(){if(!this.is){var e=(document._currentScript||document.currentScript).parentNode;if("dom-module"===e.localName){var t=e.id||e.getAttribute("name")||e.getAttribute("is");this.is=t}}this.is&&(this.is=this.is.toLowerCase())}}),Polymer.Base._addFeature({behaviors:[],_desugarBehaviors:function(){this.behaviors.length&&(this.behaviors=this._desugarSomeBehaviors(this.behaviors))},_desugarSomeBehaviors:function(e){var t=[];e=this._flattenBehaviorsList(e);for(var r=e.length-1;r>=0;r--){var i=e[r];t.indexOf(i)===-1&&(this._mixinBehavior(i),t.unshift(i))}return t},_flattenBehaviorsList:function(e){for(var t=[],r=0;r<e.length;r++){var i=e[r];i instanceof Array?t=t.concat(this._flattenBehaviorsList(i)):i?t.push(i):this._warn(this._logf("_flattenBehaviorsList","behavior is null, check for missing or 404 import"))}return t},_mixinBehavior:function(e){for(var t,r=Object.getOwnPropertyNames(e),i=e._noAccessors,s=0;s<r.length&&(t=r[s]);s++)Polymer.Base._behaviorProperties[t]||this.hasOwnProperty(t)||(i?this[t]=e[t]:this.copyOwnProperty(t,e,this))},_prepBehaviors:function(){this._prepFlattenedBehaviors(this.behaviors)},_prepFlattenedBehaviors:function(e){for(var t=0,r=e.length;t<r;t++)this._prepBehavior(e[t]);this._prepBehavior(this)},_marshalBehaviors:function(){for(var e=0;e<this.behaviors.length;e++)this._marshalBehavior(this.behaviors[e]);this._marshalBehavior(this)}}),Polymer.Base._behaviorProperties={hostAttributes:!0,beforeRegister:!0,registered:!0,properties:!0,observers:!0,listeners:!0,created:!0,attached:!0,detached:!0,attributeChanged:!0,ready:!0,_noAccessors:!0},Polymer.Base._addFeature({_getExtendedPrototype:function(e){return this._getExtendedNativePrototype(e)},_nativePrototypes:{},_getExtendedNativePrototype:function(e){var t=this._nativePrototypes[e];if(!t){t=Object.create(this.getNativePrototype(e));for(var r,i=Object.getOwnPropertyNames(Polymer.Base),s=0;s<i.length&&(r=i[s]);s++)Polymer.BaseDescriptors[r]||(t[r]=Polymer.Base[r]);Object.defineProperties(t,Polymer.BaseDescriptors),this._nativePrototypes[e]=t}return t},getNativePrototype:function(e){return Object.getPrototypeOf(document.createElement(e))}}),Polymer.Base._addFeature({_prepConstructor:function(){this._factoryArgs=this.extends?[this.extends,this.is]:[this.is];var e=function(){return this._factory(arguments)};this.hasOwnProperty("extends")&&(e.extends=this.extends),Object.defineProperty(this,"constructor",{value:e,writable:!0,configurable:!0}),e.prototype=this},_factory:function(e){var t=document.createElement.apply(document,this._factoryArgs);return this.factoryImpl&&this.factoryImpl.apply(t,e),t}}),Polymer.nob=Object.create(null),Polymer.Base._addFeature({getPropertyInfo:function(e){var t=this._getPropertyInfo(e,this.properties);if(!t)for(var r=0;r<this.behaviors.length;r++)if(t=this._getPropertyInfo(e,this.behaviors[r].properties))return t;return t||Polymer.nob},_getPropertyInfo:function(e,t){var r=t&&t[e];return"function"==typeof r&&(r=t[e]={type:r}),r&&(r.defined=!0),r},_prepPropertyInfo:function(){this._propertyInfo={};for(var e=0;e<this.behaviors.length;e++)this._addPropertyInfo(this._propertyInfo,this.behaviors[e].properties);this._addPropertyInfo(this._propertyInfo,this.properties),this._addPropertyInfo(this._propertyInfo,this._propertyEffects)},_addPropertyInfo:function(e,t){if(t){var r,i;for(var s in t)r=e[s],i=t[s],("_"!==s[0]||i.readOnly)&&(e[s]?(r.type||(r.type=i.type),r.readOnly||(r.readOnly=i.readOnly)):e[s]={type:"function"==typeof i?i:i.type,readOnly:i.readOnly,attribute:Polymer.CaseMap.camelToDashCase(s)})}}}),function(){var e={configurable:!0,writable:!0,enumerable:!0,value:{}};Polymer.BaseDescriptors.properties=e,Object.defineProperty(Polymer.Base,"properties",e)}(),Polymer.CaseMap={_caseMap:{},_rx:{dashToCamel:/-[a-z]/g,camelToDash:/([A-Z])/g},dashToCamelCase:function(e){return this._caseMap[e]||(this._caseMap[e]=e.indexOf("-")<0?e:e.replace(this._rx.dashToCamel,function(e){return e[1].toUpperCase()}))},camelToDashCase:function(e){return this._caseMap[e]||(this._caseMap[e]=e.replace(this._rx.camelToDash,"-$1").toLowerCase())}},Polymer.Base._addFeature({_addHostAttributes:function(e){this._aggregatedAttributes||(this._aggregatedAttributes={}),e&&this.mixin(this._aggregatedAttributes,e)},_marshalHostAttributes:function(){this._aggregatedAttributes&&this._applyAttributes(this,this._aggregatedAttributes)},_applyAttributes:function(e,t){for(var r in t)if(!this.hasAttribute(r)&&"class"!==r){var i=t[r];this.serializeValueToAttribute(i,r,this)}},_marshalAttributes:function(){this._takeAttributesToModel(this)},_takeAttributesToModel:function(e){if(this.hasAttributes())for(var t in this._propertyInfo){var r=this._propertyInfo[t];this.hasAttribute(r.attribute)&&this._setAttributeToProperty(e,r.attribute,t,r)}},_setAttributeToProperty:function(e,t,r,i){if(!this._serializing&&(r=r||Polymer.CaseMap.dashToCamelCase(t),i=i||this._propertyInfo&&this._propertyInfo[r],i&&!i.readOnly)){var s=this.getAttribute(t);e[r]=this.deserialize(s,i.type)}},_serializing:!1,reflectPropertyToAttribute:function(e,t,r){this._serializing=!0,r=void 0===r?this[e]:r,this.serializeValueToAttribute(r,t||Polymer.CaseMap.camelToDashCase(e)),this._serializing=!1},serializeValueToAttribute:function(e,t,r){var i=this.serialize(e);r=r||this,void 0===i?r.removeAttribute(t):r.setAttribute(t,i)},deserialize:function(e,t){switch(t){case Number:e=Number(e);break;case Boolean:e=null!=e;break;case Object:try{e=JSON.parse(e)}catch(e){}break;case Array:try{e=JSON.parse(e)}catch(t){e=null,console.warn("Polymer::Attributes: couldn`t decode Array as JSON")}break;case Date:e=new Date(e);break;case String:}return e},serialize:function(e){switch(typeof e){case"boolean":return e?"":void 0;case"object":if(e instanceof Date)return e.toString();if(e)try{return JSON.stringify(e)}catch(e){return""}default:return null!=e?e:void 0}}}),Polymer.version="1.8.0",Polymer.Base._addFeature({_registerFeatures:function(){this._prepIs(),this._prepBehaviors(),this._prepConstructor(),this._prepPropertyInfo()},_prepBehavior:function(e){this._addHostAttributes(e.hostAttributes)},_marshalBehavior:function(e){},_initFeatures:function(){this._marshalHostAttributes(),this._marshalBehaviors()}});</script>
 
 
@@ -626,7 +625,58 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
 </dom-module>
 
 <script>!function(){Polymer({is:"iron-timer",properties:{startTime:{type:Number,value:0},currentTime:{type:Number,notify:!0},isRunning:{type:Boolean,reflectToAttribute:!0,notify:!0,value:!1},_elapsed:{type:Number,value:0}},ready:function(){this.set("currentTime",this.startTime)},start:function(){this.startTime&&!this.isRunning&&(this._elapsed=Math.floor(performance.now()/1e3),this.isRunning=!0,window.requestAnimationFrame(this._decreaseTimer.bind(this)))},pause:function(){this.isRunning=!1},isStarted:function(){return Boolean(this._elapsed)},reset:function(){this.set("currentTime",this.startTime),this.set("_elapsed",0)},_decreaseTimer:function(e){if(this.isRunning){if(0===this.currentTime)return this.pause(),void this.fire("iron-timer-end");var i=Math.floor(e/1e3),t=i-this._elapsed;this.currentTime=this.currentTime-t,this._elapsed=i,window.requestAnimationFrame(this._decreaseTimer.bind(this))}}})}();</script>
-<style is="custom-style">
+<script>!function(){"use strict";Polymer({is:"iron-location",properties:{path:{type:String,notify:!0,value:function(){return window.decodeURIComponent(window.location.pathname)}},query:{type:String,notify:!0,value:function(){return window.location.search.slice(1)}},hash:{type:String,notify:!0,value:function(){return window.decodeURIComponent(window.location.hash.slice(1))}},dwellTime:{type:Number,value:2e3},urlSpaceRegex:{type:String,value:""},_urlSpaceRegExp:{computed:"_makeRegExp(urlSpaceRegex)"},_lastChangedAt:{type:Number},_initialized:{type:Boolean,value:!1}},hostAttributes:{hidden:!0},observers:["_updateUrl(path, query, hash)"],attached:function(){this.listen(window,"hashchange","_hashChanged"),this.listen(window,"location-changed","_urlChanged"),this.listen(window,"popstate","_urlChanged"),this.listen(document.body,"click","_globalOnClick"),this._lastChangedAt=window.performance.now()-(this.dwellTime-200),this._initialized=!0,this._urlChanged()},detached:function(){this.unlisten(window,"hashchange","_hashChanged"),this.unlisten(window,"location-changed","_urlChanged"),this.unlisten(window,"popstate","_urlChanged"),this.unlisten(document.body,"click","_globalOnClick"),this._initialized=!1},_hashChanged:function(){this.hash=window.decodeURIComponent(window.location.hash.substring(1))},_urlChanged:function(){this._dontUpdateUrl=!0,this._hashChanged(),this.path=window.decodeURIComponent(window.location.pathname),this.query=window.location.search.substring(1),this._dontUpdateUrl=!1,this._updateUrl()},_getUrl:function(){var n=window.encodeURI(this.path).replace(/\#/g,"%23").replace(/\?/g,"%3F"),t="";this.query&&(t="?"+this.query.replace(/\#/g,"%23"));var e="";return this.hash&&(e="#"+window.encodeURI(this.hash)),n+t+e},_updateUrl:function(){if(!this._dontUpdateUrl&&this._initialized&&(this.path!==window.decodeURIComponent(window.location.pathname)||this.query!==window.location.search.substring(1)||this.hash!==window.decodeURIComponent(window.location.hash.substring(1)))){var n=this._getUrl(),t=new URL(n,window.location.protocol+"//"+window.location.host).href,e=window.performance.now(),i=this._lastChangedAt+this.dwellTime>e;this._lastChangedAt=e,i?window.history.replaceState({},"",t):window.history.pushState({},"",t),this.fire("location-changed",{},{node:window})}},_globalOnClick:function(n){if(!n.defaultPrevented){var t=this._getSameOriginLinkHref(n);t&&(n.preventDefault(),t!==window.location.href&&(window.history.pushState({},"",t),this.fire("location-changed",{},{node:window})))}},_getSameOriginLinkHref:function(n){if(0!==n.button)return null;if(n.metaKey||n.ctrlKey)return null;for(var t=Polymer.dom(n).path,e=null,i=0;i<t.length;i++){var o=t[i];if("A"===o.tagName&&o.href){e=o;break}}if(!e)return null;if("_blank"===e.target)return null;if(("_top"===e.target||"_parent"===e.target)&&window.top!==window)return null;var a,h=e.href;a=null!=document.baseURI?new URL(h,document.baseURI):new URL(h);var r;if(window.location.origin?r=window.location.origin:(r=window.location.protocol+"//"+window.location.hostname,window.location.port&&(r+=":"+window.location.port)),a.origin!==r)return null;var l=a.pathname+a.search+a.hash;if(this._urlSpaceRegExp&&!this._urlSpaceRegExp.test(l))return null;var d=new URL(l,window.location.href).href;return d},_makeRegExp:function(n){return RegExp(n)}})}();</script><script>"use strict";Polymer({is:"iron-query-params",properties:{paramsString:{type:String,notify:!0,observer:"paramsStringChanged"},paramsObject:{type:Object,notify:!0,value:function(){return{}}},_dontReact:{type:Boolean,value:!1}},hostAttributes:{hidden:!0},observers:["paramsObjectChanged(paramsObject.*)"],paramsStringChanged:function(){this._dontReact=!0,this.paramsObject=this._decodeParams(this.paramsString),this._dontReact=!1},paramsObjectChanged:function(){this._dontReact||(this.paramsString=this._encodeParams(this.paramsObject).replace(/%3F/g,"?").replace(/%2F/g,"/").replace(/'/g,"%27"))},_encodeParams:function(e){var t=[];for(var a in e){var r=e[a];""===r?t.push(encodeURIComponent(a)):r&&t.push(encodeURIComponent(a)+"="+encodeURIComponent(r.toString()))}return t.join("&")},_decodeParams:function(e){var t={};e=(e||"").replace(/\+/g,"%20");for(var a=e.split("&"),r=0;r<a.length;r++){var n=a[r].split("=");n[0]&&(t[decodeURIComponent(n[0])]=decodeURIComponent(n[1]||""))}return t}});</script><script>!function(){"use strict";Polymer.AppRouteConverterBehavior={properties:{route:{type:Object,notify:!0},queryParams:{type:Object,notify:!0},path:{type:String,notify:!0}},observers:["_locationChanged(path, queryParams)","_routeChanged(route.prefix, route.path)","_routeQueryParamsChanged(route.__queryParams)"],created:function(){this.linkPaths("route.__queryParams","queryParams"),this.linkPaths("queryParams","route.__queryParams")},_locationChanged:function(){this.route&&this.route.path===this.path&&this.queryParams===this.route.__queryParams||(this.route={prefix:"",path:this.path,__queryParams:this.queryParams})},_routeChanged:function(){this.route&&(this.path=this.route.prefix+this.route.path)},_routeQueryParamsChanged:function(t){this.route&&(this.queryParams=t)}}}();</script>
+<dom-module id="app-location" assetpath="../../bower_components/app-route/">
+  <template>
+    <iron-location path="{{__path}}" query="{{__query}}" hash="{{__hash}}" url-space-regex="{{urlSpaceRegex}}">
+    </iron-location>
+    <iron-query-params params-string="{{__query}}" params-object="{{queryParams}}">
+    </iron-query-params>
+  </template>
+  <script>!function(){"use strict";Polymer({is:"app-location",properties:{route:{type:Object,notify:!0},useHashAsPath:{type:Boolean,value:!1},urlSpaceRegex:{type:String,notify:!0},__queryParams:{type:Object},__path:{type:String},__query:{type:String},__hash:{type:String},path:{type:String,observer:"__onPathChanged"}},behaviors:[Polymer.AppRouteConverterBehavior],observers:["__computeRoutePath(useHashAsPath, __hash, __path)"],__computeRoutePath:function(){this.path=this.useHashAsPath?this.__hash:this.__path},__onPathChanged:function(){this._readied&&(this.useHashAsPath?this.__hash=this.path:this.__path=this.path)}})}();</script>
+</dom-module>
+<script>!function(){"use strict";Polymer({is:"app-route",properties:{route:{type:Object,notify:!0},pattern:{type:String},data:{type:Object,value:function(){return{}},notify:!0},queryParams:{type:Object,value:function(){return{}},notify:!0},tail:{type:Object,value:function(){return{path:null,prefix:null,__queryParams:null}},notify:!0},active:{type:Boolean,notify:!0,readOnly:!0},_queryParamsUpdating:{type:Boolean,value:!1},_matched:{type:String,value:""}},observers:["__tryToMatch(route.path, pattern)","__updatePathOnDataChange(data.*)","__tailPathChanged(tail.path)","__routeQueryParamsChanged(route.__queryParams)","__tailQueryParamsChanged(tail.__queryParams)","__queryParamsChanged(queryParams.*)"],created:function(){this.linkPaths("route.__queryParams","tail.__queryParams"),this.linkPaths("tail.__queryParams","route.__queryParams")},__routeQueryParamsChanged:function(t){if(t&&this.tail){if(this.set("tail.__queryParams",t),!this.active||this._queryParamsUpdating)return;var a={},i=!1;for(var e in t)a[e]=t[e],!i&&this.queryParams&&t[e]===this.queryParams[e]||(i=!0);for(var e in this.queryParams)if(i||!(e in t)){i=!0;break}if(!i)return;this._queryParamsUpdating=!0,this.set("queryParams",a),this._queryParamsUpdating=!1}},__tailQueryParamsChanged:function(t){t&&this.route&&this.set("route.__queryParams",t)},__queryParamsChanged:function(t){this.active&&!this._queryParamsUpdating&&this.set("route.__"+t.path,t.value)},__resetProperties:function(){this._setActive(!1),this._matched=null},__tryToMatch:function(){if(this.route){var t=this.route.path,a=this.pattern;if(a){if(!t)return void this.__resetProperties();for(var i=t.split("/"),e=a.split("/"),r=[],s={},h=0;h<e.length;h++){var n=e[h];if(!n&&""!==n)break;var u=i.shift();if(!u&&""!==u)return void this.__resetProperties();if(r.push(u),":"==n.charAt(0))s[n.slice(1)]=u;else if(n!==u)return void this.__resetProperties()}this._matched=r.join("/");var _={};this.active||(_.active=!0);var o=this.route.prefix+this._matched,l=i.join("/");i.length>0&&(l="/"+l),this.tail&&this.tail.prefix===o&&this.tail.path===l||(_.tail={prefix:o,path:l,__queryParams:this.route.__queryParams}),_.data=s,this._dataInUrl={};for(var p in s)this._dataInUrl[p]=s[p];this.__setMulti(_)}}},__tailPathChanged:function(t){if(this.active){var a=t,i=this._matched;a&&("/"!==a.charAt(0)&&(a="/"+a),i+=a),this.set("route.path",i)}},__updatePathOnDataChange:function(){if(this.route&&this.active){var t=this.__getLink({}),a=this.__getLink(this._dataInUrl);t!==a&&this.set("route.path",t)}},__getLink:function(t){var a={tail:null};for(var i in this.data)a[i]=this.data[i];for(var i in t)a[i]=t[i];var e=this.pattern.split("/"),r=e.map(function(t){return":"==t[0]&&(t=a[t.slice(1)]),t},this);return a.tail&&a.tail.path&&(r.length>0&&"/"===a.tail.path.charAt(0)?r.push(a.tail.path.slice(1)):r.push(a.tail.path)),r.join("/")},__setMulti:function(t){for(var a in t)this._propertySetter(a,t[a]);void 0!==t.data&&(this._pathEffector("data",this.data),this._notifyChange("data")),void 0!==t.active&&(this._pathEffector("active",this.active),this._notifyChange("active")),void 0!==t.tail&&(this._pathEffector("tail",this.tail),this._notifyChange("tail"))}})}();</script><script>Polymer.IronResizableBehavior={properties:{_parentResizable:{type:Object,observer:"_parentResizableChanged"},_notifyingDescendant:{type:Boolean,value:!1}},listeners:{"iron-request-resize-notifications":"_onIronRequestResizeNotifications"},created:function(){this._interestedResizables=[],this._boundNotifyResize=this.notifyResize.bind(this)},attached:function(){this.fire("iron-request-resize-notifications",null,{node:this,bubbles:!0,cancelable:!0}),this._parentResizable||(window.addEventListener("resize",this._boundNotifyResize),this.notifyResize())},detached:function(){this._parentResizable?this._parentResizable.stopResizeNotificationsFor(this):window.removeEventListener("resize",this._boundNotifyResize),this._parentResizable=null},notifyResize:function(){this.isAttached&&(this._interestedResizables.forEach(function(e){this.resizerShouldNotify(e)&&this._notifyDescendant(e)},this),this._fireResize())},assignParentResizable:function(e){this._parentResizable=e},stopResizeNotificationsFor:function(e){var i=this._interestedResizables.indexOf(e);i>-1&&(this._interestedResizables.splice(i,1),this.unlisten(e,"iron-resize","_onDescendantIronResize"))},resizerShouldNotify:function(e){return!0},_onDescendantIronResize:function(e){return this._notifyingDescendant?void e.stopPropagation():void(Polymer.Settings.useShadow||this._fireResize())},_fireResize:function(){this.fire("iron-resize",null,{node:this,bubbles:!1})},_onIronRequestResizeNotifications:function(e){var i=e.path?e.path[0]:e.target;i!==this&&(this._interestedResizables.indexOf(i)===-1&&(this._interestedResizables.push(i),this.listen(i,"iron-resize","_onDescendantIronResize")),i.assignParentResizable(this),this._notifyDescendant(i),e.stopPropagation())},_parentResizableChanged:function(e){e&&window.removeEventListener("resize",this._boundNotifyResize)},_notifyDescendant:function(e){this.isAttached&&(this._notifyingDescendant=!0,e.notifyResize(),this._notifyingDescendant=!1)}};</script><script>Polymer.IronSelection=function(e){this.selection=[],this.selectCallback=e},Polymer.IronSelection.prototype={get:function(){return this.multi?this.selection.slice():this.selection[0]},clear:function(e){this.selection.slice().forEach(function(t){(!e||e.indexOf(t)<0)&&this.setItemSelected(t,!1)},this)},isSelected:function(e){return this.selection.indexOf(e)>=0},setItemSelected:function(e,t){if(null!=e&&t!==this.isSelected(e)){if(t)this.selection.push(e);else{var i=this.selection.indexOf(e);i>=0&&this.selection.splice(i,1)}this.selectCallback&&this.selectCallback(e,t)}},select:function(e){this.multi?this.toggle(e):this.get()!==e&&(this.setItemSelected(this.get(),!1),this.setItemSelected(e,!0))},toggle:function(e){this.setItemSelected(e,!this.isSelected(e))}};</script><script>Polymer.IronSelectableBehavior={properties:{attrForSelected:{type:String,value:null},selected:{type:String,notify:!0},selectedItem:{type:Object,readOnly:!0,notify:!0},activateEvent:{type:String,value:"tap",observer:"_activateEventChanged"},selectable:String,selectedClass:{type:String,value:"iron-selected"},selectedAttribute:{type:String,value:null},fallbackSelection:{type:String,value:null},items:{type:Array,readOnly:!0,notify:!0,value:function(){return[]}},_excludedLocalNames:{type:Object,value:function(){return{template:1}}}},observers:["_updateAttrForSelected(attrForSelected)","_updateSelected(selected)","_checkFallback(fallbackSelection)"],created:function(){this._bindFilterItem=this._filterItem.bind(this),this._selection=new Polymer.IronSelection(this._applySelection.bind(this))},attached:function(){this._observer=this._observeItems(this),this._updateItems(),this._shouldUpdateSelection||this._updateSelected(),this._addListener(this.activateEvent)},detached:function(){this._observer&&Polymer.dom(this).unobserveNodes(this._observer),this._removeListener(this.activateEvent)},indexOf:function(e){return this.items.indexOf(e)},select:function(e){this.selected=e},selectPrevious:function(){var e=this.items.length,t=(Number(this._valueToIndex(this.selected))-1+e)%e;this.selected=this._indexToValue(t)},selectNext:function(){var e=(Number(this._valueToIndex(this.selected))+1)%this.items.length;this.selected=this._indexToValue(e)},selectIndex:function(e){this.select(this._indexToValue(e))},forceSynchronousItemUpdate:function(){this._updateItems()},get _shouldUpdateSelection(){return null!=this.selected},_checkFallback:function(){this._shouldUpdateSelection&&this._updateSelected()},_addListener:function(e){this.listen(this,e,"_activateHandler")},_removeListener:function(e){this.unlisten(this,e,"_activateHandler")},_activateEventChanged:function(e,t){this._removeListener(t),this._addListener(e)},_updateItems:function(){var e=Polymer.dom(this).queryDistributedElements(this.selectable||"*");e=Array.prototype.filter.call(e,this._bindFilterItem),this._setItems(e)},_updateAttrForSelected:function(){this._shouldUpdateSelection&&(this.selected=this._indexToValue(this.indexOf(this.selectedItem)))},_updateSelected:function(){this._selectSelected(this.selected)},_selectSelected:function(e){this._selection.select(this._valueToItem(this.selected)),this.fallbackSelection&&this.items.length&&void 0===this._selection.get()&&(this.selected=this.fallbackSelection)},_filterItem:function(e){return!this._excludedLocalNames[e.localName]},_valueToItem:function(e){return null==e?null:this.items[this._valueToIndex(e)]},_valueToIndex:function(e){if(!this.attrForSelected)return Number(e);for(var t,i=0;t=this.items[i];i++)if(this._valueForItem(t)==e)return i},_indexToValue:function(e){if(!this.attrForSelected)return e;var t=this.items[e];return t?this._valueForItem(t):void 0},_valueForItem:function(e){var t=e[Polymer.CaseMap.dashToCamelCase(this.attrForSelected)];return void 0!=t?t:e.getAttribute(this.attrForSelected)},_applySelection:function(e,t){this.selectedClass&&this.toggleClass(this.selectedClass,t,e),this.selectedAttribute&&this.toggleAttribute(this.selectedAttribute,t,e),this._selectionChange(),this.fire("iron-"+(t?"select":"deselect"),{item:e})},_selectionChange:function(){this._setSelectedItem(this._selection.get())},_observeItems:function(e){return Polymer.dom(e).observeNodes(function(e){this._updateItems(),this._shouldUpdateSelection&&this._updateSelected(),this.fire("iron-items-changed",e,{bubbles:!1,cancelable:!1})})},_activateHandler:function(e){for(var t=e.target,i=this.items;t&&t!=this;){var s=i.indexOf(t);if(s>=0){var n=this._indexToValue(s);return void this._itemActivate(n,t)}t=t.parentNode}},_itemActivate:function(e,t){this.fire("iron-activate",{selected:e,item:t},{cancelable:!0}).defaultPrevented||this.select(e)}};</script><dom-module id="iron-pages" assetpath="../../bower_components/iron-pages/">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host > ::content > :not(.iron-selected) {
+        display: none !important;
+      }
+    </style>
+
+    <content></content>
+  </template>
+
+  <script>Polymer({is:"iron-pages",behaviors:[Polymer.IronResizableBehavior,Polymer.IronSelectableBehavior],properties:{activateEvent:{type:String,value:null}},observers:["_selectedPageChanged(selected)"],_selectedPageChanged:function(e,a){this.async(this.notifyResize)}});</script>
+</dom-module>
+<script>!function(){var e={},t={},i=null;Polymer.IronMeta=Polymer({is:"iron-meta",properties:{type:{type:String,value:"default",observer:"_typeChanged"},key:{type:String,observer:"_keyChanged"},value:{type:Object,notify:!0,observer:"_valueChanged"},self:{type:Boolean,observer:"_selfChanged"},list:{type:Array,notify:!0}},hostAttributes:{hidden:!0},factoryImpl:function(e){if(e)for(var t in e)switch(t){case"type":case"key":case"value":this[t]=e[t]}},created:function(){this._metaDatas=e,this._metaArrays=t},_keyChanged:function(e,t){this._resetRegistration(t)},_valueChanged:function(e){this._resetRegistration(this.key)},_selfChanged:function(e){e&&(this.value=this)},_typeChanged:function(i){this._unregisterKey(this.key),e[i]||(e[i]={}),this._metaData=e[i],t[i]||(t[i]=[]),this.list=t[i],this._registerKeyValue(this.key,this.value)},byKey:function(e){return this._metaData&&this._metaData[e]},_resetRegistration:function(e){this._unregisterKey(e),this._registerKeyValue(this.key,this.value)},_unregisterKey:function(e){this._unregister(e,this._metaData,this.list)},_registerKeyValue:function(e,t){this._register(e,t,this._metaData,this.list)},_register:function(e,t,i,a){e&&i&&void 0!==t&&(i[e]=t,a.push(t))},_unregister:function(e,t,i){if(e&&t&&e in t){var a=t[e];delete t[e],this.arrayDelete(i,a)}}}),Polymer.IronMeta.getIronMeta=function(){return null===i&&(i=new Polymer.IronMeta),i},Polymer.IronMetaQuery=Polymer({is:"iron-meta-query",properties:{type:{type:String,value:"default",observer:"_typeChanged"},key:{type:String,observer:"_keyChanged"},value:{type:Object,notify:!0,readOnly:!0},list:{type:Array,notify:!0}},factoryImpl:function(e){if(e)for(var t in e)switch(t){case"type":case"key":this[t]=e[t]}},created:function(){this._metaDatas=e,this._metaArrays=t},_keyChanged:function(e){this._setValue(this._metaData&&this._metaData[e])},_typeChanged:function(i){this._metaData=e[i],this.list=t[i],this.key&&this._keyChanged(this.key)},byKey:function(e){return this._metaData&&this._metaData[e]}})}();</script><dom-module id="iron-icon" assetpath="../../bower_components/iron-icon/">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-inline);
+        @apply(--layout-center-center);
+        position: relative;
+
+        vertical-align: middle;
+
+        fill: var(--iron-icon-fill-color, currentcolor);
+        stroke: var(--iron-icon-stroke-color, none);
+
+        width: var(--iron-icon-width, 24px);
+        height: var(--iron-icon-height, 24px);
+        @apply(--iron-icon);
+      }
+    </style>
+  </template>
+
+  <script>Polymer({is:"iron-icon",properties:{icon:{type:String},theme:{type:String},src:{type:String},_meta:{value:Polymer.Base.create("iron-meta",{type:"iconset"})}},observers:["_updateIcon(_meta, isAttached)","_updateIcon(theme, isAttached)","_srcChanged(src, isAttached)","_iconChanged(icon, isAttached)"],_DEFAULT_ICONSET:"icons",_iconChanged:function(t){var i=(t||"").split(":");this._iconName=i.pop(),this._iconsetName=i.pop()||this._DEFAULT_ICONSET,this._updateIcon()},_srcChanged:function(t){this._updateIcon()},_usesIconset:function(){return this.icon||!this.src},_updateIcon:function(){this._usesIconset()?(this._img&&this._img.parentNode&&Polymer.dom(this.root).removeChild(this._img),""===this._iconName?this._iconset&&this._iconset.removeIcon(this):this._iconsetName&&this._meta&&(this._iconset=this._meta.byKey(this._iconsetName),this._iconset?(this._iconset.applyIcon(this,this._iconName,this.theme),this.unlisten(window,"iron-iconset-added","_updateIcon")):this.listen(window,"iron-iconset-added","_updateIcon"))):(this._iconset&&this._iconset.removeIcon(this),this._img||(this._img=document.createElement("img"),this._img.style.width="100%",this._img.style.height="100%",this._img.draggable=!1),this._img.src=this.src,Polymer.dom(this.root).appendChild(this._img))}});</script>
+
+</dom-module>
+<script>Polymer.PaperInkyFocusBehaviorImpl={observers:["_focusedChanged(receivedFocusFromKeyboard)"],_focusedChanged:function(e){e&&this.ensureRipple(),this.hasRipple()&&(this._ripple.holdDown=e)},_createRipple:function(){var e=Polymer.PaperRippleBehavior._createRipple();return e.id="ink",e.setAttribute("center",""),e.classList.add("circle"),e}},Polymer.PaperInkyFocusBehavior=[Polymer.IronButtonState,Polymer.IronControlState,Polymer.PaperRippleBehavior,Polymer.PaperInkyFocusBehaviorImpl];</script><style is="custom-style">
 
   :root {
 
@@ -1002,239 +1052,7 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
 
   }
 
-</style><script>!function(){var e={},t={},i=null;Polymer.IronMeta=Polymer({is:"iron-meta",properties:{type:{type:String,value:"default",observer:"_typeChanged"},key:{type:String,observer:"_keyChanged"},value:{type:Object,notify:!0,observer:"_valueChanged"},self:{type:Boolean,observer:"_selfChanged"},list:{type:Array,notify:!0}},hostAttributes:{hidden:!0},factoryImpl:function(e){if(e)for(var t in e)switch(t){case"type":case"key":case"value":this[t]=e[t]}},created:function(){this._metaDatas=e,this._metaArrays=t},_keyChanged:function(e,t){this._resetRegistration(t)},_valueChanged:function(e){this._resetRegistration(this.key)},_selfChanged:function(e){e&&(this.value=this)},_typeChanged:function(i){this._unregisterKey(this.key),e[i]||(e[i]={}),this._metaData=e[i],t[i]||(t[i]=[]),this.list=t[i],this._registerKeyValue(this.key,this.value)},byKey:function(e){return this._metaData&&this._metaData[e]},_resetRegistration:function(e){this._unregisterKey(e),this._registerKeyValue(this.key,this.value)},_unregisterKey:function(e){this._unregister(e,this._metaData,this.list)},_registerKeyValue:function(e,t){this._register(e,t,this._metaData,this.list)},_register:function(e,t,i,a){e&&i&&void 0!==t&&(i[e]=t,a.push(t))},_unregister:function(e,t,i){if(e&&t&&e in t){var a=t[e];delete t[e],this.arrayDelete(i,a)}}}),Polymer.IronMeta.getIronMeta=function(){return null===i&&(i=new Polymer.IronMeta),i},Polymer.IronMetaQuery=Polymer({is:"iron-meta-query",properties:{type:{type:String,value:"default",observer:"_typeChanged"},key:{type:String,observer:"_keyChanged"},value:{type:Object,notify:!0,readOnly:!0},list:{type:Array,notify:!0}},factoryImpl:function(e){if(e)for(var t in e)switch(t){case"type":case"key":this[t]=e[t]}},created:function(){this._metaDatas=e,this._metaArrays=t},_keyChanged:function(e){this._setValue(this._metaData&&this._metaData[e])},_typeChanged:function(i){this._metaData=e[i],this.list=t[i],this.key&&this._keyChanged(this.key)},byKey:function(e){return this._metaData&&this._metaData[e]}})}();</script><script>Polymer.IronValidatableBehaviorMeta=null,Polymer.IronValidatableBehavior={properties:{validator:{type:String},invalid:{notify:!0,reflectToAttribute:!0,type:Boolean,value:!1},_validatorMeta:{type:Object},validatorType:{type:String,value:"validator"},_validator:{type:Object,computed:"__computeValidator(validator)"}},observers:["_invalidChanged(invalid)"],registered:function(){Polymer.IronValidatableBehaviorMeta=new Polymer.IronMeta({type:"validator"})},_invalidChanged:function(){this.invalid?this.setAttribute("aria-invalid","true"):this.removeAttribute("aria-invalid")},hasValidator:function(){return null!=this._validator},validate:function(a){return this.invalid=!this._getValidity(a),!this.invalid},_getValidity:function(a){return!this.hasValidator()||this._validator.validate(a)},__computeValidator:function(){return Polymer.IronValidatableBehaviorMeta&&Polymer.IronValidatableBehaviorMeta.byKey(this.validator)}};</script><script>Polymer.IronFormElementBehavior={properties:{name:{type:String},value:{notify:!0,type:String},required:{type:Boolean,value:!1},_parentForm:{type:Object}},attached:function(){this.fire("iron-form-element-register")},detached:function(){this._parentForm&&this._parentForm.fire("iron-form-element-unregister",{target:this})}};</script><script>Polymer.IronCheckedElementBehaviorImpl={properties:{checked:{type:Boolean,value:!1,reflectToAttribute:!0,notify:!0,observer:"_checkedChanged"},toggles:{type:Boolean,value:!0,reflectToAttribute:!0},value:{type:String,value:"on",observer:"_valueChanged"}},observers:["_requiredChanged(required)"],created:function(){this._hasIronCheckedElementBehavior=!0},_getValidity:function(e){return this.disabled||!this.required||this.checked},_requiredChanged:function(){this.required?this.setAttribute("aria-required","true"):this.removeAttribute("aria-required")},_checkedChanged:function(){this.active=this.checked,this.fire("iron-change")},_valueChanged:function(){void 0!==this.value&&null!==this.value||(this.value="on")}},Polymer.IronCheckedElementBehavior=[Polymer.IronFormElementBehavior,Polymer.IronValidatableBehavior,Polymer.IronCheckedElementBehaviorImpl];</script><script>Polymer.PaperInkyFocusBehaviorImpl={observers:["_focusedChanged(receivedFocusFromKeyboard)"],_focusedChanged:function(e){e&&this.ensureRipple(),this.hasRipple()&&(this._ripple.holdDown=e)},_createRipple:function(){var e=Polymer.PaperRippleBehavior._createRipple();return e.id="ink",e.setAttribute("center",""),e.classList.add("circle"),e}},Polymer.PaperInkyFocusBehavior=[Polymer.IronButtonState,Polymer.IronControlState,Polymer.PaperRippleBehavior,Polymer.PaperInkyFocusBehaviorImpl];</script><script>Polymer.PaperCheckedElementBehaviorImpl={_checkedChanged:function(){Polymer.IronCheckedElementBehaviorImpl._checkedChanged.call(this),this.hasRipple()&&(this.checked?this._ripple.setAttribute("checked",""):this._ripple.removeAttribute("checked"))},_buttonStateChanged:function(){Polymer.PaperRippleBehavior._buttonStateChanged.call(this),this.disabled||this.isAttached&&(this.checked=this.active)}},Polymer.PaperCheckedElementBehavior=[Polymer.PaperInkyFocusBehavior,Polymer.IronCheckedElementBehavior,Polymer.PaperCheckedElementBehaviorImpl];</script><dom-module id="paper-checkbox" assetpath="../../bower_components/paper-checkbox/">
-  <template strip-whitespace="">
-    <style>
-      :host {
-        display: inline-block;
-        white-space: nowrap;
-        cursor: pointer;
-        --calculated-paper-checkbox-size: var(--paper-checkbox-size, 18px);
-        /* -1px is a sentinel for the default and is replaced in `attached`. */
-        --calculated-paper-checkbox-ink-size: var(--paper-checkbox-ink-size, -1px);
-        @apply(--paper-font-common-base);
-        line-height: 0;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      :host([hidden]) {
-        display: none !important;
-      }
-
-      :host(:focus) {
-        outline: none;
-      }
-
-      .hidden {
-        display: none;
-      }
-
-      #checkboxContainer {
-        display: inline-block;
-        position: relative;
-        width: var(--calculated-paper-checkbox-size);
-        height: var(--calculated-paper-checkbox-size);
-        min-width: var(--calculated-paper-checkbox-size);
-        margin: var(--paper-checkbox-margin, initial);
-        vertical-align: var(--paper-checkbox-vertical-align, middle);
-        background-color: var(--paper-checkbox-unchecked-background-color, transparent);
-      }
-
-      #ink {
-        position: absolute;
-
-        /* Center the ripple in the checkbox by negative offsetting it by
-         * (inkWidth - rippleWidth) / 2 */
-        top: calc(0px - (var(--calculated-paper-checkbox-ink-size) - var(--calculated-paper-checkbox-size)) / 2);
-        left: calc(0px - (var(--calculated-paper-checkbox-ink-size) - var(--calculated-paper-checkbox-size)) / 2);
-        width: var(--calculated-paper-checkbox-ink-size);
-        height: var(--calculated-paper-checkbox-ink-size);
-        color: var(--paper-checkbox-unchecked-ink-color, var(--primary-text-color));
-        opacity: 0.6;
-        pointer-events: none;
-      }
-
-      :host-context([dir="rtl"]) #ink {
-        right: calc(0px - (var(--calculated-paper-checkbox-ink-size) - var(--calculated-paper-checkbox-size)) / 2);
-        left: auto;
-      }
-
-      #ink[checked] {
-        color: var(--paper-checkbox-checked-ink-color, var(--primary-color));
-      }
-
-      #checkbox {
-        position: relative;
-        box-sizing: border-box;
-        height: 100%;
-        border: solid 2px;
-        border-color: var(--paper-checkbox-unchecked-color, var(--primary-text-color));
-        border-radius: 2px;
-        pointer-events: none;
-        -webkit-transition: background-color 140ms, border-color 140ms;
-        transition: background-color 140ms, border-color 140ms;
-      }
-
-      /* checkbox checked animations */
-      #checkbox.checked #checkmark {
-        -webkit-animation: checkmark-expand 140ms ease-out forwards;
-        animation: checkmark-expand 140ms ease-out forwards;
-      }
-
-      @-webkit-keyframes checkmark-expand {
-        0% {
-          -webkit-transform: scale(0, 0) rotate(45deg);
-        }
-        100% {
-          -webkit-transform: scale(1, 1) rotate(45deg);
-        }
-      }
-
-      @keyframes checkmark-expand {
-        0% {
-          transform: scale(0, 0) rotate(45deg);
-        }
-        100% {
-          transform: scale(1, 1) rotate(45deg);
-        }
-      }
-
-      #checkbox.checked {
-        background-color: var(--paper-checkbox-checked-color, var(--primary-color));
-        border-color: var(--paper-checkbox-checked-color, var(--primary-color));
-      }
-
-      #checkmark {
-        position: absolute;
-        width: 36%;
-        height: 70%;
-        border-style: solid;
-        border-top: none;
-        border-left: none;
-        border-right-width: calc(2/15 * var(--calculated-paper-checkbox-size));
-        border-bottom-width: calc(2/15 * var(--calculated-paper-checkbox-size));
-        border-color: var(--paper-checkbox-checkmark-color, white);
-        -webkit-transform-origin: 97% 86%;
-        transform-origin: 97% 86%;
-        box-sizing: content-box; /* protect against page-level box-sizing */
-      }
-
-      :host-context([dir="rtl"]) #checkmark {
-        -webkit-transform-origin: 50% 14%;
-        transform-origin: 50% 14%;
-      }
-
-      /* label */
-      #checkboxLabel {
-        position: relative;
-        display: inline-block;
-        vertical-align: middle;
-        padding-left: var(--paper-checkbox-label-spacing, 8px);
-        white-space: normal;
-        line-height: normal;
-        color: var(--paper-checkbox-label-color, var(--primary-text-color));
-        @apply(--paper-checkbox-label);
-      }
-
-      :host([checked]) #checkboxLabel {
-        color: var(--paper-checkbox-label-checked-color, var(--paper-checkbox-label-color, var(--primary-text-color)));
-        @apply(--paper-checkbox-label-checked);
-      }
-
-      :host-context([dir="rtl"]) #checkboxLabel {
-        padding-right: var(--paper-checkbox-label-spacing, 8px);
-        padding-left: 0;
-      }
-
-      #checkboxLabel[hidden] {
-        display: none;
-      }
-
-      /* disabled state */
-
-      :host([disabled]) #checkbox {
-        opacity: 0.5;
-        border-color: var(--paper-checkbox-unchecked-color, var(--primary-text-color));
-      }
-
-      :host([disabled][checked]) #checkbox {
-        background-color: var(--paper-checkbox-unchecked-color, var(--primary-text-color));
-        opacity: 0.5;
-      }
-
-      :host([disabled]) #checkboxLabel  {
-        opacity: 0.65;
-      }
-
-      /* invalid state */
-      #checkbox.invalid:not(.checked) {
-        border-color: var(--paper-checkbox-error-color, var(--error-color));
-      }
-    </style>
-
-    <div id="checkboxContainer">
-      <div id="checkbox" class$="[[_computeCheckboxClass(checked, invalid)]]">
-        <div id="checkmark" class$="[[_computeCheckmarkClass(checked)]]"></div>
-      </div>
-    </div>
-
-    <div id="checkboxLabel"><content></content></div>
-  </template>
-
-  <script>Polymer({is:"paper-checkbox",behaviors:[Polymer.PaperCheckedElementBehavior],hostAttributes:{role:"checkbox","aria-checked":!1,tabindex:0},properties:{ariaActiveAttribute:{type:String,value:"aria-checked"}},attached:function(){var e=this.getComputedStyleValue("--calculated-paper-checkbox-ink-size").trim();if("-1px"===e){var t=parseFloat(this.getComputedStyleValue("--calculated-paper-checkbox-size").trim()),a=Math.floor(8/3*t);a%2!==t%2&&a++,this.customStyle["--paper-checkbox-ink-size"]=a+"px",this.updateStyles()}},_computeCheckboxClass:function(e,t){var a="";return e&&(a+="checked "),t&&(a+="invalid"),a},_computeCheckmarkClass:function(e){return e?"":"hidden"},_createRipple:function(){return this._rippleContainer=this.$.checkboxContainer,Polymer.PaperInkyFocusBehaviorImpl._createRipple.call(this)}});</script>
-</dom-module>
-<script>!function(){"use strict";Polymer({is:"iron-location",properties:{path:{type:String,notify:!0,value:function(){return window.decodeURIComponent(window.location.pathname)}},query:{type:String,notify:!0,value:function(){return window.location.search.slice(1)}},hash:{type:String,notify:!0,value:function(){return window.decodeURIComponent(window.location.hash.slice(1))}},dwellTime:{type:Number,value:2e3},urlSpaceRegex:{type:String,value:""},_urlSpaceRegExp:{computed:"_makeRegExp(urlSpaceRegex)"},_lastChangedAt:{type:Number},_initialized:{type:Boolean,value:!1}},hostAttributes:{hidden:!0},observers:["_updateUrl(path, query, hash)"],attached:function(){this.listen(window,"hashchange","_hashChanged"),this.listen(window,"location-changed","_urlChanged"),this.listen(window,"popstate","_urlChanged"),this.listen(document.body,"click","_globalOnClick"),this._lastChangedAt=window.performance.now()-(this.dwellTime-200),this._initialized=!0,this._urlChanged()},detached:function(){this.unlisten(window,"hashchange","_hashChanged"),this.unlisten(window,"location-changed","_urlChanged"),this.unlisten(window,"popstate","_urlChanged"),this.unlisten(document.body,"click","_globalOnClick"),this._initialized=!1},_hashChanged:function(){this.hash=window.decodeURIComponent(window.location.hash.substring(1))},_urlChanged:function(){this._dontUpdateUrl=!0,this._hashChanged(),this.path=window.decodeURIComponent(window.location.pathname),this.query=window.location.search.substring(1),this._dontUpdateUrl=!1,this._updateUrl()},_getUrl:function(){var n=window.encodeURI(this.path).replace(/\#/g,"%23").replace(/\?/g,"%3F"),t="";this.query&&(t="?"+this.query.replace(/\#/g,"%23"));var e="";return this.hash&&(e="#"+window.encodeURI(this.hash)),n+t+e},_updateUrl:function(){if(!this._dontUpdateUrl&&this._initialized&&(this.path!==window.decodeURIComponent(window.location.pathname)||this.query!==window.location.search.substring(1)||this.hash!==window.decodeURIComponent(window.location.hash.substring(1)))){var n=this._getUrl(),t=new URL(n,window.location.protocol+"//"+window.location.host).href,e=window.performance.now(),i=this._lastChangedAt+this.dwellTime>e;this._lastChangedAt=e,i?window.history.replaceState({},"",t):window.history.pushState({},"",t),this.fire("location-changed",{},{node:window})}},_globalOnClick:function(n){if(!n.defaultPrevented){var t=this._getSameOriginLinkHref(n);t&&(n.preventDefault(),t!==window.location.href&&(window.history.pushState({},"",t),this.fire("location-changed",{},{node:window})))}},_getSameOriginLinkHref:function(n){if(0!==n.button)return null;if(n.metaKey||n.ctrlKey)return null;for(var t=Polymer.dom(n).path,e=null,i=0;i<t.length;i++){var o=t[i];if("A"===o.tagName&&o.href){e=o;break}}if(!e)return null;if("_blank"===e.target)return null;if(("_top"===e.target||"_parent"===e.target)&&window.top!==window)return null;var a,h=e.href;a=null!=document.baseURI?new URL(h,document.baseURI):new URL(h);var r;if(window.location.origin?r=window.location.origin:(r=window.location.protocol+"//"+window.location.hostname,window.location.port&&(r+=":"+window.location.port)),a.origin!==r)return null;var l=a.pathname+a.search+a.hash;if(this._urlSpaceRegExp&&!this._urlSpaceRegExp.test(l))return null;var d=new URL(l,window.location.href).href;return d},_makeRegExp:function(n){return RegExp(n)}})}();</script><script>"use strict";Polymer({is:"iron-query-params",properties:{paramsString:{type:String,notify:!0,observer:"paramsStringChanged"},paramsObject:{type:Object,notify:!0,value:function(){return{}}},_dontReact:{type:Boolean,value:!1}},hostAttributes:{hidden:!0},observers:["paramsObjectChanged(paramsObject.*)"],paramsStringChanged:function(){this._dontReact=!0,this.paramsObject=this._decodeParams(this.paramsString),this._dontReact=!1},paramsObjectChanged:function(){this._dontReact||(this.paramsString=this._encodeParams(this.paramsObject).replace(/%3F/g,"?").replace(/%2F/g,"/").replace(/'/g,"%27"))},_encodeParams:function(e){var t=[];for(var a in e){var r=e[a];""===r?t.push(encodeURIComponent(a)):r&&t.push(encodeURIComponent(a)+"="+encodeURIComponent(r.toString()))}return t.join("&")},_decodeParams:function(e){var t={};e=(e||"").replace(/\+/g,"%20");for(var a=e.split("&"),r=0;r<a.length;r++){var n=a[r].split("=");n[0]&&(t[decodeURIComponent(n[0])]=decodeURIComponent(n[1]||""))}return t}});</script><script>!function(){"use strict";Polymer.AppRouteConverterBehavior={properties:{route:{type:Object,notify:!0},queryParams:{type:Object,notify:!0},path:{type:String,notify:!0}},observers:["_locationChanged(path, queryParams)","_routeChanged(route.prefix, route.path)","_routeQueryParamsChanged(route.__queryParams)"],created:function(){this.linkPaths("route.__queryParams","queryParams"),this.linkPaths("queryParams","route.__queryParams")},_locationChanged:function(){this.route&&this.route.path===this.path&&this.queryParams===this.route.__queryParams||(this.route={prefix:"",path:this.path,__queryParams:this.queryParams})},_routeChanged:function(){this.route&&(this.path=this.route.prefix+this.route.path)},_routeQueryParamsChanged:function(t){this.route&&(this.queryParams=t)}}}();</script>
-<dom-module id="app-location" assetpath="../../bower_components/app-route/">
-  <template>
-    <iron-location path="{{__path}}" query="{{__query}}" hash="{{__hash}}" url-space-regex="{{urlSpaceRegex}}">
-    </iron-location>
-    <iron-query-params params-string="{{__query}}" params-object="{{queryParams}}">
-    </iron-query-params>
-  </template>
-  <script>!function(){"use strict";Polymer({is:"app-location",properties:{route:{type:Object,notify:!0},useHashAsPath:{type:Boolean,value:!1},urlSpaceRegex:{type:String,notify:!0},__queryParams:{type:Object},__path:{type:String},__query:{type:String},__hash:{type:String},path:{type:String,observer:"__onPathChanged"}},behaviors:[Polymer.AppRouteConverterBehavior],observers:["__computeRoutePath(useHashAsPath, __hash, __path)"],__computeRoutePath:function(){this.path=this.useHashAsPath?this.__hash:this.__path},__onPathChanged:function(){this._readied&&(this.useHashAsPath?this.__hash=this.path:this.__path=this.path)}})}();</script>
-</dom-module>
-<script>!function(){"use strict";Polymer({is:"app-route",properties:{route:{type:Object,notify:!0},pattern:{type:String},data:{type:Object,value:function(){return{}},notify:!0},queryParams:{type:Object,value:function(){return{}},notify:!0},tail:{type:Object,value:function(){return{path:null,prefix:null,__queryParams:null}},notify:!0},active:{type:Boolean,notify:!0,readOnly:!0},_queryParamsUpdating:{type:Boolean,value:!1},_matched:{type:String,value:""}},observers:["__tryToMatch(route.path, pattern)","__updatePathOnDataChange(data.*)","__tailPathChanged(tail.path)","__routeQueryParamsChanged(route.__queryParams)","__tailQueryParamsChanged(tail.__queryParams)","__queryParamsChanged(queryParams.*)"],created:function(){this.linkPaths("route.__queryParams","tail.__queryParams"),this.linkPaths("tail.__queryParams","route.__queryParams")},__routeQueryParamsChanged:function(t){if(t&&this.tail){if(this.set("tail.__queryParams",t),!this.active||this._queryParamsUpdating)return;var a={},i=!1;for(var e in t)a[e]=t[e],!i&&this.queryParams&&t[e]===this.queryParams[e]||(i=!0);for(var e in this.queryParams)if(i||!(e in t)){i=!0;break}if(!i)return;this._queryParamsUpdating=!0,this.set("queryParams",a),this._queryParamsUpdating=!1}},__tailQueryParamsChanged:function(t){t&&this.route&&this.set("route.__queryParams",t)},__queryParamsChanged:function(t){this.active&&!this._queryParamsUpdating&&this.set("route.__"+t.path,t.value)},__resetProperties:function(){this._setActive(!1),this._matched=null},__tryToMatch:function(){if(this.route){var t=this.route.path,a=this.pattern;if(a){if(!t)return void this.__resetProperties();for(var i=t.split("/"),e=a.split("/"),r=[],s={},h=0;h<e.length;h++){var n=e[h];if(!n&&""!==n)break;var u=i.shift();if(!u&&""!==u)return void this.__resetProperties();if(r.push(u),":"==n.charAt(0))s[n.slice(1)]=u;else if(n!==u)return void this.__resetProperties()}this._matched=r.join("/");var _={};this.active||(_.active=!0);var o=this.route.prefix+this._matched,l=i.join("/");i.length>0&&(l="/"+l),this.tail&&this.tail.prefix===o&&this.tail.path===l||(_.tail={prefix:o,path:l,__queryParams:this.route.__queryParams}),_.data=s,this._dataInUrl={};for(var p in s)this._dataInUrl[p]=s[p];this.__setMulti(_)}}},__tailPathChanged:function(t){if(this.active){var a=t,i=this._matched;a&&("/"!==a.charAt(0)&&(a="/"+a),i+=a),this.set("route.path",i)}},__updatePathOnDataChange:function(){if(this.route&&this.active){var t=this.__getLink({}),a=this.__getLink(this._dataInUrl);t!==a&&this.set("route.path",t)}},__getLink:function(t){var a={tail:null};for(var i in this.data)a[i]=this.data[i];for(var i in t)a[i]=t[i];var e=this.pattern.split("/"),r=e.map(function(t){return":"==t[0]&&(t=a[t.slice(1)]),t},this);return a.tail&&a.tail.path&&(r.length>0&&"/"===a.tail.path.charAt(0)?r.push(a.tail.path.slice(1)):r.push(a.tail.path)),r.join("/")},__setMulti:function(t){for(var a in t)this._propertySetter(a,t[a]);void 0!==t.data&&(this._pathEffector("data",this.data),this._notifyChange("data")),void 0!==t.active&&(this._pathEffector("active",this.active),this._notifyChange("active")),void 0!==t.tail&&(this._pathEffector("tail",this.tail),this._notifyChange("tail"))}})}();</script><script>Polymer.IronResizableBehavior={properties:{_parentResizable:{type:Object,observer:"_parentResizableChanged"},_notifyingDescendant:{type:Boolean,value:!1}},listeners:{"iron-request-resize-notifications":"_onIronRequestResizeNotifications"},created:function(){this._interestedResizables=[],this._boundNotifyResize=this.notifyResize.bind(this)},attached:function(){this.fire("iron-request-resize-notifications",null,{node:this,bubbles:!0,cancelable:!0}),this._parentResizable||(window.addEventListener("resize",this._boundNotifyResize),this.notifyResize())},detached:function(){this._parentResizable?this._parentResizable.stopResizeNotificationsFor(this):window.removeEventListener("resize",this._boundNotifyResize),this._parentResizable=null},notifyResize:function(){this.isAttached&&(this._interestedResizables.forEach(function(e){this.resizerShouldNotify(e)&&this._notifyDescendant(e)},this),this._fireResize())},assignParentResizable:function(e){this._parentResizable=e},stopResizeNotificationsFor:function(e){var i=this._interestedResizables.indexOf(e);i>-1&&(this._interestedResizables.splice(i,1),this.unlisten(e,"iron-resize","_onDescendantIronResize"))},resizerShouldNotify:function(e){return!0},_onDescendantIronResize:function(e){return this._notifyingDescendant?void e.stopPropagation():void(Polymer.Settings.useShadow||this._fireResize())},_fireResize:function(){this.fire("iron-resize",null,{node:this,bubbles:!1})},_onIronRequestResizeNotifications:function(e){var i=e.path?e.path[0]:e.target;i!==this&&(this._interestedResizables.indexOf(i)===-1&&(this._interestedResizables.push(i),this.listen(i,"iron-resize","_onDescendantIronResize")),i.assignParentResizable(this),this._notifyDescendant(i),e.stopPropagation())},_parentResizableChanged:function(e){e&&window.removeEventListener("resize",this._boundNotifyResize)},_notifyDescendant:function(e){this.isAttached&&(this._notifyingDescendant=!0,e.notifyResize(),this._notifyingDescendant=!1)}};</script><script>Polymer.IronSelection=function(e){this.selection=[],this.selectCallback=e},Polymer.IronSelection.prototype={get:function(){return this.multi?this.selection.slice():this.selection[0]},clear:function(e){this.selection.slice().forEach(function(t){(!e||e.indexOf(t)<0)&&this.setItemSelected(t,!1)},this)},isSelected:function(e){return this.selection.indexOf(e)>=0},setItemSelected:function(e,t){if(null!=e&&t!==this.isSelected(e)){if(t)this.selection.push(e);else{var i=this.selection.indexOf(e);i>=0&&this.selection.splice(i,1)}this.selectCallback&&this.selectCallback(e,t)}},select:function(e){this.multi?this.toggle(e):this.get()!==e&&(this.setItemSelected(this.get(),!1),this.setItemSelected(e,!0))},toggle:function(e){this.setItemSelected(e,!this.isSelected(e))}};</script><script>Polymer.IronSelectableBehavior={properties:{attrForSelected:{type:String,value:null},selected:{type:String,notify:!0},selectedItem:{type:Object,readOnly:!0,notify:!0},activateEvent:{type:String,value:"tap",observer:"_activateEventChanged"},selectable:String,selectedClass:{type:String,value:"iron-selected"},selectedAttribute:{type:String,value:null},fallbackSelection:{type:String,value:null},items:{type:Array,readOnly:!0,notify:!0,value:function(){return[]}},_excludedLocalNames:{type:Object,value:function(){return{template:1}}}},observers:["_updateAttrForSelected(attrForSelected)","_updateSelected(selected)","_checkFallback(fallbackSelection)"],created:function(){this._bindFilterItem=this._filterItem.bind(this),this._selection=new Polymer.IronSelection(this._applySelection.bind(this))},attached:function(){this._observer=this._observeItems(this),this._updateItems(),this._shouldUpdateSelection||this._updateSelected(),this._addListener(this.activateEvent)},detached:function(){this._observer&&Polymer.dom(this).unobserveNodes(this._observer),this._removeListener(this.activateEvent)},indexOf:function(e){return this.items.indexOf(e)},select:function(e){this.selected=e},selectPrevious:function(){var e=this.items.length,t=(Number(this._valueToIndex(this.selected))-1+e)%e;this.selected=this._indexToValue(t)},selectNext:function(){var e=(Number(this._valueToIndex(this.selected))+1)%this.items.length;this.selected=this._indexToValue(e)},selectIndex:function(e){this.select(this._indexToValue(e))},forceSynchronousItemUpdate:function(){this._updateItems()},get _shouldUpdateSelection(){return null!=this.selected},_checkFallback:function(){this._shouldUpdateSelection&&this._updateSelected()},_addListener:function(e){this.listen(this,e,"_activateHandler")},_removeListener:function(e){this.unlisten(this,e,"_activateHandler")},_activateEventChanged:function(e,t){this._removeListener(t),this._addListener(e)},_updateItems:function(){var e=Polymer.dom(this).queryDistributedElements(this.selectable||"*");e=Array.prototype.filter.call(e,this._bindFilterItem),this._setItems(e)},_updateAttrForSelected:function(){this._shouldUpdateSelection&&(this.selected=this._indexToValue(this.indexOf(this.selectedItem)))},_updateSelected:function(){this._selectSelected(this.selected)},_selectSelected:function(e){this._selection.select(this._valueToItem(this.selected)),this.fallbackSelection&&this.items.length&&void 0===this._selection.get()&&(this.selected=this.fallbackSelection)},_filterItem:function(e){return!this._excludedLocalNames[e.localName]},_valueToItem:function(e){return null==e?null:this.items[this._valueToIndex(e)]},_valueToIndex:function(e){if(!this.attrForSelected)return Number(e);for(var t,i=0;t=this.items[i];i++)if(this._valueForItem(t)==e)return i},_indexToValue:function(e){if(!this.attrForSelected)return e;var t=this.items[e];return t?this._valueForItem(t):void 0},_valueForItem:function(e){var t=e[Polymer.CaseMap.dashToCamelCase(this.attrForSelected)];return void 0!=t?t:e.getAttribute(this.attrForSelected)},_applySelection:function(e,t){this.selectedClass&&this.toggleClass(this.selectedClass,t,e),this.selectedAttribute&&this.toggleAttribute(this.selectedAttribute,t,e),this._selectionChange(),this.fire("iron-"+(t?"select":"deselect"),{item:e})},_selectionChange:function(){this._setSelectedItem(this._selection.get())},_observeItems:function(e){return Polymer.dom(e).observeNodes(function(e){this._updateItems(),this._shouldUpdateSelection&&this._updateSelected(),this.fire("iron-items-changed",e,{bubbles:!1,cancelable:!1})})},_activateHandler:function(e){for(var t=e.target,i=this.items;t&&t!=this;){var s=i.indexOf(t);if(s>=0){var n=this._indexToValue(s);return void this._itemActivate(n,t)}t=t.parentNode}},_itemActivate:function(e,t){this.fire("iron-activate",{selected:e,item:t},{cancelable:!0}).defaultPrevented||this.select(e)}};</script><dom-module id="iron-pages" assetpath="../../bower_components/iron-pages/">
-
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-
-      :host > ::content > :not(.iron-selected) {
-        display: none !important;
-      }
-    </style>
-
-    <content></content>
-  </template>
-
-  <script>Polymer({is:"iron-pages",behaviors:[Polymer.IronResizableBehavior,Polymer.IronSelectableBehavior],properties:{activateEvent:{type:String,value:null}},observers:["_selectedPageChanged(selected)"],_selectedPageChanged:function(e,a){this.async(this.notifyResize)}});</script>
-</dom-module>
-<dom-module id="iron-icon" assetpath="../../bower_components/iron-icon/">
-  <template>
-    <style>
-      :host {
-        @apply(--layout-inline);
-        @apply(--layout-center-center);
-        position: relative;
-
-        vertical-align: middle;
-
-        fill: var(--iron-icon-fill-color, currentcolor);
-        stroke: var(--iron-icon-stroke-color, none);
-
-        width: var(--iron-icon-width, 24px);
-        height: var(--iron-icon-height, 24px);
-        @apply(--iron-icon);
-      }
-    </style>
-  </template>
-
-  <script>Polymer({is:"iron-icon",properties:{icon:{type:String},theme:{type:String},src:{type:String},_meta:{value:Polymer.Base.create("iron-meta",{type:"iconset"})}},observers:["_updateIcon(_meta, isAttached)","_updateIcon(theme, isAttached)","_srcChanged(src, isAttached)","_iconChanged(icon, isAttached)"],_DEFAULT_ICONSET:"icons",_iconChanged:function(t){var i=(t||"").split(":");this._iconName=i.pop(),this._iconsetName=i.pop()||this._DEFAULT_ICONSET,this._updateIcon()},_srcChanged:function(t){this._updateIcon()},_usesIconset:function(){return this.icon||!this.src},_updateIcon:function(){this._usesIconset()?(this._img&&this._img.parentNode&&Polymer.dom(this.root).removeChild(this._img),""===this._iconName?this._iconset&&this._iconset.removeIcon(this):this._iconsetName&&this._meta&&(this._iconset=this._meta.byKey(this._iconsetName),this._iconset?(this._iconset.applyIcon(this,this._iconName,this.theme),this.unlisten(window,"iron-iconset-added","_updateIcon")):this.listen(window,"iron-iconset-added","_updateIcon"))):(this._iconset&&this._iconset.removeIcon(this),this._img||(this._img=document.createElement("img"),this._img.style.width="100%",this._img.style.height="100%",this._img.draggable=!1),this._img.src=this.src,Polymer.dom(this.root).appendChild(this._img))}});</script>
-
-</dom-module>
-<dom-module id="paper-icon-button" assetpath="../../bower_components/paper-icon-button/">
+</style><dom-module id="paper-icon-button" assetpath="../../bower_components/paper-icon-button/">
   <template strip-whitespace="">
     <style>
       :host {
@@ -1469,19 +1287,186 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
   </template>
   <script>Polymer({is:"user-location",properties:{latitude:{type:Number,notify:!0,readOnly:!0,value:0},longitude:{type:Number,notify:!0,readOnly:!0,value:0},updateRate:{type:Number,notify:!0,readOnly:!0,value:2},currentSite:{type:Object}},ready:function(){this.$.locationTimer.start();var t=this;navigator.geolocation.getCurrentPosition(function(e){var i=e.coords;t._setLatitude(i.latitude),t._setLongitude(i.longitude),console.log("Latitude is ",t.latitude," and longitude is ",t.longitude)})},_updateLocation:function(){this.$.locationTimer.reset(),this.$.locationTimer.start();var t=this;navigator.geolocation.getCurrentPosition(function(e){var i=e.coords;t._setLatitude(i.latitude),t._setLongitude(i.longitude),console.log("Latitude is ",t.latitude," and longitude is ",t.longitude)})}});</script>
 </dom-module>
-<dom-module id="title-view" assetpath="../title-view/">
-  <template>
-    <style include="shared-styles">
+<script>Polymer.IronValidatableBehaviorMeta=null,Polymer.IronValidatableBehavior={properties:{validator:{type:String},invalid:{notify:!0,reflectToAttribute:!0,type:Boolean,value:!1},_validatorMeta:{type:Object},validatorType:{type:String,value:"validator"},_validator:{type:Object,computed:"__computeValidator(validator)"}},observers:["_invalidChanged(invalid)"],registered:function(){Polymer.IronValidatableBehaviorMeta=new Polymer.IronMeta({type:"validator"})},_invalidChanged:function(){this.invalid?this.setAttribute("aria-invalid","true"):this.removeAttribute("aria-invalid")},hasValidator:function(){return null!=this._validator},validate:function(a){return this.invalid=!this._getValidity(a),!this.invalid},_getValidity:function(a){return!this.hasValidator()||this._validator.validate(a)},__computeValidator:function(){return Polymer.IronValidatableBehaviorMeta&&Polymer.IronValidatableBehaviorMeta.byKey(this.validator)}};</script><script>Polymer.IronFormElementBehavior={properties:{name:{type:String},value:{notify:!0,type:String},required:{type:Boolean,value:!1},_parentForm:{type:Object}},attached:function(){this.fire("iron-form-element-register")},detached:function(){this._parentForm&&this._parentForm.fire("iron-form-element-unregister",{target:this})}};</script><script>Polymer.IronCheckedElementBehaviorImpl={properties:{checked:{type:Boolean,value:!1,reflectToAttribute:!0,notify:!0,observer:"_checkedChanged"},toggles:{type:Boolean,value:!0,reflectToAttribute:!0},value:{type:String,value:"on",observer:"_valueChanged"}},observers:["_requiredChanged(required)"],created:function(){this._hasIronCheckedElementBehavior=!0},_getValidity:function(e){return this.disabled||!this.required||this.checked},_requiredChanged:function(){this.required?this.setAttribute("aria-required","true"):this.removeAttribute("aria-required")},_checkedChanged:function(){this.active=this.checked,this.fire("iron-change")},_valueChanged:function(){void 0!==this.value&&null!==this.value||(this.value="on")}},Polymer.IronCheckedElementBehavior=[Polymer.IronFormElementBehavior,Polymer.IronValidatableBehavior,Polymer.IronCheckedElementBehaviorImpl];</script><script>Polymer.PaperCheckedElementBehaviorImpl={_checkedChanged:function(){Polymer.IronCheckedElementBehaviorImpl._checkedChanged.call(this),this.hasRipple()&&(this.checked?this._ripple.setAttribute("checked",""):this._ripple.removeAttribute("checked"))},_buttonStateChanged:function(){Polymer.PaperRippleBehavior._buttonStateChanged.call(this),this.disabled||this.isAttached&&(this.checked=this.active)}},Polymer.PaperCheckedElementBehavior=[Polymer.PaperInkyFocusBehavior,Polymer.IronCheckedElementBehavior,Polymer.PaperCheckedElementBehaviorImpl];</script><dom-module id="paper-checkbox" assetpath="../../bower_components/paper-checkbox/">
+  <template strip-whitespace="">
+    <style>
       :host {
-        display: block;
+        display: inline-block;
+        white-space: nowrap;
+        cursor: pointer;
+        --calculated-paper-checkbox-size: var(--paper-checkbox-size, 18px);
+        /* -1px is a sentinel for the default and is replaced in `attached`. */
+        --calculated-paper-checkbox-ink-size: var(--paper-checkbox-ink-size, -1px);
+        @apply(--paper-font-common-base);
+        line-height: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      :host(:focus) {
+        outline: none;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #checkboxContainer {
+        display: inline-block;
+        position: relative;
+        width: var(--calculated-paper-checkbox-size);
+        height: var(--calculated-paper-checkbox-size);
+        min-width: var(--calculated-paper-checkbox-size);
+        margin: var(--paper-checkbox-margin, initial);
+        vertical-align: var(--paper-checkbox-vertical-align, middle);
+        background-color: var(--paper-checkbox-unchecked-background-color, transparent);
+      }
+
+      #ink {
+        position: absolute;
+
+        /* Center the ripple in the checkbox by negative offsetting it by
+         * (inkWidth - rippleWidth) / 2 */
+        top: calc(0px - (var(--calculated-paper-checkbox-ink-size) - var(--calculated-paper-checkbox-size)) / 2);
+        left: calc(0px - (var(--calculated-paper-checkbox-ink-size) - var(--calculated-paper-checkbox-size)) / 2);
+        width: var(--calculated-paper-checkbox-ink-size);
+        height: var(--calculated-paper-checkbox-ink-size);
+        color: var(--paper-checkbox-unchecked-ink-color, var(--primary-text-color));
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      :host-context([dir="rtl"]) #ink {
+        right: calc(0px - (var(--calculated-paper-checkbox-ink-size) - var(--calculated-paper-checkbox-size)) / 2);
+        left: auto;
+      }
+
+      #ink[checked] {
+        color: var(--paper-checkbox-checked-ink-color, var(--primary-color));
+      }
+
+      #checkbox {
+        position: relative;
+        box-sizing: border-box;
+        height: 100%;
+        border: solid 2px;
+        border-color: var(--paper-checkbox-unchecked-color, var(--primary-text-color));
+        border-radius: 2px;
+        pointer-events: none;
+        -webkit-transition: background-color 140ms, border-color 140ms;
+        transition: background-color 140ms, border-color 140ms;
+      }
+
+      /* checkbox checked animations */
+      #checkbox.checked #checkmark {
+        -webkit-animation: checkmark-expand 140ms ease-out forwards;
+        animation: checkmark-expand 140ms ease-out forwards;
+      }
+
+      @-webkit-keyframes checkmark-expand {
+        0% {
+          -webkit-transform: scale(0, 0) rotate(45deg);
+        }
+        100% {
+          -webkit-transform: scale(1, 1) rotate(45deg);
+        }
+      }
+
+      @keyframes checkmark-expand {
+        0% {
+          transform: scale(0, 0) rotate(45deg);
+        }
+        100% {
+          transform: scale(1, 1) rotate(45deg);
+        }
+      }
+
+      #checkbox.checked {
+        background-color: var(--paper-checkbox-checked-color, var(--primary-color));
+        border-color: var(--paper-checkbox-checked-color, var(--primary-color));
+      }
+
+      #checkmark {
+        position: absolute;
+        width: 36%;
+        height: 70%;
+        border-style: solid;
+        border-top: none;
+        border-left: none;
+        border-right-width: calc(2/15 * var(--calculated-paper-checkbox-size));
+        border-bottom-width: calc(2/15 * var(--calculated-paper-checkbox-size));
+        border-color: var(--paper-checkbox-checkmark-color, white);
+        -webkit-transform-origin: 97% 86%;
+        transform-origin: 97% 86%;
+        box-sizing: content-box; /* protect against page-level box-sizing */
+      }
+
+      :host-context([dir="rtl"]) #checkmark {
+        -webkit-transform-origin: 50% 14%;
+        transform-origin: 50% 14%;
+      }
+
+      /* label */
+      #checkboxLabel {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: var(--paper-checkbox-label-spacing, 8px);
+        white-space: normal;
+        line-height: normal;
+        color: var(--paper-checkbox-label-color, var(--primary-text-color));
+        @apply(--paper-checkbox-label);
+      }
+
+      :host([checked]) #checkboxLabel {
+        color: var(--paper-checkbox-label-checked-color, var(--paper-checkbox-label-color, var(--primary-text-color)));
+        @apply(--paper-checkbox-label-checked);
+      }
+
+      :host-context([dir="rtl"]) #checkboxLabel {
+        padding-right: var(--paper-checkbox-label-spacing, 8px);
+        padding-left: 0;
+      }
+
+      #checkboxLabel[hidden] {
+        display: none;
+      }
+
+      /* disabled state */
+
+      :host([disabled]) #checkbox {
+        opacity: 0.5;
+        border-color: var(--paper-checkbox-unchecked-color, var(--primary-text-color));
+      }
+
+      :host([disabled][checked]) #checkbox {
+        background-color: var(--paper-checkbox-unchecked-color, var(--primary-text-color));
+        opacity: 0.5;
+      }
+
+      :host([disabled]) #checkboxLabel  {
+        opacity: 0.65;
+      }
+
+      /* invalid state */
+      #checkbox.invalid:not(.checked) {
+        border-color: var(--paper-checkbox-error-color, var(--error-color));
       }
     </style>
-    <h1>Ball State Hunt</h1>
-    <img src="../../images/charlie.png">
-    <h2>Please proceed to Ball State University to play</h2>
-    <paper-button raised="" on-tap="_start">Play</paper-button>
+
+    <div id="checkboxContainer">
+      <div id="checkbox" class$="[[_computeCheckboxClass(checked, invalid)]]">
+        <div id="checkmark" class$="[[_computeCheckmarkClass(checked)]]"></div>
+      </div>
+    </div>
+
+    <div id="checkboxLabel"><content></content></div>
   </template>
-  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],_start:function(){this._goToPage("intro")}});</script>
+
+  <script>Polymer({is:"paper-checkbox",behaviors:[Polymer.PaperCheckedElementBehavior],hostAttributes:{role:"checkbox","aria-checked":!1,tabindex:0},properties:{ariaActiveAttribute:{type:String,value:"aria-checked"}},attached:function(){var e=this.getComputedStyleValue("--calculated-paper-checkbox-ink-size").trim();if("-1px"===e){var t=parseFloat(this.getComputedStyleValue("--calculated-paper-checkbox-size").trim()),a=Math.floor(8/3*t);a%2!==t%2&&a++,this.customStyle["--paper-checkbox-ink-size"]=a+"px",this.updateStyles()}},_computeCheckboxClass:function(e,t){var a="";return e&&(a+="checked "),t&&(a+="invalid"),a},_computeCheckmarkClass:function(e){return e?"":"hidden"},_createRipple:function(){return this._rippleContainer=this.$.checkboxContainer,Polymer.PaperInkyFocusBehaviorImpl._createRipple.call(this)}});</script>
 </dom-module>
 </div><dom-module id="prairie-creek-game">
 
