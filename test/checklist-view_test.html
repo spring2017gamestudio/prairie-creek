@@ -1,17 +1,15 @@
 <html>
 
 <head>
-  <meta name="viewport"
-        content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>checklist-view bdd test</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>checklist-view bdd test</title>
 
-    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../bower_components/web-component-tester/browser.js"></script>
-    <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
 
 
-    <link rel="import"
-          href="../src/checklist-view/checklist-view.html">
+  <link rel="import" href="../src/checklist-view/checklist-view.html">
 
 </head>
 
@@ -25,19 +23,6 @@
 
 
   <script>
-    describe('no items checked', function () {
-      var element;
-
-      before(function () {
-        element = fixture('basic');
-      });
-
-      it('sets responses to empty array', function () {
-        expect(element.responses).to.exist;
-        expect(element.responses).to.be.empty;
-      });
-    });
-
     const site = {
       name: "Bell Tower",
       question: 'What did you smell?',
@@ -57,7 +42,9 @@
       ]
     };
 
-    describe('correct items are checked', function () {
+
+
+    describe('checklist-view with sample site data', function () {
       var element;
 
       beforeEach(function (done) {
@@ -66,43 +53,78 @@
         flush(done);
       });
 
-      it('sets responses to contain only the right item', function () {
-        var checkbox = element.$$('.checkbox');
+      function tapCheckbox(index) {
+        var checkbox = Polymer.dom(element.root).querySelectorAll('.checkbox')[index];
         MockInteractions.tap(checkbox);
-        expect(element.responses.length).to.equal(1);
-        expect(element.responses[0]).to.deep.equal(site.responses[0]);
+      }
+
+
+      describe('no items checked', function () {
+        it('sets responses to empty array', function () {
+          expect(element.responses).to.exist;
+          expect(element.responses).to.be.empty;
+        });
       });
 
-      it('sets responses to be empty', function () {
-        var checkbox = element.$$('.checkbox');
-        MockInteractions.tap(checkbox);
-        MockInteractions.tap(checkbox);
-        expect(element.responses).to.exist;
-        expect(element.responses).to.empty;
+      describe('the first item is selected', function () {
+        beforeEach(function () {
+          tapCheckbox(0);
+        });
+
+        it('sets responses to contain one item', function () {
+          expect(element.responses.length).to.equal(1);
+        });
+
+        it('sets response to contain the first site response', function () {
+          expect(element.responses[0]).to.deep.equal(site.responses[0]);
+        })
       });
 
-      it('sets responses to contain two items', function() {
-        var checkbox1 = Polymer.dom(element.root).querySelectorAll('.checkbox')[0];
-        var checkbox2 = Polymer.dom(element.root).querySelectorAll('.checkbox')[1];
-        MockInteractions.tap(checkbox1);
-        MockInteractions.tap(checkbox2);
-        expect(element.responses.length).to.equal(2);
-        expect(element.responses[0]).to.deep.equal(site.responses[0]);
-        expect(element.responses[1]).to.deep.equal(site.responses[1]);
+      describe('the first item is selected then deselected', function () {
+        beforeEach(function () {
+          tapCheckbox(0);
+          tapCheckbox(0);
+        });
+
+        it('sets responses to be empty', function () {
+          expect(element.responses).to.exist;
+          expect(element.responses).to.empty;
+        });
       });
 
-      it('sets responses to contain only the right item', function() {
-        var checkbox1 = Polymer.dom(element.root).querySelectorAll('.checkbox')[0];
-        var checkbox2 = Polymer.dom(element.root).querySelectorAll('.checkbox')[1];
-        MockInteractions.tap(checkbox1);
-        MockInteractions.tap(checkbox2);
-        MockInteractions.tap(checkbox1);
-        expect(element.responses.length).to.equal(1);
-        expect(element.responses[0]).to.deep.equal(site.responses[1]);
+      describe('the first and then second items are selected', function () {
+        beforeEach(function () {
+          tapCheckbox(0);
+          tapCheckbox(1);
+        });
+
+        it('sets responses to contain two items', function () {
+          expect(element.responses.length).to.equal(2);
+        });
+
+        it('contains the right items', function () {
+          expect(element.responses[0]).to.deep.equal(site.responses[0]);
+          expect(element.responses[1]).to.deep.equal(site.responses[1]);
+        });
+      });
+
+      describe('the first and second are selected, then the first deselected', function () {
+        beforeEach(function () {
+          tapCheckbox(0);
+          tapCheckbox(1);
+          tapCheckbox(0);
+        });
+
+        it('response length is 1', function () {
+          expect(element.responses.length).to.equal(1);
+        });
+
+        it('sets response to only the second item', function () {
+          expect(element.responses[0]).to.deep.equal(site.responses[1]);
+        });
       });
     });
   </script>
-
 </body>
 
 </html>
