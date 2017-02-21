@@ -455,6 +455,6 @@
       <paper-button raised="" on-tap="_debugModeOn">Debug Mode</paper-button>
     </div>
   </template>
-  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object}},observers:["_updateIfAtLocation(currentSite)"],_updateIfAtLocation:function(t){null!==t&&this._goToPage("arrival")},_debugModeOn:function(){this.$.map.setAttribute("click-events",!0),console.log("Debug Mode On")},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.latitude=e,this.longitude=i},_useCurrentLocation:function(){var t=this;navigator.geolocation.getCurrentPosition(function(e){var i=e.coords;t.latitude=i.latitude,t.longitude=i.longitude})}});</script>
+  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object}},observers:["_updateIfAtLocation(currentSite)"],_updateIfAtLocation:function(t){void 0!==t&&this._goToPage("arrival")},_debugModeOn:function(){this.$.map.setAttribute("click-events",!0),console.log("Debug Mode On")},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.latitude=e,this.longitude=i},_useCurrentLocation:function(){var t=this;navigator.geolocation.getCurrentPosition(function(e){var i=e.coords;t.latitude=i.latitude,t.longitude=i.longitude})}});</script>
 </dom-module>
 </body></html>
