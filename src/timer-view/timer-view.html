@@ -14,7 +14,7 @@
     [[prompt]]
     <div>
       [[secondsRemaining]]
-      <iron-timer id="timer" start-time="30" current-time="{{secondsRemaining}}" on-iron-timer-end="_timerEnd"></iron-timer>
+      <iron-timer id="timer" start-time="3" current-time="{{secondsRemaining}}"></iron-timer>
     </div>
     <paper-button id="button" raised on-tap="_next" disabled$="[[!buttonEnabled]]">Go to checklist</paper-button>
   </template>
@@ -40,11 +40,11 @@
       },
 
       observers: [
-          '_startTimerOnPageEntry(routeData)'
+          '_startTimerOnPageEntry(routeData)',
+          '_pauseTimer(secondsRemaining)'
       ],
 
       _startTimerOnPageEntry: function(routeData) {
-        console.log("here in startTimer");
         if(routeData.page == "timer") {
           this.$.timer.start();
         }
@@ -55,15 +55,16 @@
         this._goToPage('checklist');
       },
 
-      _timerEnd: function() {
-        this.$.timer.pause();
+      _pauseTimer(secondsRemaining) {
+        if(secondsRemaining <=0 ) {
+          this.$.timer.pause();
+          this.$.timer.currentTime = 0;
+        }
       },
 
       _hasNoSecondsRemaining: function(secondsRemaining) {
         return secondsRemaining== 0
       }
-
-
     });
   </script>
 </dom-module>
