@@ -14,7 +14,7 @@
     [[prompt]]
     <div>
       [[secondsRemaining]]
-      <iron-timer id="timer" start-time="3" current-time="{{secondsRemaining}}"></iron-timer>
+      <iron-timer id="timer" start-time="30" current-time="{{secondsRemaining}}"></iron-timer>
     </div>
     <paper-button id="button" raised on-tap="_next" disabled$="[[!buttonEnabled]]">Go to checklist</paper-button>
   </template>
