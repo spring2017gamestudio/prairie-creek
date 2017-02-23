@@ -47,17 +47,21 @@
 
       _next: function() {
         this.currentSite.visited = true;
-        var visitedAllSites = true;
-        for (var i = 0; i < this.mapData.length; i++) {
-          if (!this.mapData[i].visited) {
-            visitedAllSites = false;
-          }
-        }
-        if (visitedAllSites) {
+      
+        if (this._visitedAllSites()) {
           this.nextPage = 'wudgie';
         }
 
         this._goToPage(this.nextPage);
+      },
+
+      _visitedAllSites: function() {
+        for (var i = 0; i < this.mapData.length; i++) {
+          if (!this.mapData[i].visited) {
+            return false;
+          }
+        }
+        return true;
       }
     });
   </script>
