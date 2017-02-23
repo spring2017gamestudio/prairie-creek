@@ -42,16 +42,18 @@
       ]
     };
 
-
-
     describe('checklist-view with sample site data', function () {
       var element;
 
       beforeEach(function (done) {
         element = fixture('basic');
-        element.currentSite = site;
+        element.currentSite = clone(site);
         flush(done);
       });
+
+      function clone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+      }
 
       function tapCheckbox(index) {
         var checkbox = Polymer.dom(element.root).querySelectorAll('.checkbox')[index];
