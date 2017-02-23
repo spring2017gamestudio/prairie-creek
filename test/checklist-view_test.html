@@ -77,24 +77,21 @@
         MockInteractions.tap(checkbox);
       }
 
-      describe('no items checked', function () {
-        it('sets responses to empty array', function () {
-          expect(element.responses).to.exist;
-          expect(element.responses).to.be.empty;
-        });
-      });
+      function expectCheckboxSelected(index) {
+        expect(element.currentSite.responses[index].selected).to.be.true;
+      }
+
+      function expectCheckboxNotSelected(index) {
+        expect(element.currentSite.responses[index].selected).to.be.false;
+      }
 
       describe('the first item is selected', function () {
         beforeEach(function () {
           tapCheckbox(0);
         });
 
-        it('sets responses to contain one item', function () {
-          expect(element.responses.length).to.equal(1);
-        });
-
-        it('sets response to contain the first site response', function () {
-          expect(element.responses[0]).to.deep.equal(site.responses[0]);
+        it('sets selected on first response', function () {
+          expectCheckboxSelected(0);
         })
       });
 
@@ -104,41 +101,17 @@
           tapCheckbox(0);
         });
 
-        it('sets responses to be empty', function () {
-          expect(element.responses).to.exist;
-          expect(element.responses).to.empty;
+        it('marks first response as unselected', function () {
+          expectCheckboxNotSelected(0);
         });
       });
 
-      describe('the first and then second items are selected', function () {
-        beforeEach(function () {
-          tapCheckbox(0);
+      describe('the second item is checked', function() {
+        beforeEach(function() {
           tapCheckbox(1);
         });
-
-        it('sets responses to contain two items', function () {
-          expect(element.responses.length).to.equal(2);
-        });
-
-        it('contains the right items', function () {
-          expect(element.responses[0]).to.deep.equal(site.responses[0]);
-          expect(element.responses[1]).to.deep.equal(site.responses[1]);
-        });
-      });
-
-      describe('the first and second are selected, then the first deselected', function () {
-        beforeEach(function () {
-          tapCheckbox(0);
-          tapCheckbox(1);
-          tapCheckbox(0);
-        });
-
-        it('response length is 1', function () {
-          expect(element.responses.length).to.equal(1);
-        });
-
-        it('sets response to only the second item', function () {
-          expect(element.responses[0]).to.deep.equal(site.responses[1]);
+        it('marks the second response as selected', function() {
+          expectCheckboxSelected(1);
         });
       });
 

@@ -33,11 +33,6 @@
       properties: {
         currentSite: Object,
         mapData: Object,
-        responses: {
-          type: Array,
-          notify: true,
-          value: function() { return [] }
-        },
         nextPage: {
           type: String,
           value: 'map'
@@ -47,17 +42,7 @@
       _onCheckboxTap: function(event) {
         const checkbox = event.target;
         const item = event.target.item;
-        var copyIndex = -1;
-        for(var i = 0;i < this.responses.length;i++) {
-          if(item.text == this.responses[i].text) {
-            copyIndex = i;
-         }
-        }
-        if(copyIndex == -1) {
-          this.push('responses', item);
-        } else {
-          this.splice('responses', copyIndex, 1);
-        }
+        this.currentSite.responses[checkbox.index].selected = checkbox.checked;
       },
 
       _next: function() {
