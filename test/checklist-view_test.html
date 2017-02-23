@@ -1,15 +1,17 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>checklist-view bdd test</title>
+  <meta name="viewport"
+        content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>checklist-view bdd test</title>
 
-  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../bower_components/web-component-tester/browser.js"></script>
-  <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
 
 
-  <link rel="import" href="../src/checklist-view/checklist-view.html">
+    <link rel="import"
+          href="../src/checklist-view/checklist-view.html">
 
 </head>
 
@@ -23,30 +25,45 @@
 
 
   <script>
-    const site = {
-      name: "Bell Tower",
-      question: 'What did you smell?',
-      responses: [
-        {
-          text: 'Fresh air',
-          value: +2
-        },
-        {
-          text: 'Exhaust fumes',
-          value: -2
-        },
-        {
-          text: 'Fried food',
-          value: -1
-        }
-      ]
-    };
+    const allSites = [
+      {
+        name: "Bell Tower",
+        question: 'What did you smell?',
+        responses: [
+          {
+            text: 'Fresh air',
+            value: +2
+          },
+          {
+            text: 'Exhaust fumes',
+            value: -2
+          },
+          {
+            text: 'Fried food',
+            value: -1
+          }
+        ]
+      },
+      {
+        name: "A second site",
+        question: "Will this be read?",
+        responses: [
+          {
+            text: 'No',
+            value: 0
+          }
+        ]
+      }
+    ];
+
+    const site = allSites[0];
 
     describe('checklist-view with sample site data', function () {
       var element;
 
       beforeEach(function (done) {
         element = fixture('basic');
+        element.mapData = clone(allSites);
         element.currentSite = clone(site);
         flush(done);
       });
@@ -125,10 +142,25 @@
         });
       });
 
-      describe('the submit button is pressed', function() {
-        it('marks the site as visited', function() {
+      describe('the submit button is pressed', function () {
+        beforeEach(function () {
           MockInteractions.tap(element.$.submit);
+        });
+        it('marks the site as visited', function () {
           expect(element.currentSite.visited).to.be.true;
+        });
+        it('routes to map view since there are more unmarked sites', function () {
+          expect(element.nextPage).to.equal('map');
+        });
+      });
+
+      describe('the submit button is pressed and there are no unvisited sites', function () {
+        beforeEach(function () {
+          element.mapData = clone(site);
+          MockInteractions.tap(element.$.submit);
+        });
+        it('routes to wudgie view', function () {
+          expect(element.nextPage).to.equal('wudgie');
         });
       });
     });

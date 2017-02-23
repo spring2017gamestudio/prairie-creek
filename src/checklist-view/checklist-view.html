@@ -32,19 +32,16 @@
       behaviors: [ViewBehavior],
       properties: {
         currentSite: Object,
-        visitedSites: {
-          type: Number,
-          value: 0,
-        },
-        totalSites: {
-          type: Number,
-          value: 3,
-        },
+        mapData: Object,
         responses: {
           type: Array,
           notify: true,
           value: function() { return [] }
         },
+        nextPage: {
+          type: String,
+          value: 'map'
+        }
       },
 
       _onCheckboxTap: function(event) {
@@ -63,22 +60,19 @@
         }
       },
 
-      _haveVisited: function(){
-        if(this.currentSite.visited == false){
-          this.currentSite.visited = true;
-          this.visitedSites += 1;
-        }
-      },
-
       _next: function() {
         this.currentSite.visited = true;
-        this._haveVisited();
-        if(this.visitedSites < this.totalSites){
-          this._goToPage('map');
+        var visitedAllSites = true;
+        for (var i = 0; i < this.mapData.length; i++) {
+          if (!this.mapData[i].visited) {
+            visitedAllSites = false;
+          }
         }
-        if(this.visitedSites == this.totalSites){
-          this._goToPage('wudgie');
+        if (visitedAllSites) {
+          this.nextPage = 'wudgie';
         }
+
+        this._goToPage(this.nextPage);
       }
     });
   </script>
