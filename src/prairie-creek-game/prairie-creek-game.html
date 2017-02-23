@@ -79,6 +79,10 @@
 
           _pageChanged: function(page) {
             if (page) {
+              if (page === 'title') {
+                this.$$('map-data').reset();
+              }
+
               var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
               this.importHref(resolvedPageUrl, null, this._showPage404, true);
             }
