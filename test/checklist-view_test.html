@@ -58,7 +58,6 @@
         MockInteractions.tap(checkbox);
       }
 
-
       describe('no items checked', function () {
         it('sets responses to empty array', function () {
           expect(element.responses).to.exist;
@@ -121,6 +120,13 @@
 
         it('sets response to only the second item', function () {
           expect(element.responses[0]).to.deep.equal(site.responses[1]);
+        });
+      });
+
+      describe('the submit button is pressed', function() {
+        it('marks the site as visited', function() {
+          MockInteractions.tap(element.$.submit);
+          expect(element.currentSite.visited).to.be.true;
         });
       });
     });

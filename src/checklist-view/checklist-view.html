@@ -24,7 +24,7 @@
           [[item.text]]
       </paper-checkbox>
     </template>
-    <paper-button raised on-tap="_next">Next</paper-button>
+    <paper-button id="submit" raised on-tap="_next">Next</paper-button>
   </template>
   <script>
     Polymer({
@@ -71,6 +71,7 @@
       },
 
       _next: function() {
+        this.currentSite.visited = true;
         this._haveVisited();
         if(this.visitedSites < this.totalSites){
           this._goToPage('map');
