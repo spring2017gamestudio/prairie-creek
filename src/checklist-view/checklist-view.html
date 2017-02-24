@@ -24,7 +24,7 @@
           [[item.text]]
       </paper-checkbox>
     </template>
-    <paper-button raised on-tap="_next">Next</paper-button>
+    <paper-button id="submit" raised on-tap="_next">Next</paper-button>
   </template>
   <script>
     Polymer({
@@ -32,52 +32,32 @@
       behaviors: [ViewBehavior],
       properties: {
         currentSite: Object,
-        visitedSites: {
-          type: Number,
-          value: 0,
-        },
-        totalSites: {
-          type: Number,
-          value: 3,
-        },
-        responses: {
-          type: Array,
-          notify: true,
-          value: function() { return [] }
-        },
+        mapData: Object,
+        nextPage: {
+          type: String,
+          value: 'map'
+        }
       },
 
       _onCheckboxTap: function(event) {
         const checkbox = event.target;
         const item = event.target.item;
-        var copyIndex = -1;
-        for(var i = 0;i < this.responses.length;i++) {
-          if(item.text == this.responses[i].text) {
-            copyIndex = i;
-         }
-        }
-        if(copyIndex == -1) {
-          this.push('responses', item);
-        } else {
-          this.splice('responses', copyIndex, 1);
-        }
-      },
-
-      _haveVisited: function(){
-        if(this.currentSite.visited == false){
-          this.currentSite.visited = true;
-          this.visitedSites += 1;
-        }
+        this.currentSite.responses[checkbox.index].selected = checkbox.checked;
       },
 
       _next: function() {
-        this._haveVisited();
-        if(this.visitedSites < this.totalSites){
-          this._goToPage('map');
+        this.currentSite.visited = true;
+        this.nextPage = this._visitedAllSites() ? 'wudgie' : 'map';
+        this._goToPage(this.nextPage);
+      },
+
+      _visitedAllSites: function() {
+        for (var i = 0; i < this.mapData.length; i++) {
+          if (!this.mapData[i].visited) {
+            return false;
+          }
         }
-        if(this.visitedSites == this.totalSites){
-          this._goToPage('wudgie');
-        }
+        return true;
       }
     });
   </script>

@@ -2,83 +2,88 @@
 
 <dom-module id="map-data">
   <script>
+    const _default = [
+      {
+        latitude: 40.203797,
+        longitude: -85.408037,
+        name: "Bell Tower",
+        range: 0.0001,
+        question: 'What did you smell?',
+        visited: false,
+        responses: [
+          {
+            text: 'Fresh air',
+            value: +2
+          },
+          {
+            text: 'Exhaust fumes',
+            value: -2
+          },
+          {
+            text: 'Fried food',
+            value: -1
+          }
+        ]
+      },
+      {
+        latitude: 40.203295,
+        longitude: -85.407271,
+        name: "Frog Baby",
+        range: 0.0001,
+        question: 'What did you see?',
+        visited: false,
+        responses: [
+          {
+            text: 'Water',
+            value: +3
+          },
+          {
+            text: 'Plants',
+            value: +2
+          },
+          {
+            text: 'Litter',
+            value: -4
+          }
+        ]
+      },
+      {
+        latitude: 40.204366,
+        longitude: -85.406887,
+        name: "Architecture Building",
+        range: 0.0001,
+        question: 'What did you hear?',
+        visited: false,
+        responses: [
+          {
+            text: 'Birds',
+            value: +2
+          },
+          {
+            text: 'Music',
+            value: 0
+          },
+          {
+            text: 'Traffic',
+            value: -3
+          }
+        ]
+      }
+    ];
+
     Polymer({
       is: 'map-data',
       properties: {
         data: {
-          type: Array,
-          notify: true,
-          value: function(){
-            return [
-              {
-                latitude: 40.203797,
-                longitude: -85.408037,
-                name: "Bell Tower",
-                range: 0.0001,
-                question: 'What did you smell?',
-                visited: false,
-                responses: [
-                  {
-                    text: 'Fresh air',
-                    value: +2
-                  },
-                  {
-                    text: 'Exhaust fumes',
-                    value: -2
-                  },
-                  {
-                    text: 'Fried food',
-                    value: -1
-                  }
-                ]
-              },
-              {
-                latitude: 40.203295,
-                longitude: -85.407271,
-                name: "Frog Baby",
-                range: 0.0001,
-                question: 'What did you see?',
-                visited: false,
-                responses: [
-                  {
-                    text: 'Water',
-                    value: +3
-                  },
-                  {
-                    text: 'Plants',
-                    value: +2
-                  },
-                  {
-                    text: 'Litter',
-                    value: -4
-                  }
-                ]
-              },
-              {
-                latitude: 40.204366,
-                longitude: -85.406887,
-                name: "Architecture Building",
-                range: 0.0001,
-                question: 'What did you hear?',
-                visited: false,
-                responses: [
-                  {
-                    text: 'Birds',
-                    value: +2
-                  },
-                  {
-                    text: 'Music',
-                    value: 0
-                  },
-                  {
-                    text: 'Traffic',
-                    value: -3
-                  }
-                ]
-              }
-            ];
+          type: Object,
+          value: function () {
+            return JSON.parse(JSON.stringify(_default));
           }
         }
+      },
+
+      reset: function () {
+        this.data = JSON.parse(JSON.stringify(_default));
       }
     });
   </script>

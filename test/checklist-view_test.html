@@ -1,8 +1,7 @@
 <html>
 
 <head>
-  <meta name="viewport"
-        content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>checklist-view bdd test</title>
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
@@ -10,99 +9,155 @@
     <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
 
 
-    <link rel="import"
-          href="../src/checklist-view/checklist-view.html">
+    <link rel="import" href="../src/checklist-view/checklist-view.html">
 
 </head>
 
 <body>
-  <test-fixture id="basic">
-    <template>
+    <test-fixture id="basic">
+        <template>
       <checklist-view>
       </checklist-view>
     </template>
-  </test-fixture>
+    </test-fixture>
 
 
-  <script>
-    describe('no items checked', function () {
-      var element;
+    <script>
+        const allSites = [{
+                name: "Bell Tower",
+                question: 'What did you smell?',
+                responses: [{
+                        text: 'Fresh air',
+                        value: +2
+                    },
+                    {
+                        text: 'Exhaust fumes',
+                        value: -2
+                    },
+                    {
+                        text: 'Fried food',
+                        value: -1
+                    }
+                ]
+            },
+            {
+                name: "A second site",
+                question: "Will this be read?",
+                responses: [{
+                    text: 'No',
+                    value: 0
+                }]
+            }
+        ];
 
-      before(function () {
-        element = fixture('basic');
-      });
+        const site = allSites[0];
 
-      it('sets responses to empty array', function () {
-        expect(element.responses).to.exist;
-        expect(element.responses).to.be.empty;
-      });
-    });
+        describe('checklist-view with sample site data', function() {
+            var element;
 
-    const site = {
-      name: "Bell Tower",
-      question: 'What did you smell?',
-      responses: [
-        {
-          text: 'Fresh air',
-          value: +2
-        },
-        {
-          text: 'Exhaust fumes',
-          value: -2
-        },
-        {
-          text: 'Fried food',
-          value: -1
-        }
-      ]
-    };
+            beforeEach(function(done) {
+                element = fixture('basic');
+                element.mapData = clone(allSites);
+                element.currentSite = clone(site);
+                flush(done);
+            });
 
-    describe('correct items are checked', function () {
-      var element;
+            function clone(obj) {
+                return JSON.parse(JSON.stringify(obj));
+            }
 
-      beforeEach(function (done) {
-        element = fixture('basic');
-        element.currentSite = site;
-        flush(done);
-      });
+            function tapCheckbox(index) {
+                var checkbox = Polymer.dom(element.root).querySelectorAll('.checkbox')[index];
+                MockInteractions.tap(checkbox);
+            }
 
-      it('sets responses to contain only the right item', function () {
-        var checkbox = element.$$('.checkbox');
-        MockInteractions.tap(checkbox);
-        expect(element.responses.length).to.equal(1);
-        expect(element.responses[0]).to.deep.equal(site.responses[0]);
-      });
+            function expectCheckboxSelected(index) {
+                expect(element.currentSite.responses[index].selected).to.be.true;
+            }
 
-      it('sets responses to be empty', function () {
-        var checkbox = element.$$('.checkbox');
-        MockInteractions.tap(checkbox);
-        MockInteractions.tap(checkbox);
-        expect(element.responses).to.exist;
-        expect(element.responses).to.empty;
-      });
+            function expectCheckboxNotSelected(index) {
+                expect(element.currentSite.responses[index].selected).to.be.false;
+            }
 
-      it('sets responses to contain two items', function() {
-        var checkbox1 = Polymer.dom(element.root).querySelectorAll('.checkbox')[0];
-        var checkbox2 = Polymer.dom(element.root).querySelectorAll('.checkbox')[1];
-        MockInteractions.tap(checkbox1);
-        MockInteractions.tap(checkbox2);
-        expect(element.responses.length).to.equal(2);
-        expect(element.responses[0]).to.deep.equal(site.responses[0]);
-        expect(element.responses[1]).to.deep.equal(site.responses[1]);
-      });
+            describe('the first item is selected', function() {
+                beforeEach(function() {
+                    tapCheckbox(0);
+                });
 
-      it('sets responses to contain only the right item', function() {
-        var checkbox1 = Polymer.dom(element.root).querySelectorAll('.checkbox')[0];
-        var checkbox2 = Polymer.dom(element.root).querySelectorAll('.checkbox')[1];
-        MockInteractions.tap(checkbox1);
-        MockInteractions.tap(checkbox2);
-        MockInteractions.tap(checkbox1);
-        expect(element.responses.length).to.equal(1);
-        expect(element.responses[0]).to.deep.equal(site.responses[1]);
-      });
-    });
-  </script>
+                it('sets selected on first response', function() {
+                    expectCheckboxSelected(0);
+                })
+            });
 
+            describe('the first item is selected then deselected', function() {
+                beforeEach(function() {
+                    tapCheckbox(0);
+                    tapCheckbox(0);
+                });
+
+                it('marks first response as unselected', function() {
+                    expectCheckboxNotSelected(0);
+                });
+            });
+
+            describe('the second item is checked', function() {
+                beforeEach(function() {
+                    tapCheckbox(1);
+                });
+                it('marks the second response as selected', function() {
+                    expectCheckboxSelected(1);
+                });
+            });
+
+            describe('the submit button is pressed', function() {
+                beforeEach(function() {
+                    MockInteractions.tap(element.$.submit);
+                });
+                it('marks the site as visited', function() {
+                    expect(element.currentSite.visited).to.be.true;
+                });
+                it('routes to map view since there are more unmarked sites', function() {
+                    expect(element.nextPage).to.equal('map');
+                });
+            });
+
+            describe('routing as sites are visited', function() {
+
+                function visitSite(index) {
+                    element.currentSite = element.mapData[index];
+                    MockInteractions.tap(element.$.submit);
+                }
+
+                function resetMapData() {
+                    element.mapData = clone(allSites);
+                }
+
+                describe('the submit button is pressed and there are no unvisited sites', function() {
+                    beforeEach(function() {
+                        visitSite(0);
+                        visitSite(1);
+                    });
+
+                    it('routes to wudgie view', function() {
+                        expect(element.nextPage).to.equal('wudgie');
+                    });
+                });
+
+                describe('nextPage was wudgie from previous play, then locations are unmarked', function() {
+                    beforeEach(function() {
+                        visitSite(0);
+                        visitSite(1);
+                        resetMapData();
+                        visitSite(0);
+                    });
+
+                    it('routes to map view because some sites are unvisited', function() {
+                        expect(element.nextPage).to.equal('map');
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

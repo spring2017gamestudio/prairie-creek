@@ -1,0 +1,52 @@
+<html>
+
+<head>
+  <meta name="viewport"
+        content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>prairie-creek-game bdd test</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+
+    <link rel="import"
+          href="../src/prairie-creek-game/prairie-creek-game.html">
+
+</head>
+
+<body>
+  <test-fixture id="basic">
+    <template>
+      <prairie-creek-game>
+      </prairie-creek-game>
+    </template>
+  </test-fixture>
+
+
+  <script>
+    describe('navigate away and back to title view', function () {
+      var element;
+
+      beforeEach(function (done) {
+        element = fixture('basic');
+        flush(done);
+      });
+
+      it('resets the map data', function(done) {
+        element.mapData = {};
+
+        element.routeData.page = 'foo';
+        flush(function() {
+            element.routeData.page = 'title';
+            flush(function() {
+                expect(element.mapData.touched).to.not.deep.equal({});
+                done();
+            });
+        });
+        
+      });
+    });
+  </script>
+</body>
+
+</html>

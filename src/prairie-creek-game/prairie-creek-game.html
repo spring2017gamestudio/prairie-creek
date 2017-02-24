@@ -34,6 +34,7 @@
       <timer-view name="timer" route-data="{{routeData}}"></timer-view>
       <checklist-view
         name="checklist"
+        map-data="{{mapData}}"
         current-site="[[currentSite]]"
         route-data="{{routeData}}">
       </checklist-view>
@@ -78,6 +79,10 @@
 
           _pageChanged: function(page) {
             if (page) {
+              if (page === 'title') {
+                this.$$('map-data').reset();
+              }
+
               var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
               this.importHref(resolvedPageUrl, null, this._showPage404, true);
             }
