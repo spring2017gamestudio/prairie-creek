@@ -1,0 +1,14 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><dom-module id="intro-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h1>Visit all 3 locations found on the map</h1>
+    <paper-button raised="" on-tap="_back">Back</paper-button>
+    <paper-button raised="" on-tap="_next">Next</paper-button>
+  </template>
+  <script>Polymer({is:"intro-view",behaviors:[ViewBehavior],_back:function(){this._goToPage("title")},_next:function(){this._goToPage("map")}});</script>
+</dom-module>
+</body></html>
