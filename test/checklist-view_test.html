@@ -1,8 +1,7 @@
 <html>
 
 <head>
-  <meta name="viewport"
-        content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>checklist-view bdd test</title>
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
@@ -10,134 +9,155 @@
     <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
 
 
-    <link rel="import"
-          href="../src/checklist-view/checklist-view.html">
+    <link rel="import" href="../src/checklist-view/checklist-view.html">
 
 </head>
 
 <body>
-  <test-fixture id="basic">
-    <template>
+    <test-fixture id="basic">
+        <template>
       <checklist-view>
       </checklist-view>
     </template>
-  </test-fixture>
+    </test-fixture>
 
 
-  <script>
-    const allSites = [
-      {
-        name: "Bell Tower",
-        question: 'What did you smell?',
-        responses: [
-          {
-            text: 'Fresh air',
-            value: +2
-          },
-          {
-            text: 'Exhaust fumes',
-            value: -2
-          },
-          {
-            text: 'Fried food',
-            value: -1
-          }
-        ]
-      },
-      {
-        name: "A second site",
-        question: "Will this be read?",
-        responses: [
-          {
-            text: 'No',
-            value: 0
-          }
-        ]
-      }
-    ];
+    <script>
+        const allSites = [{
+                name: "Bell Tower",
+                question: 'What did you smell?',
+                responses: [{
+                        text: 'Fresh air',
+                        value: +2
+                    },
+                    {
+                        text: 'Exhaust fumes',
+                        value: -2
+                    },
+                    {
+                        text: 'Fried food',
+                        value: -1
+                    }
+                ]
+            },
+            {
+                name: "A second site",
+                question: "Will this be read?",
+                responses: [{
+                    text: 'No',
+                    value: 0
+                }]
+            }
+        ];
 
-    const site = allSites[0];
+        const site = allSites[0];
 
-    describe('checklist-view with sample site data', function () {
-      var element;
+        describe('checklist-view with sample site data', function() {
+            var element;
 
-      beforeEach(function (done) {
-        element = fixture('basic');
-        element.mapData = clone(allSites);
-        element.currentSite = clone(site);
-        flush(done);
-      });
+            beforeEach(function(done) {
+                element = fixture('basic');
+                element.mapData = clone(allSites);
+                element.currentSite = clone(site);
+                flush(done);
+            });
 
-      function clone(obj) {
-        return JSON.parse(JSON.stringify(obj));
-      }
+            function clone(obj) {
+                return JSON.parse(JSON.stringify(obj));
+            }
 
-      function tapCheckbox(index) {
-        var checkbox = Polymer.dom(element.root).querySelectorAll('.checkbox')[index];
-        MockInteractions.tap(checkbox);
-      }
+            function tapCheckbox(index) {
+                var checkbox = Polymer.dom(element.root).querySelectorAll('.checkbox')[index];
+                MockInteractions.tap(checkbox);
+            }
 
-      function expectCheckboxSelected(index) {
-        expect(element.currentSite.responses[index].selected).to.be.true;
-      }
+            function expectCheckboxSelected(index) {
+                expect(element.currentSite.responses[index].selected).to.be.true;
+            }
 
-      function expectCheckboxNotSelected(index) {
-        expect(element.currentSite.responses[index].selected).to.be.false;
-      }
+            function expectCheckboxNotSelected(index) {
+                expect(element.currentSite.responses[index].selected).to.be.false;
+            }
 
-      describe('the first item is selected', function () {
-        beforeEach(function () {
-          tapCheckbox(0);
+            describe('the first item is selected', function() {
+                beforeEach(function() {
+                    tapCheckbox(0);
+                });
+
+                it('sets selected on first response', function() {
+                    expectCheckboxSelected(0);
+                })
+            });
+
+            describe('the first item is selected then deselected', function() {
+                beforeEach(function() {
+                    tapCheckbox(0);
+                    tapCheckbox(0);
+                });
+
+                it('marks first response as unselected', function() {
+                    expectCheckboxNotSelected(0);
+                });
+            });
+
+            describe('the second item is checked', function() {
+                beforeEach(function() {
+                    tapCheckbox(1);
+                });
+                it('marks the second response as selected', function() {
+                    expectCheckboxSelected(1);
+                });
+            });
+
+            describe('the submit button is pressed', function() {
+                beforeEach(function() {
+                    MockInteractions.tap(element.$.submit);
+                });
+                it('marks the site as visited', function() {
+                    expect(element.currentSite.visited).to.be.true;
+                });
+                it('routes to map view since there are more unmarked sites', function() {
+                    expect(element.nextPage).to.equal('map');
+                });
+            });
+
+            describe('routing as sites are visited', function() {
+
+                function visitSite(index) {
+                    element.currentSite = element.mapData[index];
+                    MockInteractions.tap(element.$.submit);
+                }
+
+                function resetMapData() {
+                    element.mapData = clone(allSites);
+                }
+
+                describe('the submit button is pressed and there are no unvisited sites', function() {
+                    beforeEach(function() {
+                        visitSite(0);
+                        visitSite(1);
+                    });
+
+                    it('routes to wudgie view', function() {
+                        expect(element.nextPage).to.equal('wudgie');
+                    });
+                });
+
+                describe('nextPage was wudgie from previous play, then locations are unmarked', function() {
+                    beforeEach(function() {
+                        visitSite(0);
+                        visitSite(1);
+                        resetMapData();
+                        visitSite(0);
+                    });
+
+                    it('routes to map view because some sites are unvisited', function() {
+                        expect(element.nextPage).to.equal('map');
+                    });
+                });
+            });
         });
-
-        it('sets selected on first response', function () {
-          expectCheckboxSelected(0);
-        })
-      });
-
-      describe('the first item is selected then deselected', function () {
-        beforeEach(function () {
-          tapCheckbox(0);
-          tapCheckbox(0);
-        });
-
-        it('marks first response as unselected', function () {
-          expectCheckboxNotSelected(0);
-        });
-      });
-
-      describe('the second item is checked', function() {
-        beforeEach(function() {
-          tapCheckbox(1);
-        });
-        it('marks the second response as selected', function() {
-          expectCheckboxSelected(1);
-        });
-      });
-
-      describe('the submit button is pressed', function () {
-        beforeEach(function () {
-          MockInteractions.tap(element.$.submit);
-        });
-        it('marks the site as visited', function () {
-          expect(element.currentSite.visited).to.be.true;
-        });
-        it('routes to map view since there are more unmarked sites', function () {
-          expect(element.nextPage).to.equal('map');
-        });
-      });
-
-      describe('the submit button is pressed and there are no unvisited sites', function () {
-        beforeEach(function () {
-          element.mapData = clone(site);
-          MockInteractions.tap(element.$.submit);
-        });
-        it('routes to wudgie view', function () {
-          expect(element.nextPage).to.equal('wudgie');
-        });
-      });
-    });
-  </script>
+    </script>
 </body>
 
 </html>

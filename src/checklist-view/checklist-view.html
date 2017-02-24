@@ -47,11 +47,7 @@
 
       _next: function() {
         this.currentSite.visited = true;
-      
-        if (this._visitedAllSites()) {
-          this.nextPage = 'wudgie';
-        }
-
+        this.nextPage = this._visitedAllSites() ? 'wudgie' : 'map';
         this._goToPage(this.nextPage);
       },
 
