@@ -36,10 +36,12 @@
       <br>
       Currently at [[currentSite.name]]
 
-      <div class="debugging-and-temporary">
-        <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
-      </div>
-      <paper-button raised on-tap="_debugModeOn">Debug Mode</paper-button>
+      <template is="dom-if" if$="[[devMode]]">
+        <div class="debugging">
+          <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
+          <paper-button raised on-tap="_debugModeOn">Enable Location Override</paper-button>
+        </div>
+      </template>
     </div>
   </template>
   <script>
@@ -60,6 +62,10 @@
         },
         currentSite: {
           type: Object
+        },
+        devMode: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -75,7 +81,6 @@
 
       _debugModeOn: function() {
         this.$.map.setAttribute('click-events', true);
-        console.log("Debug Mode On");
       },
 
       _debugLocation: function(event){
