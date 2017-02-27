@@ -33,7 +33,11 @@
         dev-mode="[[devMode]]">
       </map-view>
       <arrival-view name="arrival" route-data="{{routeData}}" location-name="[[currentSite.name]]"></arrival-view>
-      <timer-view name="timer" route-data="{{routeData}}" dev-mode="[[devMode]]"></timer-view>
+      <timer-view 
+        name="timer"
+        prompt="[[currentSite.prompt]]"
+        route-data="{{routeData}}">
+      </timer-view>
       <checklist-view
         name="checklist"
         map-data="{{mapData}}"
