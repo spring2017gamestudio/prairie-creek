@@ -70,19 +70,12 @@
                 type: Object,
                 notify: true
               },
-              tailData: {
-                type: Object,
-                observer: '_tailDataChanged'
-              },
+              tailData: Object,
               devMode: {
                 type: Boolean,
                 notify: true,
                 computed: '_checkDebugMode(tailData)'
               }
-          },
-
-          _tailDataChanged: function(data) {
-            console.log('Changed to ', data);
           },
 
           observers: [
