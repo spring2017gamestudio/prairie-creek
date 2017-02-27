@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>map-view bdd test</title>
+
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="bower_components/web-component-tester/browser.js"></script>
+    <link rel="import" href="../src/map-view/map-view.html">
+  </head>
+  <body>
+
+  <test-fixture id="basic">
+    <template>
+      <map-view hide-map></map-view>
+    </template>
+  </test-fixture>
+
+  <script>
+    describe(' tests', function() {
+      var element;
+
+      before(function() {
+        element = fixture('basic');
+      });
+
+      it('', function() {
+        // TODO
+      });
+
+    });
+  </script>
+
+  </body>
+</html>
