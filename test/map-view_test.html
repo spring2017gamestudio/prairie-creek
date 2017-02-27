@@ -1,13 +1,15 @@
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>map-view bdd test</title>
 
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="bower_components/web-component-tester/browser.js"></script>
-    <link rel="import" href="../src/map-view/map-view.html">
-  </head>
-  <body>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>map-view bdd test</title>
+
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <link rel="import" href="../src/map-view/map-view.html">
+</head>
+
+<body>
 
   <test-fixture id="basic">
     <template>
@@ -16,19 +18,64 @@
   </test-fixture>
 
   <script>
-    describe(' tests', function() {
+    const allSites = [{
+      name: "Bell Tower",
+      question: 'What did you smell?',
+      responses: [{
+        text: 'Fresh air',
+        value: +2
+      },
+      {
+        text: 'Exhaust fumes',
+        value: -2
+      },
+      {
+        text: 'Fried food',
+        value: -1
+      }
+      ]
+    },
+    {
+      name: "A second site",
+      question: "Will this be read?",
+      responses: [{
+        text: 'No',
+        value: 0
+      }]
+    }
+    ];
+
+
+    describe('map-view tests', function () {
       var element;
 
-      before(function() {
+      beforeEach(function (done) {
         element = fixture('basic');
+        element.locations = allSites;
+        flush(done);
       });
 
-      it('', function() {
-        // TODO
+      it('shows generic instructions when at no location', function() {
+        expect(areInstructionsShown()).to.be.true;
       });
 
+      function areInstructionsShown() {
+        return !element.$.instructions.hidden;
+      }
+
+      describe('moving in range of a site', function () {
+        beforeEach(function (done) {
+          element.currentSite = element.locations[0];
+          flush(done);
+        });
+
+        it('hides the instruction div', function () {
+          expect(areInstructionsShown()).to.be.false;
+        });
+      })
     });
   </script>
 
-  </body>
+</body>
+
 </html>
