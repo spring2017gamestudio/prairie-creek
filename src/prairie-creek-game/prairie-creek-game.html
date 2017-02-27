@@ -1279,7 +1279,7 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
   <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,computed:"_determineSite(latitude,longitude,sites)"}},_determineSite:function(e,t,i){const r=1e6;for(var n,u,o,d,s=r,a=0;a<i.length;a++)u=e-i[a].latitude,o=t-i[a].longitude,n=Math.sqrt(u*u+o*o),n<s&&n<=i[a].range&&(s=n,d=a);return s==r?void 0:i[d]}});</script>
 </dom-module>
 <dom-module id="map-data" assetpath="../map-data/">
-  <script>const _default=[{latitude:40.203797,longitude:-85.408037,name:"Bell Tower",range:1e-4,question:"What did you smell?",visited:!1,responses:[{text:"Fresh air",value:2},{text:"Exhaust fumes",value:-2},{text:"Fried food",value:-1}]},{latitude:40.203295,longitude:-85.407271,name:"Frog Baby",range:1e-4,question:"What did you see?",visited:!1,responses:[{text:"Water",value:3},{text:"Plants",value:2},{text:"Litter",value:-4}]},{latitude:40.204366,longitude:-85.406887,name:"Architecture Building",range:1e-4,question:"What did you hear?",visited:!1,responses:[{text:"Birds",value:2},{text:"Music",value:0},{text:"Traffic",value:-3}]}];Polymer({is:"map-data",properties:{data:{notify:!0,type:Object,value:function(){return JSON.parse(JSON.stringify(_default))}}},reset:function(){this.data=JSON.parse(JSON.stringify(_default))}});</script>
+  <script>const _default=[{latitude:40.203797,longitude:-85.408037,name:"Bell Tower",range:1e-4,prompt:"Breathe deeply and consider what you smell.",question:"What did you smell?",visited:!1,responses:[{text:"Fresh air",value:2},{text:"Exhaust fumes",value:-2},{text:"Fried food",value:-1}]},{latitude:40.203295,longitude:-85.407271,name:"Frog Baby",range:1e-4,prompt:"Observe your surroundings.",question:"What did you see?",visited:!1,responses:[{text:"Water",value:3},{text:"Plants",value:2},{text:"Litter",value:-4}]},{latitude:40.204366,longitude:-85.406887,name:"Architecture Building",range:1e-4,prompt:"Take a moment to listen to the world around you.",question:"What did you hear?",visited:!1,responses:[{text:"Birds",value:2},{text:"Music",value:0},{text:"Traffic",value:-3}]}];Polymer({is:"map-data",properties:{data:{notify:!0,type:Object,value:function(){return JSON.parse(JSON.stringify(_default))}}},reset:function(){this.data=JSON.parse(JSON.stringify(_default))}});</script>
 </dom-module>
 <dom-module id="user-location" assetpath="../user-location/">
   <template>
@@ -1305,7 +1305,8 @@ t&&Polymer.Base.mixin(this.customStyle,t),this._styleCache.clear();for(var r,s=0
       <map-view name="map" locations="[[mapData]]" latitude="{{latitude}}" longitude="{{longitude}}" current-site="[[currentSite]]" route-data="{{routeData}}" dev-mode="[[devMode]]">
       </map-view>
       <arrival-view name="arrival" route-data="{{routeData}}" location-name="[[currentSite.name]]"></arrival-view>
-      <timer-view name="timer" route-data="{{routeData}}" dev-mode="[[devMode]]"></timer-view>
+      <timer-view name="timer" prompt="[[currentSite.prompt]]" route-data="{{routeData}}">
+      </timer-view>
       <checklist-view name="checklist" map-data="{{mapData}}" current-site="[[currentSite]]" route-data="{{routeData}}">
       </checklist-view>
       <wudgie-view name="wudgie" route-data="{{routeData}}"></wudgie-view>
