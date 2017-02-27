@@ -421,16 +421,14 @@
     }
     </style>
     <div class="content">
-      <template is="dom-if" if$="[[showMap]]">
-        <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM" fit-to-markers="">
-          <template is="dom-repeat" items="[[locations]]" item="item">
-            <google-map-marker latitude="[[item.latitude]]" longitude="[[item.longitude]]">
-            </google-map-marker>
-          </template>
-          <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]" icon="images/charlie.png">
+      <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM" fit-to-markers="">
+        <template is="dom-repeat" items="[[locations]]" item="item">
+          <google-map-marker latitude="[[item.latitude]]" longitude="[[item.longitude]]">
           </google-map-marker>
-        </google-map>
-      </template>
+        </template>
+        <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]" icon="images/charlie.png">
+        </google-map-marker>
+      </google-map>
 
       <p>
         Please visit one of these locations.
@@ -446,6 +444,6 @@
       </template>
     </div>
   </template>
-  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object},devMode:{type:Boolean,value:!1},showMap:{type:Boolean,value:!0}},observers:["_updateIfAtLocation(currentSite)"],_updateIfAtLocation:function(t){void 0!==t&&this._goToPage("arrival")},_debugModeOn:function(){this.$.map.setAttribute("click-events",!0)},_debugLocation:function(t){var e=t.detail.latLng.lat(),o=t.detail.latLng.lng();this.latitude=e,this.longitude=o},_useCurrentLocation:function(){var t=this;navigator.geolocation.getCurrentPosition(function(e){var o=e.coords;t.latitude=o.latitude,t.longitude=o.longitude})}});</script>
+  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object},devMode:{type:Boolean,value:!1}},observers:["_updateIfAtLocation(currentSite)"],_updateIfAtLocation:function(t){void 0!==t&&this._goToPage("arrival")},_debugModeOn:function(){this.$.map.setAttribute("click-events",!0)},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.latitude=e,this.longitude=i},_useCurrentLocation:function(){var t=this;navigator.geolocation.getCurrentPosition(function(e){var i=e.coords;t.latitude=i.latitude,t.longitude=i.longitude})}});</script>
 </dom-module>
 </body></html>
