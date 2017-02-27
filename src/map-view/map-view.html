@@ -80,16 +80,6 @@
         }
       },
 
-      observers: [
-        '_updateIfAtLocation(currentSite)'
-      ],
-
-      _updateIfAtLocation: function (currentSite) {
-        if (currentSite !== undefined) {
-          this._goToPage('arrival');
-        }
-      },
-
       _hasSite: function(currentSite) {
         return currentSite !== undefined;
       },
