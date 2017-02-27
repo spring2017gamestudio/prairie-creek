@@ -32,8 +32,16 @@
         },
         currentSite: {
           type: Object
-        }
+        },
+        devMode: {
+          type: Boolean,
+          notify: true
+        },
       },
+
+      observers: [
+        '_devModeCheck(devMode)'
+      ],
 
       ready: function() {
         this.$.locationTimer.start();
@@ -44,6 +52,12 @@
           that._setLongitude(coords.longitude);
           console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
         });
+      },
+
+      _devModeCheck: function(devMode){
+        if (devMode == true){
+          this.$.locationTimer.pause();
+        }
       },
 
       _updateLocation: function(){
