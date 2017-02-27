@@ -40,13 +40,15 @@
           Please visit one of these locations.
         </p>
       </div>
-
-      <br> Currently at [[currentSite.name]]
+      <div id="arrival" hidden$="[[!_hasSite(currentSite)]]"> 
+        Currently at [[currentSite.name]]
+        <paper-button raised on-tap="_proceed">Explore</paper-button>
+      </div>
 
       <template is="dom-if" if$="[[devMode]]">
         <div class="debugging">
           <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
-          <paper-button raised on-tap="_debugModeOn">Enable Location Override</paper-button>
+          <paper-button raised on-tap="_enableLocationOverride">Enable Location Override</paper-button>
         </div>
       </template>
     </div>
@@ -84,8 +86,8 @@
         return currentSite !== undefined;
       },
 
-      _debugModeOn: function () {
-        this.$.map.setAttribute('click-events', true);
+      _enableLocationOverride: function () {
+        this.$$('#map').setAttribute('click-events', true);
       },
 
       _debugLocation: function (event) {
@@ -103,6 +105,10 @@
           that.longitude = coords.longitude;
         });
       },
+
+      _proceed: function() {
+        this._goToPage('timer');
+      }
     });
   </script>
 </dom-module>

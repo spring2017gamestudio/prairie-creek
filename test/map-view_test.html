@@ -55,13 +55,14 @@
         flush(done);
       });
 
-      it('shows generic instructions when at no location', function() {
-        expect(areInstructionsShown()).to.be.true;
+      describe('at no site', function () {
+        it('shows generic instructions', function () {
+          expect(areInstructionsShown()).to.be.true;
+        });
+        it('hides the arrival div', function () {
+          expect(isArrivalShown()).to.be.false;
+        });
       });
-
-      function areInstructionsShown() {
-        return !element.$.instructions.hidden;
-      }
 
       describe('moving in range of a site', function () {
         beforeEach(function (done) {
@@ -72,7 +73,20 @@
         it('hides the instruction div', function () {
           expect(areInstructionsShown()).to.be.false;
         });
-      })
+
+        it('shows arrival div', function () {
+          expect(isArrivalShown()).to.be.true;
+        });
+
+      });
+
+      function areInstructionsShown() {
+        return !element.$.instructions.hidden;
+      }
+
+      function isArrivalShown() {
+        return !element.$.arrival.hidden;
+      }
     });
   </script>
 
