@@ -40,6 +40,12 @@
         <div class="debugging">
           <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
           <paper-button raised on-tap="_debugModeOn">Enable Location Override</paper-button>
+          <br />
+          <br />
+          <p>Locations:</p>
+          <template is="dom-repeat" items="[[locations]]" item="item">
+            <paper-button raised latitude="[[item.latitude]]" longitude="[[item.longitude]]" on-tap="_goToLocation">[[item.name]]</paper-button>
+          </template>
         </div>
       </template>
     </div>
@@ -98,6 +104,11 @@
           that.longitude = coords.longitude;
         });
       },
+
+      _goToLocation: function(event) {
+        this.latitude = event.model.get('item.latitude');
+        this.longitude = event.model.get('item.longitude');
+      }
     });
   </script>
 </dom-module>
