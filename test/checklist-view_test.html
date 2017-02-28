@@ -8,11 +8,10 @@
         <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
         <script src="../bower_components/web-component-tester/browser.js"></script>
         <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
-
+        <script src="test-site-data.js"></script>
 
         <link rel="import"
               href="../src/checklist-view/checklist-view.html">
-
 </head>
 
 <body>
@@ -23,37 +22,7 @@
         </template>
     </test-fixture>
 
-
     <script>
-        const allSites = [{
-            name: "Bell Tower",
-            question: 'What did you smell?',
-            responses: [{
-                text: 'Fresh air',
-                value: +2
-            },
-            {
-                text: 'Exhaust fumes',
-                value: -2
-            },
-            {
-                text: 'Fried food',
-                value: -1
-            }
-            ]
-        },
-        {
-            name: "A second site",
-            question: "Will this be read?",
-            responses: [{
-                text: 'No',
-                value: 0
-            }]
-        }
-        ];
-
-        const site = allSites[0];
-
         describe('checklist-view with sample site data', function () {
             var element;
 
@@ -65,7 +34,7 @@
             });
 
             function resetMapData() {
-                element.mapData = clone(allSites);
+                element.mapData = cloneTestSiteData();
             }
 
             function setCurrentSiteTo(index) {
