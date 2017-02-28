@@ -38,7 +38,6 @@
 
       <template is="dom-if" if$="[[devMode]]">
         <div class="debugging">
-          <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
           <paper-button raised on-tap="_debugModeOn">Enable Location Override</paper-button>
           <div>
             Warp to:
@@ -100,15 +99,6 @@
         var longitude = event.detail.latLng.lng();
         this.latitude = latitude;
         this.longitude = longitude;
-      },
-
-      _useCurrentLocation: function() {
-        var that = this;
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var coords = position.coords;
-          that.latitude = coords.latitude;
-          that.longitude = coords.longitude;
-        });
       },
 
       _warpToLocation: function(event) {
