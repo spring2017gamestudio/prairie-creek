@@ -38,8 +38,19 @@
 
       <template is="dom-if" if$="[[devMode]]">
         <div class="debugging">
-          <paper-button raised on-tap="_useCurrentLocation">Use Current Location</paper-button>
           <paper-button raised on-tap="_debugModeOn">Enable Location Override</paper-button>
+          <div>
+            Warp to:
+            <template is="dom-repeat" items="[[locations]]" item="item">
+              <paper-button 
+                raised 
+                latitude="[[item.latitude]]"
+                longitude="[[item.longitude]]"
+                on-tap="_warpToLocation">
+                [[item.name]]
+              </paper-button>
+            </template>
+          </div>
         </div>
       </template>
     </div>
@@ -90,14 +101,10 @@
         this.longitude = longitude;
       },
 
-      _useCurrentLocation: function() {
-        var that = this;
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var coords = position.coords;
-          that.latitude = coords.latitude;
-          that.longitude = coords.longitude;
-        });
-      },
+      _warpToLocation: function(event) {
+        this.latitude = event.model.get('item.latitude');
+        this.longitude = event.model.get('item.longitude');
+      }
     });
   </script>
 </dom-module>
