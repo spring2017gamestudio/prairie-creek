@@ -11,10 +11,15 @@
       :host {
         display: block;
       }
+      @media only screen and (max-width: 700px) {
+        #introTitle {
+          display: block;
+          width: 80%;
+        }
+      }
     </style>
-    <h1>Ball State Hunt</h1>
-    <img src="../../images/charlie.png"></img>
-    <h2>Please proceed to Ball State University to play</h2>
+    <img id="introTitle" src="../../images/LogoText.png"></img>
+    <br>
     <paper-button raised on-tap="_start">Play</paper-button>
   </template>
   <script>
