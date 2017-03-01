@@ -26,7 +26,7 @@
       <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
         fit-to-markers>
         <template is="dom-repeat" items="[[locations]]" item="item">
-          <google-map-marker latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
+          <google-map-marker class='site' latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
           </google-map-marker>
         </template>
         <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]">
@@ -101,7 +101,22 @@
 
       observers: [
         '_siteChanged(currentSite)',
+        '_siteVisited(currentSite.visited)'
       ],
+
+      _siteVisited(siteVisited){
+        if(this.currentSite!==null){
+        var markers=Polymer.dom(this.root).querySelectorAll('.site');
+        var i=0;
+        for (var place of this.locations) {
+          if (place.visited) {
+            markers[i].setAttribute('icon',this.locations[i].grayicon);
+
+          }
+          i++;
+        }
+      }
+      },
 
       _siteChanged: function(currentSite) {
         if (currentSite == null) {
@@ -128,7 +143,7 @@
       },
 
       _proceed: function () {
-        this.currentSite.visited = true;
+        this.set('currentSite.visited',true);
         this.showInstructions = true;
         this._goToPage('timer');
       }
