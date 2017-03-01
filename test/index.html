@@ -10,26 +10,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>Tests</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <title>Tests</title>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+</head>
 
-    <script src="../bower_components/web-component-tester/browser.js"></script>
-  </head>
-  <body>
-    <script>
-      WCT.loadSuites([
-        'current-site/current-site_test.html?dom=shady',
-        'current-site/current-site_test.html?dom=shadow',
-        'checklist-view_test.html?dom=shady',
-        'checklist-view_test.html?dom=shadow',
-        'prairie-creek-game_test.html?dom=shady',
-        'prairie-creek-game_test.html?dom=shadow',
-        'map-data_test.html?dom=shady',
-        'map-data_test.html?dom=shadow'
-      ]);
-    </script>
-  </body>
+<body>
+  <script>
+    function generateShadyAndShadowPaths(path) {
+      return [path + '?dom=shady', path + '?dom=shadow'];
+    }
+
+    function testShadyAndShadow(paths) {
+      var all = [];
+      for (var i = 0; i < paths.length; i++) {
+        var shadyAndShadow = generateShadyAndShadowPaths(paths[i]);
+        all.splice.apply(all, [0, 0].concat(shadyAndShadow));
+      }
+      WCT.loadSuites(all);
+    }
+
+    testShadyAndShadow([
+      'current-site/current-site_test.html',
+      'checklist-view_test.html',
+      'prairie-creek-game_test.html',
+      'map-data_test.html',
+      'map-view_test.html'
+    ]);
+  </script>
+</body>
+
 </html>

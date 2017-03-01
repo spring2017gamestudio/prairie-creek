@@ -52,8 +52,8 @@
         element = fixture('no-site');
       });
 
-      it('is undefined site', function () {
-        expect(element.site).to.be.undefined;
+      it('is null site', function () {
+        expect(element.site).to.be.null;
       });
     });
 
@@ -74,7 +74,7 @@
         it('within range of first marked site then move and be in range of second', function () {
           element.latitude = 0;
           element.longitude = 0;
-          expect(element.site).to.be.undefined;
+          expect(element.site).to.be.null;
         })
       });
 
@@ -97,8 +97,8 @@
         element.longitude = 0;
       });
 
-      it('sets site to undefined', function () {
-        expect(element.site).to.be.undefined;
+      it('sets site to null', function () {
+        expect(element.site).to.be.null;
       });
     });
   </script>

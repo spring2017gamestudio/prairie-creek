@@ -21,6 +21,7 @@
         site: {
           type: Object,
           notify: true,
+          value: null,
           computed: '_determineSite(latitude,longitude,sites)'
         },
       },
@@ -42,7 +43,7 @@
             indexOfSite = i;
           }
         }
-        return (saveDist == BIG_DISTANCE) ? undefined : sites[indexOfSite];
+        return (saveDist == BIG_DISTANCE) ? null : sites[indexOfSite];
       }
 
     });
