@@ -6,8 +6,11 @@
       }
     </style>
     Wudgie Cam placeholder
+    <br>
+    [[wudgieText]]
+    <br>
     <paper-button raised="" on-tap="_next">Go to collections screen</paper-button>
   </template>
-  <script>Polymer({is:"wudgie-view",behaviors:[ViewBehavior],_next:function(){this._goToPage("collection")}});</script>
+  <script>Polymer({is:"wudgie-view",behaviors:[ViewBehavior],properties:{mapData:{type:Object,notify:!0},wudgieData:{type:Object,notify:!0},wudgieText:{type:String,computed:"_currentWudgieText(mapData,wudgieData)"}},_currentWudgieText:function(e,t){for(var i=0,r=0;r<e.length;r++)for(var n=0;n<e[r].responses.length;n++)i+=e[r].responses[n].selected?e[r].responses[n].value:0;return t[Math.sign(i)+1]},_next:function(){this._goToPage("collection")}});</script>
 </dom-module>
 </body></html>

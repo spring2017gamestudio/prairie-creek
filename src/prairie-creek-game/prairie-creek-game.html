@@ -1279,7 +1279,7 @@ var e=Polymer.StyleProperties,t=Polymer.StyleCache,n=Polymer.Settings.useNativeC
   <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,value:null,computed:"_determineSite(latitude,longitude,sites)"}},_determineSite:function(e,t,r){for(var i,u,n,l,a=1e6,d=0;d<r.length;d++)u=e-r[d].latitude,n=t-r[d].longitude,i=Math.sqrt(u*u+n*n),i<a&&i<=r[d].range&&(a=i,l=d);return 1e6==a?null:r[l]}});</script>
 </dom-module>
 <dom-module id="map-data" assetpath="../map-data/">
-  <script>const _default=[{latitude:40.203797,longitude:-85.408037,name:"Bell Tower",range:1e-4,prompt:"Breathe deeply and consider what you smell.",question:"What did you smell?",visited:!1,icon:"images/belltower.png",responses:[{text:"Food",value:-1},{text:"Grass",value:3},{text:"Cars",value:-2},{text:"Trash",value:-1},{text:"Perfume",value:-1}]},{latitude:40.203295,longitude:-85.407271,name:"Frog Baby",range:1e-4,prompt:"Observe your surroundings.",question:"What did you see?",visited:!1,icon:"images/frogbaby.png",responses:[{text:"Water",value:3},{text:"Trees",value:2},{text:"Litter",value:-4},{text:"Flowers",value:2},{text:"Metal",value:-1}]},{latitude:40.204366,longitude:-85.406887,name:"Architecture Building",range:1e-4,prompt:"Take a moment to listen to the world around you.",question:"What did you hear?",visited:!1,icon:"images/CAP.png",responses:[{text:"Birds",value:2},{text:"Music",value:0},{text:"Traffic",value:-3},{text:"Talking",value:0},{text:"Wind",value:2}]}];Polymer({is:"map-data",properties:{data:{notify:!0,type:Object,value:function(){return JSON.parse(JSON.stringify(_default))}}},reset:function(){this.data=JSON.parse(JSON.stringify(_default))}});</script>
+  <script>const _default=[{latitude:40.203797,longitude:-85.408037,name:"Bell Tower",range:1e-4,prompt:"Breathe deeply and consider what you smell.",question:"What did you smell?",visited:!1,icon:"images/belltower.png",responses:[{text:"Food",value:-1},{text:"Grass",value:3},{text:"Cars",value:-2},{text:"Trash",value:-1},{text:"Perfume",value:-1}]},{latitude:40.203295,longitude:-85.407271,name:"Frog Baby",range:1e-4,prompt:"Observe your surroundings.",question:"What did you see?",visited:!1,icon:"images/frogbaby.png",responses:[{text:"Water",value:3},{text:"Trees",value:2},{text:"Litter",value:-4},{text:"Flowers",value:2},{text:"Metal",value:-1}]},{latitude:40.204366,longitude:-85.406887,name:"Architecture Building",range:1e-4,prompt:"Take a moment to listen to the world around you.",question:"What did you hear?",visited:!1,icon:"images/CAP.png",responses:[{text:"Birds",value:2},{text:"Music",value:0},{text:"Traffic",value:-3},{text:"Talking",value:0},{text:"Wind",value:2}]}],_wudgieData=["A wudgie found some of our trash and brought it back to you!","You found a nature spirit!","You became one with nature and a nature wudgie appeared"];Polymer({is:"map-data",properties:{data:{notify:!0,type:Object,value:function(){return JSON.parse(JSON.stringify(_default))}},wudgieData:{notify:!0,type:Object,value:function(){return JSON.parse(JSON.stringify(_wudgieData))}}},reset:function(){this.data=JSON.parse(JSON.stringify(_default))}});</script>
 </dom-module>
 <dom-module id="user-location" assetpath="../user-location/">
   <template>
@@ -1295,7 +1295,7 @@ var e=Polymer.StyleProperties,t=Polymer.StyleCache,n=Polymer.Settings.useNativeC
     <app-location route="{{route}}" use-hash-as-path=""></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{tail}}"></app-route>
     <app-route route="{{tail}}" pattern="/:d" data="{{tailData}}"></app-route>
-    <map-data data="{{mapData}}"></map-data>
+    <map-data data="{{mapData}}" wudgie-data="{{wudgieData}}"></map-data>
     <user-location latitude="{{latitude}}" longitude="{{longitude}}" dev-mode="[[devMode]]"></user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
 
@@ -1308,12 +1308,12 @@ var e=Polymer.StyleProperties,t=Polymer.StyleCache,n=Polymer.Settings.useNativeC
       </timer-view>
       <checklist-view name="checklist" map-data="{{mapData}}" current-site="[[currentSite]]" route-data="{{routeData}}">
       </checklist-view>
-      <wudgie-view name="wudgie" route-data="{{routeData}}"></wudgie-view>
+      <wudgie-view name="wudgie" map-data="[[mapData]]" wudgie-data="[[wudgieData]]" route-data="{{routeData}}"></wudgie-view>
       <collection-view name="collection" route-data="{{routeData}}"></collection-view>
       <missing-view name="missing" route-data="{{routeData}}"></missing-view>
     </iron-pages>
   </template>
 
-  <script>Polymer({is:"prairie-creek-game",properties:{mapData:{type:Object},route:{type:Object},routeData:{type:Object,notify:!0},currentSite:{type:Object,notify:!0},tailData:Object,devMode:{type:Boolean,notify:!0,computed:"_checkDebugMode(tailData)"}},observers:["_onRoutePathChanged(route.path)","_pageChanged(routeData.page)"],_onRoutePathChanged:function(e){e||this.set("route.path","/title")},_pageChanged:function(e){if(e){"title"===e&&this.$$("map-data").reset();var t=this.resolveUrl("../"+e+"-view/"+e+"-view.html");this.importHref(t,null,this._showPage404,!0)}},_showPage404:function(){this.set("routeData.page","missing")},_checkDebugMode:function(e){return!!e.d&&(console.log("Debug mode enabled"),!0)}});</script>
+  <script>Polymer({is:"prairie-creek-game",properties:{mapData:{type:Object},wudgieData:{type:Object},route:{type:Object},routeData:{type:Object,notify:!0},currentSite:{type:Object,notify:!0},tailData:Object,devMode:{type:Boolean,notify:!0,computed:"_checkDebugMode(tailData)"}},observers:["_onRoutePathChanged(route.path)","_pageChanged(routeData.page)"],_onRoutePathChanged:function(e){e||this.set("route.path","/title")},_pageChanged:function(e){if(e){"title"===e&&this.$$("map-data").reset();var t=this.resolveUrl("../"+e+"-view/"+e+"-view.html");this.importHref(t,null,this._showPage404,!0)}},_showPage404:function(){this.set("routeData.page","missing")},_checkDebugMode:function(e){return!!e.d&&(console.log("Debug mode enabled"),!0)}});</script>
 </dom-module>
 </body></html>
