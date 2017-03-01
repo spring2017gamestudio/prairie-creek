@@ -39,7 +39,6 @@
         var wudgieValue = 0;
         for(var i=0;i<mapData.length;i++) {
           for(var j=0;j<mapData[i].responses.length;j++) {
-            console.log(" wudgieValue: ",wudgieValue," response: ",mapData[i].responses[j].text," value: ",mapData[i].responses[j].value," selected: ",mapData[i].responses[j].selected);
             wudgieValue += (mapData[i].responses[j].selected ? mapData[i].responses[j].value : 0);
           }
         }
