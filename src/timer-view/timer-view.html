@@ -19,6 +19,6 @@
       </div>
     </template>
   </template>
-  <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],properties:{currentSite:Object,prompt:{type:String},secondsRemaining:{type:Number},devMode:{type:Boolean,value:!1}},observers:["_startTimerOnPageEntry(routeData)","_pauseTimer(secondsRemaining)"],_startTimerOnPageEntry:function(e){"timer"==e.page&&this.$.timer.start()},_next:function(){this.$.timer.reset(),this._goToPage("checklist")},_pauseTimer:function(e){e<=0&&(this.$.timer.pause(),this.$.timer.currentTime=0)},_hasNoSecondsRemaining:function(e){return 0==e}});</script>
+  <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],properties:{currentSite:Object,prompt:{type:String},secondsRemaining:{type:Number},devMode:{type:Boolean,value:!1}},observers:["_startTimerOnPageEntry(routeData)","_pauseTimer(secondsRemaining)"],_startTimerOnPageEntry:function(e){"timer"==e.page&&(this.$.timer.reset(),this.$.timer.start())},_next:function(){this.$.timer.currentTime=0,this.$.timer.reset(),this._goToPage("checklist")},_pauseTimer:function(e){e<=0&&(this.$.timer.pause(),this.$.timer.currentTime=0)},_hasNoSecondsRemaining:function(e){return 0==e}});</script>
 </dom-module>
 </body></html>
