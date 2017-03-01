@@ -13,11 +13,11 @@
       .content {
         @apply(--paper-font-body1);
       }
-      
+
       google-map {
         height: 50vh;
       }
-      
+
       paper-input {
         width: 20em;
       }
@@ -26,10 +26,10 @@
       <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
         fit-to-markers>
         <template is="dom-repeat" items="[[locations]]" item="item">
-          <google-map-marker latitude="[[item.latitude]]" longitude="[[item.longitude]]">
+          <google-map-marker latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
           </google-map-marker>
         </template>
-        <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]" icon="images/charlie.png">
+        <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]">
         </google-map-marker>
         </google-map>
     </template>
@@ -52,8 +52,8 @@
           <div>
             Warp to:
             <template is="dom-repeat" items="[[locations]]" item="item">
-              <paper-button 
-                raised 
+              <paper-button
+                raised
                 latitude="[[item.latitude]]"
                 longitude="[[item.longitude]]"
                 on-tap="_warpToLocation">
@@ -99,8 +99,8 @@
         }
       },
 
-      observers: [ 
-        '_siteChanged(currentSite)', 
+      observers: [
+        '_siteChanged(currentSite)',
       ],
 
       _siteChanged: function(currentSite) {
@@ -108,7 +108,7 @@
           this.showInstructions = true;
         } else {
           this.showInstructions = currentSite.visited;
-        } 
+        }
       },
 
       _enableLocationOverride: function () {
