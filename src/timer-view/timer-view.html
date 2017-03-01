@@ -59,11 +59,13 @@
 
       _startTimerOnPageEntry: function(routeData) {
         if (routeData.page == "timer") {
+          this.$.timer.reset();
           this.$.timer.start();
         }
       },
 
       _next: function() {
+        this.$.timer.currentTime = 0;
         this.$.timer.reset();
         this._goToPage('checklist');
       },
