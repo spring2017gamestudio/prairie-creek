@@ -37,7 +37,7 @@
         });
       });
 
-      describe('moving in range of a site', function () {
+      describe('moving in range of an unvisited site', function () {
         beforeEach(function (done) {
           element.currentSite = element.locations[0];
           flush(done);
@@ -51,6 +51,33 @@
           expect(isArrivalShown()).to.be.true;
         });
 
+      });
+
+      describe('exploring a site', function() {
+        beforeEach(function (done) {
+          element.currentSite = element.locations[0];
+          flush(done);
+        });
+        it('marks the site as visited', function() {
+          element._proceed();
+          expect(element.currentSite.visited).to.be.true;
+        });
+      });
+
+      describe('moving in range of a visited site', function() {
+        beforeEach(function(done) {
+          element.locations[0].visited = true;
+          element.currentSite = element.locations[0];
+          flush(done);
+        });
+
+        it('shows the instruction div', function() {
+          expect(areInstructionsShown()).to.be.true;
+        });
+
+        it('hides the arrival div', function() {
+          expect(isArrivalShown()).to.be.false;
+        })
       });
 
       function areInstructionsShown() {

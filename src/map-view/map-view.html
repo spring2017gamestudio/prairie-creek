@@ -34,12 +34,12 @@
         </google-map>
     </template>
 
-    <div id="instructions" hidden$="[[_hasSite(currentSite)]]">
+    <div id="instructions" hidden$="[[!showInstructions]]">
       <div>
         Please visit one of these locations.
       </div>
     </div>
-    <div id="arrival" hidden$="[[!_hasSite(currentSite)]]">
+    <div id="arrival" hidden$="[[showInstructions]]">
       <div>
         You are at [[currentSite.name]]
       </div>
@@ -92,12 +92,23 @@
         hideMap: {
           type: Boolean,
           value: false,
+        },
+        showInstructions: {
+          type: Boolean,
+          value: true
         }
       },
 
-      _hasSite: function (currentSite) {
-        console.log('currentSite is ', currentSite);
-        return currentSite != null;
+      observers: [ 
+        '_siteChanged(currentSite)', 
+      ],
+
+      _siteChanged: function(currentSite) {
+        if (currentSite == null) {
+          this.showInstructions = true;
+        } else {
+          this.showInstructions = currentSite.visited;
+        } 
       },
 
       _enableLocationOverride: function () {
@@ -117,6 +128,8 @@
       },
 
       _proceed: function () {
+        this.currentSite.visited = true;
+        this.showInstructions = true;
         this._goToPage('timer');
       }
     });

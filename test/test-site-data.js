@@ -1,5 +1,6 @@
 const _testSites = [{
   name: "Bell Tower",
+  visited: false,
   question: 'What did you smell?',
   responses: [{
     text: 'Fresh air',
@@ -18,6 +19,7 @@ const _testSites = [{
 {
   name: "A second site",
   question: "Will this be read?",
+  visited: false,
   responses: [{
     text: 'No',
     value: 0
