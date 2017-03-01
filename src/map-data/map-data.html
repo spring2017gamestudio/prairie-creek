@@ -98,6 +98,12 @@
       }
     ];
 
+    const _wudgieData = [
+      'A wudgie found some of our trash and brought it back to you!',
+      'You found a nature spirit!',
+      'You became one with nature and a nature wudgie appeared'
+    ];
+
     Polymer({
       is: 'map-data',
       properties: {
@@ -106,6 +112,13 @@
           type: Object,
           value: function () {
             return JSON.parse(JSON.stringify(_default));
+          }
+        },
+        wudgieData: {
+          notify: true,
+          type: Object,
+          value: function () {
+            return JSON.parse(JSON.stringify(_wudgieData));
           }
         }
       },

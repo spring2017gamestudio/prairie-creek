@@ -11,12 +11,40 @@
       }
     </style>
     Wudgie Cam placeholder
+    <br>
+    [[wudgieText]]
+    <br>
     <paper-button raised on-tap="_next">Go to collections screen</paper-button>
   </template>
   <script>
     Polymer({
       is: 'wudgie-view',
       behaviors: [ViewBehavior],
+      properties: {
+        mapData: {
+          type: Object,
+          notify: true
+        },
+        wudgieData: {
+          type: Object,
+          notify: true
+        },
+        wudgieText: {
+          type: String,
+          computed: '_currentWudgieText(mapData,wudgieData)'
+        }
+      },
+
+      _currentWudgieText: function(mapData,wudgieData) {
+        var wudgieValue = 0;
+        for(var i=0;i<mapData.length;i++) {
+          for(var j=0;j<mapData[i].responses.length;j++) {
+            console.log(" wudgieValue: ",wudgieValue," response: ",mapData[i].responses[j].text," value: ",mapData[i].responses[j].value," selected: ",mapData[i].responses[j].selected);
+            wudgieValue += (mapData[i].responses[j].selected ? mapData[i].responses[j].value : 0);
+          }
+        }
+        return wudgieData[Math.sign(wudgieValue)+1];
+      },
 
       _next: function() {
         this._goToPage('collection');
