@@ -32,7 +32,6 @@
         route-data="{{routeData}}"
         dev-mode="[[devMode]]">
       </map-view>
-      <arrival-view name="arrival" route-data="{{routeData}}" location-name="[[currentSite.name]]"></arrival-view>
       <timer-view
         name="timer"
         prompt="[[currentSite.prompt]]"
@@ -73,19 +72,12 @@
                 type: Object,
                 notify: true
               },
-              tailData: {
-                type: Object,
-                observer: '_tailDataChanged'
-              },
+              tailData: Object,
               devMode: {
                 type: Boolean,
                 notify: true,
                 computed: '_checkDebugMode(tailData)'
               }
-          },
-
-          _tailDataChanged: function(data) {
-            console.log('Changed to ', data);
           },
 
           observers: [
