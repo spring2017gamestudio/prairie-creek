@@ -107,6 +107,7 @@
       _siteVisited(siteVisited){
         if(this.currentSite!==null){
         var markers=Polymer.dom(this.root).querySelectorAll('.site');
+        if(!markers.lenght==0){
         var i=0;
         for (var place of this.locations) {
           if (place.visited) {
@@ -116,6 +117,7 @@
           i++;
         }
       }
+    }
       },
 
       _siteChanged: function(currentSite) {
