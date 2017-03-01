@@ -8,6 +8,6 @@
       }
     </style>
   </indexofsitelate>
-  <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,computed:"_determineSite(latitude,longitude,sites)"}},_determineSite:function(e,t,i){const r=1e6;for(var n,u,o,d,s=r,a=0;a<i.length;a++)u=e-i[a].latitude,o=t-i[a].longitude,n=Math.sqrt(u*u+o*o),n<s&&n<=i[a].range&&(s=n,d=a);return s==r?void 0:i[d]}});</script>
+  <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,value:null,computed:"_determineSite(latitude,longitude,sites)"}},_determineSite:function(e,t,r){for(var i,u,n,l,a=1e6,d=0;d<r.length;d++)u=e-r[d].latitude,n=t-r[d].longitude,i=Math.sqrt(u*u+n*n),i<a&&i<=r[d].range&&(a=i,l=d);return 1e6==a?null:r[l]}});</script>
 </dom-module>
 </body></html>
