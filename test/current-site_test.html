@@ -3,15 +3,12 @@
 <head>
   <meta name="viewport"
         content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>current-location tdd-test</title>
+    <title>current-site tests</title>
 
-    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
 
-    <!-- Step 1: import the element to test -->
-    <link rel="import"
-          href="../../src/current-site/current-site.html">
-
+    <link rel="import" href="../src/current-site/current-site.html">
 </head>
 
 <body>
@@ -48,7 +45,7 @@
     describe('no latitude nor longitude', function () {
       var element;
 
-      before(function () {
+      beforeEach(function () {
         element = fixture('no-site');
       });
 
@@ -60,7 +57,7 @@
     describe('at first site', function () {
       var element;
 
-      before(function () {
+      beforeEach(function () {
         element = fixture('default');
         element.sites = mapData;
       });
@@ -90,7 +87,7 @@
     describe('out of range of any site', function () {
       var element;
 
-      before(function () {
+      beforeEach(function () {
         element = fixture('default');
         element.sites = mapData;
         element.latitude = 0;
