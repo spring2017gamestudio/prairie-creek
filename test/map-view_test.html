@@ -28,6 +28,22 @@
         flush(done);
       });
 
+      function setLatLongTo(value) {
+        element.latitude = value;
+        element.longitude = value;
+      }
+
+      describe('have no latitude or longitude', function() {
+        it('gps message is shown', function() {
+          expect(element.$.gpsmessage.hidden).to.be.false;
+        });
+
+        it('gps message is hidden', function() {
+          setLatLongTo(40);
+          expect(element.$.gpsmessage.hidden).to.be.true;
+        });
+      });
+
       describe('at no site', function () {
         it('shows generic instructions', function () {
           expect(areInstructionsShown()).to.be.true;
