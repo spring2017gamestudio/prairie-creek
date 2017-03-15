@@ -104,10 +104,10 @@
       }
     ];
 
-    const _wudgieData = [
-      'A wudgie found some of our trash and brought it back to you!',
+    const _spiritData = [
+      'A spirit found some of our trash and brought it back to you!',
       'You found a nature spirit!',
-      'You became one with nature and a nature wudgie appeared'
+      'You became one with nature and a nature spirit appeared'
     ];
 
     Polymer({
@@ -120,11 +120,11 @@
             return JSON.parse(JSON.stringify(_default));
           }
         },
-        wudgieData: {
+        spiritData: {
           notify: true,
           type: Object,
           value: function () {
-            return JSON.parse(JSON.stringify(_wudgieData));
+            return JSON.parse(JSON.stringify(_spiritData));
           }
         }
       },
