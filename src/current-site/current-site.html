@@ -1,13 +1,13 @@
 <html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
 
 </head><body><dom-module id="current-site">
-  <indexofsitelate>
+  <template>
     <style>
       :host {
         display: block;
       }
     </style>
-  </indexofsitelate>
-  <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,value:null,computed:"_determineSite(latitude,longitude,sites)"}},_determineSite:function(e,t,r){for(var i,u,n,l,a=1e6,d=0;d<r.length;d++)u=e-r[d].latitude,n=t-r[d].longitude,i=Math.sqrt(u*u+n*n),i<a&&i<=r[d].range&&(a=i,l=d);return 1e6==a?null:r[l]}});</script>
+  </template>
+  <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,value:null,computed:"_determineSite(latitude,longitude,sites)"}},_determineSite:function(e,t,r){for(var i,u,n,l,a=1e6,d=0;d<r.length;d++)u=e-r[d].latitude,n=t-r[d].longitude,(i=Math.sqrt(u*u+n*n))<a&&i<=r[d].range&&(a=i,l=d);return 1e6==a?null:r[l]}});</script>
 </dom-module>
 </body></html>
