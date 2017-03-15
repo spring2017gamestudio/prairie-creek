@@ -6,6 +6,7 @@
 
 <link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
+<link rel="import" href="../drop-menu/drop-menu.html">
 
 <dom-module id="map-view">
     <template>
@@ -22,6 +23,7 @@
         width: 20em;
       }
     </style>
+    <drop-menu></drop-menu>
     <div id="locationOn" hidden$="[[!hasLatLong]]">
       <template is="dom-if" if$="[[!hideMap]]">
         <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"

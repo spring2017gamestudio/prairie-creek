@@ -19,7 +19,9 @@
     "paper-input": "PolymerElements/paper-input#^1.1.23",
     "app-route": "PolymerElements/app-route#^0.9.3",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.4.0",
-    "iron-timer": "Collaborne/iron-timer#^1.0.3"
+    "iron-timer": "Collaborne/iron-timer#^1.0.3",
+    "drop-menu": "acordeonl/drop-menu#^1.14.0",
+    "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
