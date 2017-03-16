@@ -30,7 +30,7 @@
       }
     </style>
     <template is="dom-if"
-              if$="[[!hideMap]]">
+              if$="[[!hideMapForTesting]]">
       <google-map id="map"
                   zoom="6"
                   latitude="[[latitude]]"
@@ -116,7 +116,7 @@
           type: Boolean,
           value: false
         },
-        hideMap: {
+        hideMapForTesting: {
           type: Boolean,
           value: false,
         },
@@ -170,7 +170,9 @@
       _proceed: function () {
         this.set('currentSite.visited', true);
         this.showInstructions = true;
-        this._goToPage('timer');
+        if(!this.hideMapForTesting) {
+          this._goToPage('timer');
+        }
       }
     });
   </script>
