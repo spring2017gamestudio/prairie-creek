@@ -27,9 +27,8 @@
     describe('navigate away and back to title view', function () {
       var element;
 
-      beforeEach(function (done) {
+      beforeEach(function () {
         element = fixture('basic');
-        flush(done);
       });
 
       it('resets the map data', function(done) {
@@ -43,7 +42,7 @@
                 done();
             });
         });
-        
+
       });
     });
   </script>

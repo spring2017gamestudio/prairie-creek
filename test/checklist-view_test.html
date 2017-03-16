@@ -119,12 +119,12 @@
                         visitSite(1);
                     });
 
-                    it('routes to wudgie view', function () {
-                        expect(element.nextPage).to.equal('wudgie');
+                    it('routes to spirit view', function () {
+                        expect(element.nextPage).to.equal('spirit');
                     });
                 });
 
-                describe('nextPage was wudgie from previous play, then locations are unmarked', function () {
+                describe('nextPage was spirit from previous play, then locations are unmarked', function () {
                     beforeEach(function () {
                         visitSite(0);
                         visitSite(1);
