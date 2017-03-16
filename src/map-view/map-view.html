@@ -41,7 +41,7 @@
         <template is="dom-repeat"
                   items="[[locations]]"
                   item="item">
-          <google-map-marker class="site"
+          <google-map-marker class="siteMarker"
                              latitude="[[item.latitude]]"
                              longitude="[[item.longitude]]"
                              icon="[[item.icon]]">
@@ -128,20 +128,7 @@
 
       observers: [
         '_siteChanged(currentSite)',
-        '_siteVisited(currentSite.visited)'
       ],
-
-      _siteVisited: function (siteVisited) {
-        if (this.currentSite !== null) {
-          var markers = Polymer.dom(this.root).querySelectorAll('.site');
-          for (var i = 0; i < markers.length; i++) {
-            var place = this.locations[i];
-            if (place.visited) {
-              markers[i].setAttribute('icon', this.locations[i].grayicon);
-            }
-          }
-        }
-      },
 
       _siteChanged: function (currentSite) {
         if (currentSite == null) {
@@ -171,8 +158,15 @@
         this.set('currentSite.visited', true);
         this.showInstructions = true;
         if(!this.hideMapForTesting) {
+          this._updateIcon(this.currentSite);
           this._goToPage('timer');
         }
+      },
+
+      _updateIcon: function(site) {
+        var index = this.locations.indexOf(site);
+        var marker = Polymer.dom(this.root).querySelectorAll('.siteMarker')[index];
+        marker.icon = marker.icon.replace('.png', 'gray.png');
       }
     });
   </script>
