@@ -2,12 +2,8 @@
 
 </head><body><dom-module id="current-site">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+    <array-selector id="selector" items="{{sites}}" selected="{{site}}"></array-selector>
   </template>
-  <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,value:null,computed:"_determineSite(latitude,longitude,sites)"}},_determineSite:function(e,t,r){for(var i,u,n,l,a=1e6,d=0;d<r.length;d++)u=e-r[d].latitude,n=t-r[d].longitude,(i=Math.sqrt(u*u+n*n))<a&&i<=r[d].range&&(a=i,l=d);return 1e6==a?null:r[l]}});</script>
+  <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,value:null}},observers:["_determineSite(latitude,longitude,sites)"],_determineSite:function(e,t,r){for(var i,l,s,n,u=1e6,o=0;o<r.length;o++)l=e-r[o].latitude,s=t-r[o].longitude,(i=Math.sqrt(l*l+s*s))<u&&i<=r[o].range&&(u=i,n=o);1e6==u?this.$.selector.clearSelection():this.$.selector.select(r[n])}});</script>
 </dom-module>
 </body></html>
