@@ -20,11 +20,11 @@
       .content {
         @apply(--paper-font-body1);
       }
-      
+
       google-map {
         height: 50vh;
       }
-      
+
       paper-input {
         width: 20em;
       }
@@ -52,7 +52,7 @@
         <div>
           You are at [[currentSite.name]]
         </div>
-        <paper-button raised on-tap="_proceed">Explore</paper-button>
+        <paper-button id="proceed" raised on-tap="_proceed">Explore</paper-button>
       </div>
 
       <template is="dom-if" if$="[[devMode]]">
@@ -158,8 +158,8 @@
           this._updateIcon(this.currentSite);
           this._goToPage('timer');
         }
-      }
-    
+      },
+
       _updateIcon: function(site) {
         var index = this.locations.indexOf(site);
         var marker = Polymer.dom(this.root).querySelectorAll('.siteMarker')[index];
