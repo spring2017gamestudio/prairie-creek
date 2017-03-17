@@ -17,9 +17,14 @@
   <style include="shared-styles">
      :host {
        font-family: var(--font-common-base);
-       background-color: #dfd4c3;
        color: var(--primary-font-color);
      }
+
+     iron-pages{
+       background-color: var(--primary-background-color);
+     }
+
+
   </style>
     <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{tail}}"></app-route>
