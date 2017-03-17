@@ -1,0 +1,24 @@
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+
+<dom-module id="drop-menu">
+  <template>
+    <div>
+    <paper-menu-button>
+      <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
+      <paper-menu class="dropdown-content">
+        <paper-item>Reset</paper-item>
+      </paper-menu>
+    </paper-menu-button>
+  </div>
+  </template>
+  <script>
+    Polymer({
+      is: "drop-menu"
+    });
+    </script>
+</dom-module>
