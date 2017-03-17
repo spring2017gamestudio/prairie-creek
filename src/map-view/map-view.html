@@ -425,7 +425,7 @@
     <template is="dom-if" if$="[[!hideMapForTesting]]">
       <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM" fit-to-markers="">
         <template is="dom-repeat" items="[[locations]]" item="item">
-          <google-map-marker class="site" latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
+          <google-map-marker class="siteMarker" latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
           </google-map-marker>
         </template>
         <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]">
@@ -459,5 +459,5 @@
       </div>
     </template>
   </template>
-  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object,value:null,notify:!0},devMode:{type:Boolean,value:!1},hideMapForTesting:{type:Boolean,value:!1},showInstructions:{type:Boolean,value:!0}},observers:["_siteChanged(currentSite)","_siteVisited(currentSite.visited)"],_siteVisited:function(t){if(null!==this.currentSite)for(var e=Polymer.dom(this.root).querySelectorAll(".site"),i=0;i<e.length;i++){var o=this.locations[i];o.visited&&e[i].setAttribute("icon",this.locations[i].grayicon)}},_siteChanged:function(t){this.showInstructions=null==t||t.visited},_enableLocationOverride:function(){this.$$("#map").setAttribute("click-events",!0)},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.latitude=e,this.longitude=i},_warpToLocation:function(t){this.latitude=t.model.get("item.latitude"),this.longitude=t.model.get("item.longitude")},_proceed:function(){this.set("currentSite.visited",!0),this.showInstructions=!0,this.hideMapForTesting||this._goToPage("timer")}});</script>
+  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object,value:null,notify:!0},devMode:{type:Boolean,value:!1},hideMapForTesting:{type:Boolean,value:!1},showInstructions:{type:Boolean,value:!0}},observers:["_siteChanged(currentSite)"],_siteChanged:function(t){this.showInstructions=null==t||t.visited},_enableLocationOverride:function(){this.$$("#map").setAttribute("click-events",!0)},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.latitude=e,this.longitude=i},_warpToLocation:function(t){this.latitude=t.model.get("item.latitude"),this.longitude=t.model.get("item.longitude")},_proceed:function(){this.set("currentSite.visited",!0),this.showInstructions=!0,this.hideMapForTesting||(this._updateIcon(this.currentSite),this._goToPage("timer"))},_updateIcon:function(t){var e=this.locations.indexOf(t),i=Polymer.dom(this.root).querySelectorAll(".siteMarker")[e];i.icon=i.icon.replace(".png","-gray.png")}});</script>
 </dom-module></body></html>
