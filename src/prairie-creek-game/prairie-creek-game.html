@@ -616,9 +616,18 @@ _styles:[],_properties:null,customStyle:{},_styleCache:new t,_element:Polymer.Do
   <script>Polymer({is:"paper-button",behaviors:[Polymer.PaperButtonBehavior],properties:{raised:{type:Boolean,reflectToAttribute:!0,value:!1,observer:"_calculateElevation"}},_calculateElevation:function(){this.raised?Polymer.PaperButtonBehaviorImpl._calculateElevation.apply(this):this._setElevation(0)}});</script>
 </dom-module>
 <script>ViewBehavior={properties:{routeData:{type:Object,notify:!0}},_goToPage:function(e){this.set("routeData.page",e)}};</script>
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+
+
 <dom-module id="shared-styles" assetpath="../shared-styles/">
   <template>
     <style>
+    :root{
+      --font-common-base: 'Nunito Sans', sans-serif;
+      --paper-font-common-base: var(--font-common-base);
+      --primary-background-color: #dfd4c3;
+      --primary-font-color: #171a23;
+    }
       .debugging {
         background-color: #eeddee;
       }
@@ -1864,8 +1873,17 @@ this.timeStamp=Date.now()},i=window.Element.prototype.animate;window.Element.pro
   <script>Polymer({is:"drop-menu"});</script>
 </dom-module>
 </div><dom-module id="prairie-creek-game">
-
   <template>
+    <style include="shared-styles">
+       :host {
+         font-family: var(--font-common-base);
+         color: var(--primary-font-color);
+       }
+
+       iron-pages{
+         background-color: var(--primary-background-color);
+       }
+    </style>
     <app-location route="{{route}}" use-hash-as-path=""></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{tail}}"></app-route>
     <app-route route="{{tail}}" pattern="/:d" data="{{tailData}}"></app-route>
