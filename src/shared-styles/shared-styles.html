@@ -8,12 +8,16 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
 
 <!-- shared styles for all views -->
 <dom-module id="shared-styles">
   <template>
     <style>
+    :root{
+      --font-common-base: 'Nunito Sans', sans-serif;
+      --paper-font-common-base: var(--font-common-base);
+    }
       .debugging {
         background-color: #eeddee;
       }
