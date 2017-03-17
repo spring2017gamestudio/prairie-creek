@@ -20,76 +20,62 @@
       .content {
         @apply(--paper-font-body1);
       }
-      
+
       google-map {
         height: 50vh;
       }
-      
+
       paper-input {
         width: 20em;
       }
     </style>
-    <template is="dom-if"
-              if$="[[!hideMapForTesting]]">
-      <google-map id="map"
-                  zoom="6"
-                  latitude="[[latitude]]"
-                  longitude="[[longitude]]"
-                  on-google-map-click="_debugLocation"
-                  api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
-                  fit-to-markers>
-        <template is="dom-repeat"
-                  items="[[locations]]"
-                  item="item">
-          <google-map-marker class="siteMarker"
-                             latitude="[[item.latitude]]"
-                             longitude="[[item.longitude]]"
-                             icon="[[item.icon]]">
-          </google-map-marker>
-        </template>
-        <google-map-marker id="current"
-                           latitude="[[latitude]]"
-                           longitude="[[longitude]]">
-        </google-map-marker>
-      </google-map>
-    </template>
 
-    <div id="instructions"
-         hidden$="[[!showInstructions]]">
-      <div>
-        Please visit one of these locations.
-      </div>
-    </div>
-    <div id="arrival"
-         hidden$="[[showInstructions]]">
-      <div>
-        You are at [[currentSite.name]]
-      </div>
-      <paper-button id="proceed"
-                    raised
-                    on-tap="_proceed">Explore</paper-button>
-    </div>
-
-    <template is="dom-if"
-              if$="[[devMode]]">
-      <div class="debugging">
-        <paper-button raised
-                      on-tap="_enableLocationOverride">Enable Location Override</paper-button>
-        <div>
-          Warp to:
-          <template is="dom-repeat"
-                    items="[[locations]]"
-                    item="item">
-            <paper-button raised
-                          latitude="[[item.latitude]]"
-                          longitude="[[item.longitude]]"
-                          on-tap="_warpToLocation">
-              [[item.name]]
-            </paper-button>
+    <div id="locationOn" hidden$="[[!hasLatLong]]">
+      <template is="dom-if" if$="[[!hideMapForTesting]]">
+        <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
+          fit-to-markers>
+          <template is="dom-repeat" items="[[locations]]" item="item">
+            <google-map-marker class='site' latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
+            </google-map-marker>
           </template>
+          <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]">
+          </google-map-marker>
+        </google-map>
+      </template>
+
+      <div id="instructions" hidden$="[[!showInstructions]]">
+        <div>
+          Please visit one of these locations.
         </div>
       </div>
-    </template>
+      <div id="arrival" hidden$="[[showInstructions]]">
+        <div>
+          You are at [[currentSite.name]]
+        </div>
+        <paper-button id="proceed" raised on-tap="_proceed">Explore</paper-button>
+      </div>
+
+      <template is="dom-if" if$="[[devMode]]">
+        <div class="debugging">
+          <paper-button raised on-tap="_enableLocationOverride">Enable Location Override</paper-button>
+            <div>
+              Warp to:
+              <template is="dom-repeat" items="[[locations]]" item="item">
+                <paper-button
+                  raised
+                  latitude="[[item.latitude]]"
+                  longitude="[[item.longitude]]"
+                  on-tap="_warpToLocation">
+                  [[item.name]]
+                </paper-button>
+              </template>
+            </div>
+        </div>
+      </template>
+    </div>
+    <div id="gpsmessage" hidden$="[[hasLatLong]]">
+        Please Enable GPS
+    </div>
   </template>
   <script>
     Polymer({
@@ -116,9 +102,16 @@
           type: Boolean,
           value: false
         },
-        hideMapForTesting: {
+
+        hasLatLong: {
           type: Boolean,
           value: false,
+          notify: true,
+          computed: '_latLongDefined(latitude,longitude)'
+        },
+        hideMapForTesting: {
+          type: Boolean,
+          value: false
         },
         showInstructions: {
           type: Boolean,
@@ -127,10 +120,14 @@
       },
 
       observers: [
-        '_siteChanged(currentSite)',
+        '_siteChanged(currentSite)'
       ],
 
-      _siteChanged: function (currentSite) {
+      _latLongDefined: function(latitude, longitude) {
+        return latitude && longitude;
+      },
+
+      _siteChanged: function(currentSite) {
         if (currentSite == null) {
           this.showInstructions = true;
         } else {
@@ -138,23 +135,23 @@
         }
       },
 
-      _enableLocationOverride: function () {
+      _enableLocationOverride: function() {
         this.$$('#map').setAttribute('click-events', true);
       },
 
-      _debugLocation: function (event) {
+      _debugLocation: function(event) {
         var latitude = event.detail.latLng.lat();
         var longitude = event.detail.latLng.lng();
         this.latitude = latitude;
         this.longitude = longitude;
       },
 
-      _warpToLocation: function (event) {
+      _warpToLocation: function(event) {
         this.latitude = event.model.get('item.latitude');
         this.longitude = event.model.get('item.longitude');
       },
 
-      _proceed: function () {
+      _proceed: function() {
         this.set('currentSite.visited', true);
         this.showInstructions = true;
         if(!this.hideMapForTesting) {
