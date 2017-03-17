@@ -427,7 +427,7 @@
       <template is="dom-if" if$="[[!hideMapForTesting]]">
         <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM" fit-to-markers="">
           <template is="dom-repeat" items="[[locations]]" item="item">
-            <google-map-marker class="site" latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
+            <google-map-marker class="siteMarker" latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
             </google-map-marker>
           </template>
           <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]">
