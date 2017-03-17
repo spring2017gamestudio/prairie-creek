@@ -18,7 +18,7 @@
     <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{tail}}"></app-route>
     <app-route route="{{tail}}" pattern="/:d" data="{{tailData}}"></app-route>
-    <map-data data="{{mapData}}" wudgie-data="{{wudgieData}}"></map-data>
+    <map-data data="{{mapData}}" spirit-data="{{spiritData}}"></map-data>
     <user-location latitude="{{latitude}}" longitude="{{longitude}}" dev-mode="[[devMode]]"></user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
     <drop-menu></drop-menu>
@@ -47,7 +47,7 @@
         current-site="[[currentSite]]"
         route-data="{{routeData}}">
       </checklist-view>
-      <wudgie-view name="wudgie" map-data="[[mapData]]" wudgie-data="[[wudgieData]]" route-data="{{routeData}}"></wudgie-view>
+      <spirit-view name="spirit" map-data="[[mapData]]" spirit-data="[[spiritData]]" route-data="{{routeData}}"></spirit-view>
       <collection-view name="collection" route-data="{{routeData}}"></collection-view>
       <missing-view name="missing" route-data="{{routeData}}"></missing-view>
     </iron-pages>
@@ -61,7 +61,7 @@
               mapData: {
                 type: Object
               },
-              wudgieData: {
+              spiritData: {
                 type: Object
               },
               route: {

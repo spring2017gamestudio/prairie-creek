@@ -1,170 +1,176 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-styles/typography.html">
-<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
+<link rel="import"
+      href="../../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../../bower_components/paper-input/paper-input.html">
+<link rel="import"
+      href="../../bower_components/paper-styles/typography.html">
+<link rel="import"
+      href="../../bower_components/google-map/google-map.html">
 
-<link rel="import" href="../view-behavior/view-behavior.html">
-<link rel="import" href="../shared-styles/shared-styles.html">
-<link rel="import" href="../drop-menu/drop-menu.html">
+<link rel="import" 
+      href="../drop-menu/drop-menu.html">
+<link rel="import"
+      href="../view-behavior/view-behavior.html">
+<link rel="import"
+      href="../shared-styles/shared-styles.html">
 
 <dom-module id="map-view">
-    <template>
+  <template>
     <style include="shared-styles">
       .content {
         @apply(--paper-font-body1);
       }
-
+      
       google-map {
         height: 50vh;
       }
-
+      
       paper-input {
         width: 20em;
       }
     </style>
-    
-    <div id="locationOn" hidden$="[[!hasLatLong]]">
-      <template is="dom-if" if$="[[!hideMap]]">
-        <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
-          fit-to-markers>
-          <template is="dom-repeat" items="[[locations]]" item="item">
-            <google-map-marker class='site' latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[item.icon]]">
-            </google-map-marker>
-          </template>
-    <google-map-marker id="current" latitude="[[latitude]]" longitude="[[longitude]]"></google-map-marker>
-    </google-map>
+
+    <template is="dom-if"
+              if$="[[!hideMapForTesting]]">
+      <google-map id="map"
+                  zoom="6"
+                  latitude="[[latitude]]"
+                  longitude="[[longitude]]"
+                  on-google-map-click="_debugLocation"
+                  api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
+                  fit-to-markers>
+        <template is="dom-repeat"
+                  items="[[locations]]"
+                  item="item">
+          <google-map-marker class="siteMarker"
+                             latitude="[[item.latitude]]"
+                             longitude="[[item.longitude]]"
+                             icon="[[item.icon]]">
+          </google-map-marker>
+        </template>
+        <google-map-marker id="current"
+                           latitude="[[latitude]]"
+                           longitude="[[longitude]]">
+        </google-map-marker>
+      </google-map>
     </template>
 
-    <div id="instructions" hidden$="[[!showInstructions]]">
-        <div>
-            Please visit one of these locations.
-        </div>
+    <div id="instructions"
+         hidden$="[[!showInstructions]]">
+      <div>
+        Please visit one of these locations.
+      </div>
     </div>
-    <div id="arrival" hidden$="[[showInstructions]]">
-        <div>
-            You are at [[currentSite.name]]
-        </div>
-        <paper-button raised on-tap="_proceed">Explore</paper-button>
+    <div id="arrival"
+         hidden$="[[showInstructions]]">
+      <div>
+        You are at [[currentSite.name]]
+      </div>
+      <paper-button id="proceed"
+                    raised
+                    on-tap="_proceed">Explore</paper-button>
     </div>
 
-    <template is="dom-if" if$="[[devMode]]">
+    <template is="dom-if"
+              if$="[[devMode]]">
       <div class="debugging">
-        <paper-button raised on-tap="_enableLocationOverride">Enable Location Override</paper-button>
-          <div>
-            Warp to:
-            <template is="dom-repeat" items="[[locations]]" item="item">
-              <paper-button
-                raised
-                latitude="[[item.latitude]]"
-                longitude="[[item.longitude]]"
-                on-tap="_warpToLocation">
-                [[item.name]]
-              </paper-button>
-            </template>
-    </div>
-    </div>
+        <paper-button raised
+                      on-tap="_enableLocationOverride">Enable Location Override</paper-button>
+        <div>
+          Warp to:
+          <template is="dom-repeat"
+                    items="[[locations]]"
+                    item="item">
+            <paper-button raised
+                          latitude="[[item.latitude]]"
+                          longitude="[[item.longitude]]"
+                          on-tap="_warpToLocation">
+              [[item.name]]
+            </paper-button>
+          </template>
+        </div>
+      </div>
     </template>
-  </div>
-    <div id="gpsmessage" hidden$="[[hasLatLong]]">
-        Please Enable GPS
-    </div>
-    </template>
-    <script>
-        Polymer({
-            is: 'map-view',
-            behaviors: [ViewBehavior],
-            properties: {
-                latitude: {
-                    type: Number,
-                    notify: true
-                },
-                longitude: {
-                    type: Number,
-                    notify: true
-                },
-                locations: {
-                    type: Array
-                },
-                currentSite: {
-                    type: Object,
-                    value: null,
-                    notify: true
-                },
-                devMode: {
-                    type: Boolean,
-                    value: false
-                },
-                hasLatLong: {
-                    type: Boolean,
-                    value: false,
-                    notify: true,
-                    computed: '_latLongDefined(latitude,longitude)'
-                },
-                hideMap: {
-                    type: Boolean,
-                    value: false,
-                },
-                showInstructions: {
-                    type: Boolean,
-                    value: true
-                }
-            },
+  </template>
+  <script>
+    Polymer({
+      is: 'map-view',
+      behaviors: [ViewBehavior],
+      properties: {
+        latitude: {
+          type: Number,
+          notify: true
+        },
+        longitude: {
+          type: Number,
+          notify: true
+        },
+        locations: {
+          type: Array
+        },
+        currentSite: {
+          type: Object,
+          value: null,
+          notify: true
+        },
+        devMode: {
+          type: Boolean,
+          value: false
+        },
+        hideMapForTesting: {
+          type: Boolean,
+          value: false,
+        },
+        showInstructions: {
+          type: Boolean,
+          value: true
+        }
+      },
 
-            observers: [
-                '_siteChanged(currentSite)',
-                '_siteVisited(currentSite.visited)'
-            ],
+      observers: [
+        '_siteChanged(currentSite)',
+      ],
 
-            _latLongDefined: function(latitude, longitude) {
-                return latitude && longitude;
-            },
+      _siteChanged: function (currentSite) {
+        if (currentSite == null) {
+          this.showInstructions = true;
+        } else {
+          this.showInstructions = currentSite.visited;
+        }
+      },
 
-            _siteVisited(siteVisited) {
-                if (this.currentSite !== null) {
-                    var markers = Polymer.dom(this.root).querySelectorAll('.site');
-                    if (!markers.length == 0) {
-                        var i = 0;
-                        for (var place of this.locations) {
-                            if (place.visited) {
-                                markers[i].setAttribute('icon', this.locations[i].grayicon);
+      _enableLocationOverride: function () {
+        this.$$('#map').setAttribute('click-events', true);
+      },
 
-                            }
-                            i++;
-                        }
-                    }
-                }
-            },
+      _debugLocation: function (event) {
+        var latitude = event.detail.latLng.lat();
+        var longitude = event.detail.latLng.lng();
+        this.latitude = latitude;
+        this.longitude = longitude;
+      },
 
-            _siteChanged: function(currentSite) {
-                if (currentSite == null) {
-                    this.showInstructions = true;
-                } else {
-                    this.showInstructions = currentSite.visited;
-                }
-            },
+      _warpToLocation: function (event) {
+        this.latitude = event.model.get('item.latitude');
+        this.longitude = event.model.get('item.longitude');
+      },
 
-            _enableLocationOverride: function() {
-                this.$$('#map').setAttribute('click-events', true);
-            },
+      _proceed: function () {
+        this.set('currentSite.visited', true);
+        this.showInstructions = true;
+        if(!this.hideMapForTesting) {
+          this._updateIcon(this.currentSite);
+          this._goToPage('timer');
+        }
+      },
 
-            _debugLocation: function(event) {
-                var latitude = event.detail.latLng.lat();
-                var longitude = event.detail.latLng.lng();
-                this.latitude = latitude;
-                this.longitude = longitude;
-            },
-
-            _warpToLocation: function(event) {
-                this.latitude = event.model.get('item.latitude');
-                this.longitude = event.model.get('item.longitude');
-            },
-
-            _proceed: function() {
-                this.set('currentSite.visited', true);
-                this.showInstructions = true;
-                this._goToPage('timer');
-            }
-        });
-    </script>
+      _updateIcon: function(site) {
+        var index = this.locations.indexOf(site);
+        var marker = Polymer.dom(this.root).querySelectorAll('.siteMarker')[index];
+        marker.icon = marker.icon.replace('.png', '-gray.png');
+      }
+    });
+  </script>
 </dom-module>

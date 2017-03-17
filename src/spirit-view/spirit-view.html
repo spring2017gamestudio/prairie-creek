@@ -1,48 +1,51 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-
 <link rel="import" href="../view-behavior/view-behavior.html">
 
-<dom-module id="wudgie-view">
+<dom-module id="spirit-view">
   <template>
     <style>
       :host {
         display: block;
       }
+      img {
+        width: 80%;
+        height: 80%;
+      }
     </style>
-    Wudgie Cam placeholder
+    <img src="../../images/placeholder.png"></img>
     <br>
-    [[wudgieText]]
+    [[spiritText]]
     <br>
     <paper-button raised on-tap="_next">Go to collections screen</paper-button>
   </template>
   <script>
     Polymer({
-      is: 'wudgie-view',
+      is: 'spirit-view',
       behaviors: [ViewBehavior],
       properties: {
         mapData: {
           type: Object,
           notify: true
         },
-        wudgieData: {
+        spiritData: {
           type: Object,
           notify: true
         },
-        wudgieText: {
+        spiritText: {
           type: String,
-          computed: '_currentWudgieText(mapData,wudgieData)'
+          computed: '_currentSpiritText(mapData,spiritData)'
         }
       },
 
-      _currentWudgieText: function(mapData,wudgieData) {
-        var wudgieValue = 0;
+      _currentSpiritText: function(mapData,spiritData) {
+        var spiritValue = 0;
         for(var i=0;i<mapData.length;i++) {
           for(var j=0;j<mapData[i].responses.length;j++) {
-            wudgieValue += (mapData[i].responses[j].selected ? mapData[i].responses[j].value : 0);
+            spiritValue += (mapData[i].responses[j].selected ? mapData[i].responses[j].value : 0);
           }
         }
-        return wudgieData[Math.sign(wudgieValue)+1];
+        return spiritData[Math.sign(spiritValue)+1];
       },
 
       _next: function() {

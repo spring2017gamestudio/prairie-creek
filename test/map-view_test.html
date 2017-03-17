@@ -6,6 +6,7 @@
 
   <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
   <script src="test-site-data.js"></script>
   <link rel="import" href="../src/map-view/map-view.html">
 </head>
@@ -14,7 +15,7 @@
 
   <test-fixture id="basic">
     <template>
-      <map-view hide-map></map-view>
+      <map-view hide-map-for-testing></map-view>
     </template>
   </test-fixture>
 
@@ -26,22 +27,6 @@
         element = fixture('basic');
         element.locations = cloneTestSiteData();
         flush(done);
-      });
-
-      function setLatLongTo(value) {
-        element.latitude = value;
-        element.longitude = value;
-      }
-
-      describe('have no latitude or longitude', function() {
-        it('gps message is shown', function() {
-          expect(element.$.gpsmessage.hidden).to.be.false;
-        });
-
-        it('gps message is hidden', function() {
-          setLatLongTo(40);
-          expect(element.$.gpsmessage.hidden).to.be.true;
-        });
       });
 
       describe('at no site', function () {
@@ -75,7 +60,7 @@
           flush(done);
         });
         it('marks the site as visited', function() {
-          element._proceed();
+          MockInteractions.tap(element.$.proceed);
           expect(element.currentSite.visited).to.be.true;
         });
       });

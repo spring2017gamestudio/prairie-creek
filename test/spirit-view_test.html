@@ -1,21 +1,19 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>wudgie-view bdd test</title>
+    <title>spirit-view bdd test</title>
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../bower_components/web-component-tester/browser.js"></script>
 
-    <!-- Step 1: import the element to test -->
-    <link rel="import" href="../src/wudgie-view/wudgie-view.html">
-
+    <link rel="import" href="../src/spirit-view/spirit-view.html">
   </head>
   <body>
 
   <test-fixture id="basic">
     <template>
-      <wudgie-view>
-      </wudgie-view>
+      <spirit-view>
+      </spirit-view>
     </template>
   </test-fixture>
 
@@ -63,15 +61,15 @@
       }];
 
       const textData =  [
-        'A wudgie found some of our trash and brought it back to you!',
+        'A spirit found some of our trash and brought it back to you!',
         'You found a nature spirit!',
-        'You became one with nature and a nature wudgie appeared'
+        'You became one with nature and a nature spirit appeared'
       ];
 
-    describe('wudgie-view with sample site data and wudgie text', function() {
+    describe('spirit-view with sample site data and spirit text', function() {
       var element;
 
-      before(function (done) {
+      beforeEach(function (done) {
         element = fixture('basic');
         resetMapData();
         flush(done);
@@ -79,15 +77,15 @@
 
       function resetMapData() {
         element.mapData = clone(allSites);
-        element.wudgieData = clone(textData);
+        element.spiritData = clone(textData);
       }
 
       function clone(obj) {
         return JSON.parse(JSON.stringify(obj));
       }
 
-      it('the current wudgie text is the first option', function() {
-        expect(element.wudgieText).to.deep.equal(textData[0]);
+      it('the current spirit text is the first option', function() {
+        expect(element.spiritText).to.deep.equal(textData[0]);
       });
 
     });
