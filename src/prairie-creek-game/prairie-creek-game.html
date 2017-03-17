@@ -9,6 +9,7 @@
 <link rel="import" href="../current-site/current-site.html">
 <link rel="import" href="../map-data/map-data.html">
 <link rel="import" href="../user-location/user-location.html">
+<link rel="import" href="../drop-menu/drop-menu.html">
 
 
 <dom-module id="prairie-creek-game">
@@ -20,6 +21,7 @@
     <map-data data="{{mapData}}" wudgie-data="{{wudgieData}}"></map-data>
     <user-location latitude="{{latitude}}" longitude="{{longitude}}" dev-mode="[[devMode]]"></user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
+    <drop-menu></drop-menu>
 
     <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
       <title-view name="title" route-data="{{routeData}}"></title-view>
