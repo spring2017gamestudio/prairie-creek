@@ -14,18 +14,22 @@
 
   <test-fixture id="basic">
     <template>
+      <map-view hide-map latitude="40" longitude="40"></map-view>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="noLatLong">
+    <template>
       <map-view hide-map></map-view>
     </template>
   </test-fixture>
 
   <script>
-    describe('map-view tests', function () {
+    describe('no lat or long map-view test', function() {
       var element;
 
-      beforeEach(function (done) {
-        element = fixture('basic');
-        element.locations = cloneTestSiteData();
-        flush(done);
+      beforeEach(function () {
+        element = fixture('noLatLong');
       });
 
       function setLatLongTo(value) {
@@ -36,12 +40,27 @@
       describe('have no latitude or longitude', function() {
         it('gps message is shown', function() {
           expect(element.$.gpsmessage.hidden).to.be.false;
+          expect(element.$.locationOn.hidden).to.be.true;
         });
 
-        it('gps message is hidden', function() {
+        it('gps message is hidden', function(done) {
           setLatLongTo(40);
-          expect(element.$.gpsmessage.hidden).to.be.true;
+          flush(function() {
+            expect(element.$.gpsmessage.hidden).to.be.true;
+            expect(element.$.locationOn.hidden).to.be.false;
+            done();
+          })
         });
+      });
+    })
+
+    describe('map-view tests', function () {
+      var element;
+
+      beforeEach(function (done) {
+        element = fixture('basic');
+        element.locations = cloneTestSiteData();
+        flush(done);
       });
 
       describe('at no site', function () {
