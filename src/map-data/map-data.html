@@ -11,8 +11,7 @@
         prompt: 'Breathe deeply and consider what you smell.',
         question: 'What did you smell?',
         visited: false,
-        icon: 'images/belltower.png',
-        grayicon:'images/belltowergray.png',
+        icon: 'images/markers/belltower.png',
         responses: [
           {
             text: 'Food',
@@ -44,8 +43,7 @@
         prompt: 'Observe your surroundings.',
         question: 'What did you see?',
         visited: false,
-        icon:'images/frogbaby.png',
-        grayicon:'images/frogbabygray.png',
+        icon:'images/markers/frogbaby.png',
         responses: [
           {
             text: 'Water',
@@ -77,8 +75,7 @@
         prompt: 'Take a moment to listen to the world around you.',
         question: 'What did you hear?',
         visited: false,
-        icon: 'images/CAP.png',
-        grayicon:'images/CAPgray.png',
+        icon: 'images/markers/cap.png',
         responses: [
           {
             text: 'Birds',
@@ -104,10 +101,10 @@
       }
     ];
 
-    const _wudgieData = [
-      'A wudgie found some of our trash and brought it back to you!',
+    const _spiritData = [
+      'A spirit found some of our trash and brought it back to you!',
       'You found a nature spirit!',
-      'You became one with nature and a nature wudgie appeared'
+      'You became one with nature and a nature spirit appeared'
     ];
 
     Polymer({
@@ -120,11 +117,11 @@
             return JSON.parse(JSON.stringify(_default));
           }
         },
-        wudgieData: {
+        spiritData: {
           notify: true,
           type: Object,
           value: function () {
-            return JSON.parse(JSON.stringify(_wudgieData));
+            return JSON.parse(JSON.stringify(_spiritData));
           }
         }
       },

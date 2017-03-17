@@ -1,11 +1,18 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-styles/typography.html">
-<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
+<link rel="import"
+      href="../../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../../bower_components/paper-input/paper-input.html">
+<link rel="import"
+      href="../../bower_components/paper-styles/typography.html">
+<link rel="import"
+      href="../../bower_components/google-map/google-map.html">
 
-<link rel="import" href="../view-behavior/view-behavior.html">
-<link rel="import" href="../shared-styles/shared-styles.html">
+<link rel="import"
+      href="../view-behavior/view-behavior.html">
+<link rel="import"
+      href="../shared-styles/shared-styles.html">
 
 <dom-module id="map-view">
   <template>
@@ -13,18 +20,18 @@
       .content {
         @apply(--paper-font-body1);
       }
-
+      
       google-map {
         height: 50vh;
       }
-
+      
       paper-input {
         width: 20em;
       }
     </style>
 
     <div id="locationOn" hidden$="[[!hasLatLong]]">
-      <template is="dom-if" if$="[[!hideMap]]">
+      <template is="dom-if" if$="[[!hideMapForTesting]]">
         <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
           fit-to-markers>
           <template is="dom-repeat" items="[[locations]]" item="item">
@@ -95,13 +102,14 @@
           type: Boolean,
           value: false
         },
+
         hasLatLong: {
           type: Boolean,
           value: false,
           notify: true,
           computed: '_latLongDefined(latitude,longitude)'
         },
-        hideMap: {
+        hideMapForTesting: {
           type: Boolean,
           value: false
         },
@@ -112,27 +120,11 @@
       },
 
       observers: [
-        '_siteChanged(currentSite)',
-        '_siteVisited(currentSite.visited)'
+        '_siteChanged(currentSite)'
       ],
 
       _latLongDefined: function(latitude, longitude) {
         return latitude && longitude;
-      },
-
-      _siteVisited(siteVisited) {
-        if (this.currentSite !== null) {
-          var markers = Polymer.dom(this.root).querySelectorAll('.site');
-          if (!markers.length == 0) {
-            var i = 0;
-            for (var place of this.locations) {
-              if (place.visited) {
-                markers[i].setAttribute('icon', this.locations[i].grayicon);
-              }
-              i++;
-            }
-          }
-        }
       },
 
       _siteChanged: function(currentSite) {
@@ -162,7 +154,16 @@
       _proceed: function() {
         this.set('currentSite.visited', true);
         this.showInstructions = true;
-        this._goToPage('timer');
+        if(!this.hideMapForTesting) {
+          this._updateIcon(this.currentSite);
+          this._goToPage('timer');
+        }
+      }
+    
+      _updateIcon: function(site) {
+        var index = this.locations.indexOf(site);
+        var marker = Polymer.dom(this.root).querySelectorAll('.siteMarker')[index];
+        marker.icon = marker.icon.replace('.png', '-gray.png');
       }
     });
   </script>

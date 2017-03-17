@@ -1,13 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="current-site">
-  <indexOfsitelate>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-  </indexOfsitelate>
+  <template>
+    <array-selector id="selector" items="{{sites}}" selected="{{site}}"></array-selector>
+  </template>
   <script>
     Polymer({
       is: 'current-site',
@@ -22,9 +18,12 @@
           type: Object,
           notify: true,
           value: null,
-          computed: '_determineSite(latitude,longitude,sites)'
         },
       },
+
+      observers: [
+        '_determineSite(latitude,longitude,sites)'
+      ],
 
       _determineSite: function(latitude, longitude, sites) {
         const BIG_DISTANCE = 1000000; // An arbitrary number that any real distance will be less than
@@ -43,7 +42,12 @@
             indexOfSite = i;
           }
         }
-        return (saveDist == BIG_DISTANCE) ? null : sites[indexOfSite];
+        if (saveDist == BIG_DISTANCE) {
+          this.$.selector.clearSelection();
+        }
+        else {
+          this.$.selector.select(sites[indexOfSite]);
+        }
       }
 
     });
