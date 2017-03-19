@@ -1,0 +1,24 @@
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
+<link rel="import"
+      href="../../bower_components/iron-localstorage/iron-localstorage.html">
+
+<dom-module id="local-storage">
+  <iron-localstorage name="map-data-storage"
+    value="{{map-data}}">
+  </iron-localstorage>
+  <script>
+    Polymer({
+      is: 'local-storage',
+      properties: {
+        mapData: {
+          type: Object
+        }
+      }
+
+      // _initializeDefaultMapData: function() {
+      //   this.mapData =
+      // }
+    });
+  </script>
+</dom-module>
