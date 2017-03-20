@@ -30,7 +30,7 @@
     <map-data data="{{mapData}}" spirit-data="{{spiritData}}"></map-data>
     <user-location latitude="{{latitude}}" longitude="{{longitude}}" dev-mode="[[devMode]]"></user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
-    <drop-menu></drop-menu>
+    <drop-menu on-reset="_resetGame"></drop-menu>
 
     <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
       <title-view name="title" route-data="{{routeData}}"></title-view>
@@ -127,6 +127,10 @@
             else {
               return false;
             }
+          },
+
+          _resetGame: function(){
+            this.set('route.path', '/title');
           }
       });
   </script>

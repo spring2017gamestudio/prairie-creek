@@ -3,22 +3,35 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../shared-styles/shared-styles.html">
+
 
 
 <dom-module id="drop-menu">
   <template>
+    <style include="shared-styles">
+    :host{position: absolute;
+          top: 0px;
+          right: 0px;
+          z-index: 1;
+        }
+    </style>
     <div>
-    <paper-menu-button>
+    <paper-menu-button horizontal-align="right">
       <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
       <paper-menu class="dropdown-content">
-        <paper-item>Reset</paper-item>
+        <paper-item on-tap="_resetGame">Reset</paper-item>
       </paper-menu>
     </paper-menu-button>
   </div>
   </template>
   <script>
     Polymer({
-      is: "drop-menu"
+      is: "drop-menu",
+
+      _resetGame: function(){
+        this.fire('reset');
+      }
     });
     </script>
 </dom-module>
