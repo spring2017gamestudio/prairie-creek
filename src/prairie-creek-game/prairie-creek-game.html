@@ -12,6 +12,7 @@
 <link rel="import" href="../user-location/user-location.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 <link rel="import" href="../drop-menu/drop-menu.html">
+<link rel="import" href="../local-storage/local-storage.html">
 
 <dom-module id="prairie-creek-game">
   <template>
@@ -31,8 +32,12 @@
     <map-data data="{{mapData}}" spirit-data="{{spiritData}}"></map-data>
     <user-location latitude="{{latitude}}" longitude="{{longitude}}" dev-mode="[[devMode]]"></user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
-    <iron-localstorage id="s" name="map-data-storage" value="[[mapData]]"
-      on-iron-localstorage-load="_myreload"></iron-localstorage>
+    <iron-localstorage
+      name="my-app-storage"
+      value="{{cartoon}}"
+      on-iron-localstorage-load-empty="initializeDefaultCartoon"
+      on-iron-localstorage-load="onload">
+    </iron-localstorage>
     <drop-menu></drop-menu>
 
     <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
@@ -70,6 +75,9 @@
           is: 'prairie-creek-game',
 
           properties: {
+              cartoon: {
+                type: Object
+              },
               mapData: {
                 type: Object,
                 notify: true,
@@ -100,6 +108,13 @@
             '_onRoutePathChanged(route.path)',
             '_pageChanged(routeData.page)'
           ],
+          onload: function() {
+            console.log(this.cartoon);
+          },
+          initializeDefaultCartoon: function() {
+            this.cartoon = this.$$('map-data').data;
+            console.log(this.cartoon);
+          },
 
           _myreload: function() {
             console.log('here');
