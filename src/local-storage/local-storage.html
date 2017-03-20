@@ -5,20 +5,21 @@
 
 <dom-module id="local-storage">
   <iron-localstorage name="map-data-storage"
-    value="{{map-data}}">
+    value="{{data}}" on-iron-localstorage-load-empty="myload">
   </iron-localstorage>
   <script>
     Polymer({
       is: 'local-storage',
       properties: {
-        mapData: {
-          type: Object
+        data: {
+          type: Object,
+          notify: true
         }
-      }
+      },
 
-      // _initializeDefaultMapData: function() {
-      //   this.mapData =
-      // }
+      myload: function() {
+        console.log(this.data);
+      }
     });
   </script>
 </dom-module>
