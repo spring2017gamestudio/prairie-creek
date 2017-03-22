@@ -1,0 +1,20 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><dom-module id="spirit-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      img {
+        width: 80%;
+        height: 80%;
+      }
+    </style>
+    <img src="{{selectedSpirit.image}}">
+    <br>
+    [[selectedSpirit.text]]
+    <br>
+    <paper-button raised="" on-tap="_next">Go to title screen</paper-button>
+  </template>
+  <script>Polymer({is:"spirit-view",behaviors:[ViewBehavior],properties:{mapData:{type:Object,notify:!0},spiritData:{type:Object,notify:!0},selectedSpirit:{type:Object,notify:!0,computed:"_currentSpiritText(mapData,spiritData)"}},_currentSpiritText:function(e,t){for(var i=0,r=0;r<e.length;r++)for(var s=0;s<e[r].responses.length;s++)i+=e[r].responses[s].selected?e[r].responses[s].value:0;return t[Math.sign(i)+1]},_next:function(){this._goToPage("title")}});</script>
+</dom-module>
+</body></html>

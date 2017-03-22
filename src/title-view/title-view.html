@@ -1,0 +1,18 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><dom-module id="title-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+      img {
+        width: 80%;
+        height: 80%;
+      }
+    </style>
+    <img src="../../images/LogoText.png">
+    <br>
+    <paper-button raised="" on-tap="_start">Play</paper-button>
+  </template>
+  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],_start:function(){this._goToPage("intro")}});</script>
+</dom-module>
+</body></html>

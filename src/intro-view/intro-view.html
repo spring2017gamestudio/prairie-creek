@@ -1,0 +1,27 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><dom-module id="intro-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+      img {
+        width: 80%;
+        height: 80%;
+      }
+      .text {
+        font-size: 2em;
+      }
+    </style>
+    <div class="text">
+      Nature spirits lurk around Ball State campus, watching how people treat the environment.
+    </div>
+    <img src="../../images/BallStateCMP-outdoor-spaces.png">
+    <div class="text">
+      Maybe one will approach you!
+    </div>
+    <paper-button raised="" on-tap="_back">Back</paper-button>
+    <paper-button raised="" on-tap="_next">Next</paper-button>
+  </template>
+  <script>Polymer({is:"intro-view",behaviors:[ViewBehavior],_back:function(){this._goToPage("title")},_next:function(){this._goToPage("map")}});</script>
+</dom-module>
+</body></html>
