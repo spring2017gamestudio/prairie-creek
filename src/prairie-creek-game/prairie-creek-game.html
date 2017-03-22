@@ -34,9 +34,7 @@
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
     <iron-localstorage
       name="my-app-storage"
-      value="{{cartoon}}"
-      on-iron-localstorage-load-empty="initializeDefaultCartoon"
-      on-iron-localstorage-load="onload">
+      value="{{mapData}}">
     </iron-localstorage>
     <drop-menu></drop-menu>
 
@@ -75,9 +73,6 @@
           is: 'prairie-creek-game',
 
           properties: {
-              cartoon: {
-                type: Object
-              },
               mapData: {
                 type: Object,
                 notify: true,
@@ -108,19 +103,6 @@
             '_onRoutePathChanged(route.path)',
             '_pageChanged(routeData.page)'
           ],
-          onload: function() {
-            console.log(this.cartoon);
-          },
-          initializeDefaultCartoon: function() {
-            this.cartoon = this.$$('map-data').data;
-            console.log(this.cartoon);
-          },
-
-          _myreload: function() {
-            console.log('here');
-            console.log(this.$.s.value);
-            this.mapData = this.$.s.value;
-          },
 
           _onRoutePathChanged: function(path) {
             // If we do not have an initial URL, redirect to title.
@@ -130,6 +112,10 @@
           },
 
           _pageChanged: function(page) {
+            var temp = this.mapData;
+            this.mapData = [];
+            this.mapData = temp;
+            console.log(this.$$('iron-localstorage').value);
             if (page) {
               if (page === 'title') {
                 this.$$('map-data').reset();
