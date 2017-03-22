@@ -22,6 +22,11 @@
          color: var(--primary-font-color);
        }
 
+       :host > * {
+         height: 100%;
+         margin: 0 0;
+       }
+
        iron-pages{
          background-color: var(--primary-background-color);
        }
@@ -36,7 +41,7 @@
       name="my-app-storage"
       value="{{mapData}}">
     </iron-localstorage>
-    <drop-menu></drop-menu>
+    <drop-menu on-reset="_resetGame"></drop-menu>
 
     <iron-pages selected="[[routeData.page]]" attr-for-selected="name">
       <title-view name="title" route-data="{{routeData}}"></title-view>
@@ -138,6 +143,10 @@
             else {
               return false;
             }
+          },
+
+          _resetGame: function(){
+            this.set('route.path', '/title');
           }
       });
   </script>
