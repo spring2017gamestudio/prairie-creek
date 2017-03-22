@@ -20,7 +20,7 @@
   <script>
     const allSites = [
       {
-        visited: false,
+        visited: true,
         responses: [
           {
             text: 'Food',
@@ -61,9 +61,9 @@
       }];
 
       const textData =  [
-        'A spirit found some of our trash and brought it back to you!',
-        'You found a nature spirit!',
-        'You became one with nature and a nature spirit appeared'
+        {text: 'There were a lot of unnatural things around you.'},
+        {text:'Your surroundings were a mixture of natural and unnatural items.'},
+        {text:'You are surrounded by natural things.'}
       ];
 
     describe('spirit-view with sample site data and spirit text', function() {
@@ -77,7 +77,6 @@
 
       function resetMapData() {
         element.mapData = clone(allSites);
-        element.spiritData = clone(textData);
       }
 
       function clone(obj) {
@@ -85,7 +84,8 @@
       }
 
       it('the current spirit text is the first option', function() {
-        expect(element.spiritText).to.deep.equal(textData[0]);
+        element.spiritData = clone(textData);
+        expect(element.selectedSpirit.text).to.deep.equal(textData[0].text);
       });
 
     });
