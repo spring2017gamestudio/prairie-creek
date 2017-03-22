@@ -13,9 +13,9 @@
         height: 80%;
       }
     </style>
-    <img src="../../images/placeholder.png"></img>
+    <img src="{{selectedSpirit.image}}"></img>
     <br>
-    [[spiritText]]
+    [[selectedSpirit.text]]
     <br>
     <paper-button raised on-tap="_next">Go to title screen</paper-button>
   </template>
@@ -32,8 +32,9 @@
           type: Object,
           notify: true
         },
-        spiritText: {
-          type: String,
+        selectedSpirit: {
+          type: Object,
+          notify: true,
           computed: '_currentSpiritText(mapData,spiritData)'
         }
       },
