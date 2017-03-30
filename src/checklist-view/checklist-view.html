@@ -11,29 +11,23 @@
       :host {
         display: block;
       }
-      paper-checkbox {
-        display: block;
-      }
-      .text {
-        font-size: 2em;
-        margin-left: 30px;
-        padding-top: 20px;
-      }
     </style>
-    <div class="text">
-      [[currentSite.question]]
-    </div>
-    <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">
-      <paper-checkbox
-        class="checkbox"
-        index="[[index]]"
-        item="[[item]]"
-        on-tap="_onCheckboxTap"
-        checked$="[[item.selected]]">
-          [[item.text]]
-      </paper-checkbox>
-    </template>
-    <paper-button id="submit" raised on-tap="_next">Next</paper-button>
+    <container>
+      <div class="text">
+        [[currentSite.question]]
+      </div>
+      <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">
+        <paper-checkbox
+          class="checkbox"
+          index="[[index]]"
+          item="[[item]]"
+          on-tap="_onCheckboxTap"
+          checked$="[[item.selected]]">
+            [[item.text]]
+        </paper-checkbox>
+      </template>
+      <paper-button class ="center" id="submit" raised on-tap="_next">Next</paper-button>
+    </container>
   </template>
   <script>
     Polymer({
@@ -47,19 +41,16 @@
           value: 'map'
         }
       },
-
       _onCheckboxTap: function(event) {
         const checkbox = event.target;
         const item = event.target.item;
         this.currentSite.responses[checkbox.index].selected = checkbox.checked;
       },
-
       _next: function() {
         this.currentSite.visited = true;
         this.nextPage = this._visitedAllSites() ? 'spirit' : 'map';
         this._goToPage(this.nextPage);
       },
-
       _visitedAllSites: function() {
         for (var i = 0; i < this.mapData.length; i++) {
           if (!this.mapData[i].visited) {
