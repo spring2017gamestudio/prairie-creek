@@ -26,12 +26,14 @@
       google-map {
         height: 50vh;
       }
-
-      paper-input {
-        width: 20em;
+      paper-button.proceed {
+        display: block;
+        width: 20%;
+        margin:0 auto;
       }
-      #arrival, #instructions{
-        margin-left: 20px;
+      .text {
+        font-size: 2em;
+        text-align: center;
         padding-top: 20px;
         padding-bottom: 20px;
       }
@@ -50,17 +52,15 @@
         </google-map>
       </template>
 
-      <div id="instructions" hidden$="[[!showInstructions]]">
-        <div>
-          Please visit one of these locations.
-        </div>
+      <div class="text" hidden$="[[!showInstructions]]">
+        Please visit one of these locations.
       </div>
-      <div id="arrival" hidden$="[[showInstructions]]">
-        <div>
-          You are at [[currentSite.name]]
-        </div>
-        <paper-button id="proceed" raised on-tap="_proceed">Explore</paper-button>
+      <div class="text" hidden$="[[showInstructions]]">
+        You are at [[currentSite.name]]
       </div>
+      <paper-button class="proceed" id="proceed" raised on-tap="_proceed" hidden$="[[showInstructions]]">
+        Explore
+      </paper-button>
 
       <template is="dom-if" if$="[[devMode]]">
         <div class="debugging">

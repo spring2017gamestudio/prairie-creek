@@ -14,8 +14,15 @@
       paper-checkbox {
         display: block;
       }
+      .text {
+        font-size: 2em;
+        margin-left: 30px;
+        padding-top: 20px;
+      }
     </style>
-    [[currentSite.question]]
+    <div class="text">
+      [[currentSite.question]]
+    </div>
     <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">
       <paper-checkbox
         class="checkbox"
