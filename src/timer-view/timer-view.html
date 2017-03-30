@@ -4,12 +4,16 @@
       :host {
         display: block;
       }
+      #countdown {
+        margin: 15px 0px 15px 0px;
+        @apply(--paper-font-display3);
+      }
     </style>
     [[prompt]]
-    <div>
+    <div id="countdown">
       [[secondsRemaining]]
-      <iron-timer id="timer" start-time="30" current-time="{{secondsRemaining}}"></iron-timer>
     </div>
+    <iron-timer id="timer" start-time="30" current-time="{{secondsRemaining}}"></iron-timer>
     <paper-button id="button" raised="" on-tap="_next" disabled$="[[!_hasNoSecondsRemaining(secondsRemaining)]]">
         Go to checklist
     </paper-button>
