@@ -23,10 +23,14 @@
         padding-top: 20px;
       }
       paper-button {
-        margin-left: 85px;
+        display: block;
+        margin:0 auto;
+        width: 30%;
       }
     </style>
-    <img src="{{selectedSpirit.image}}"></img>
+    <template is="dom-if" if$="[[!hideImageForTesting]]">
+      <img src="{{selectedSpirit.image}}"></img>
+    </template>
     <container class="text">
       [[selectedSpirit.text]]
     </container>
@@ -49,6 +53,10 @@
                     type: Object,
                     notify: true,
                     computed: '_currentSpiritText(mapData,spiritData)'
+                },
+                hideImageForTesting: {
+                  type: Boolean,
+                  value: false
                 }
             },
 

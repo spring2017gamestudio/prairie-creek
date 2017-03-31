@@ -51,10 +51,10 @@
         </google-map>
       </template>
 
-      <div class="text" hidden$="[[!showInstructions]]">
+      <div class="text" id="instructions" hidden$="[[!showInstructions]]">
         Please visit one of these locations.
       </div>
-      <div class="text" hidden$="[[showInstructions]]">
+      <div class="text" id="arrival" hidden$="[[showInstructions]]">
         You are at [[currentSite.name]]
       </div>
       <paper-button class="proceed" id="proceed" raised on-tap="_proceed" hidden$="[[showInstructions]]">
