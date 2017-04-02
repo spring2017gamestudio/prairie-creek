@@ -11,9 +11,15 @@
       :host {
         display: block;
       }
+      paper-checkbox {
+        display: block;
+      }
+      #question{
+        @apply(--paper-font-headline);
+      }
     </style>
     <container>
-      <div class="text">
+      <div class="text" id="question">
         [[currentSite.question]]
       </div>
       <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">
@@ -42,7 +48,7 @@
         }
       },
       _onCheckboxTap: function(event) {
-        const checkbox = event.target;
+        const checkbox = event.currentTarget;
         const item = event.target.item;
         this.currentSite.responses[checkbox.index].selected = checkbox.checked;
       },

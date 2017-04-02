@@ -1,14 +1,16 @@
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>spirit-view bdd test</title>
 
-    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../bower_components/web-component-tester/browser.js"></script>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>spirit-view bdd test</title>
 
-    <link rel="import" href="../src/spirit-view/spirit-view.html">
-  </head>
-  <body>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../src/spirit-view/spirit-view.html">
+</head>
+
+<body>
 
   <test-fixture id="basic">
     <template>
@@ -60,13 +62,22 @@
         ]
       }];
 
-      const textData =  [
-        {text: 'There were a lot of unnatural things around you.'},
-        {text:'Your surroundings were a mixture of natural and unnatural items.'},
-        {text:'You are surrounded by natural things.'}
-      ];
+    const textData = [
+      {
+        text: 'There were a lot of unnatural things around you.',
+        image: ''
+      },
+      {
+        text: 'Your surroundings were a mixture of natural and unnatural items.',
+        image: ''      
+      },
+      {
+        text: 'You are surrounded by natural things.',
+        image: ''
+      }
+    ];
 
-    describe('spirit-view with sample site data and spirit text', function() {
+    describe('spirit-view with sample site data and spirit text', function () {
       var element;
 
       beforeEach(function (done) {
@@ -83,7 +94,7 @@
         return JSON.parse(JSON.stringify(obj));
       }
 
-      it('the current spirit text is the first option', function() {
+      it('the current spirit text is the first option', function () {
         element.spiritData = clone(textData);
         expect(element.selectedSpirit.text).to.deep.equal(textData[0].text);
       });
@@ -91,5 +102,6 @@
     });
   </script>
 
-  </body>
+</body>
+
 </html>
