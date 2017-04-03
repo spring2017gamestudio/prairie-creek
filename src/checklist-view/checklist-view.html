@@ -1,12 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../shared-styles/shared-styles.html">
 
 <link rel="import" href="../view-behavior/view-behavior.html">
 
 <dom-module id="checklist-view">
   <template>
-    <style>
+    <style include="shared-styles">
       :host {
         display: block;
       }
@@ -17,20 +18,22 @@
         @apply(--paper-font-headline);
       }
     </style>
-    <div id="question">
-      [[currentSite.question]]
-    </div>
-    <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">
-      <paper-checkbox
-        class="checkbox"
-        index="[[index]]"
-        item="[[item]]"
-        on-tap="_onCheckboxTap"
-        checked$="[[item.selected]]">
-          [[item.text]]
-      </paper-checkbox>
-    </template>
-    <paper-button id="submit" raised on-tap="_next">Next</paper-button>
+    <container>
+      <div class="text" id="question">
+        [[currentSite.question]]
+      </div>
+      <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">
+        <paper-checkbox
+          class="checkbox"
+          index="[[index]]"
+          item="[[item]]"
+          on-tap="_onCheckboxTap"
+          checked$="[[item.selected]]">
+          <span class="text">[[item.text]]</span>
+        </paper-checkbox>
+      </template>
+      <paper-button class ="center" id="submit" raised on-tap="_next">Next</paper-button>
+    </container>
   </template>
   <script>
     Polymer({
@@ -44,19 +47,16 @@
           value: 'map'
         }
       },
-
       _onCheckboxTap: function(event) {
         const checkbox = event.currentTarget;
         const item = event.target.item;
         this.currentSite.responses[checkbox.index].selected = checkbox.checked;
       },
-
       _next: function() {
         this.currentSite.visited = true;
         this.nextPage = this._visitedAllSites() ? 'spirit' : 'map';
         this._goToPage(this.nextPage);
       },
-
       _visitedAllSites: function() {
         for (var i = 0; i < this.mapData.length; i++) {
           if (!this.mapData[i].visited) {
