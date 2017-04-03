@@ -181,7 +181,7 @@
 </dom-module>
 </div><dom-module id="checklist-view">
   <template>
-    <style>
+    <style include="shared-styles">
       :host {
         display: block;
       }
@@ -192,15 +192,17 @@
         @apply(--paper-font-headline);
       }
     </style>
-    <div id="question">
-      [[currentSite.question]]
-    </div>
-    <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">
-      <paper-checkbox class="checkbox" index="[[index]]" item="[[item]]" on-tap="_onCheckboxTap" checked$="[[item.selected]]">
-          [[item.text]]
-      </paper-checkbox>
-    </template>
-    <paper-button id="submit" raised="" on-tap="_next">Next</paper-button>
+    <container>
+      <div class="text" id="question">
+        [[currentSite.question]]
+      </div>
+      <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">
+        <paper-checkbox class="checkbox" index="[[index]]" item="[[item]]" on-tap="_onCheckboxTap" checked$="[[item.selected]]">
+          <span class="text">[[item.text]]</span>
+        </paper-checkbox>
+      </template>
+      <paper-button class="center" id="submit" raised="" on-tap="_next">Next</paper-button>
+    </container>
   </template>
   <script>Polymer({is:"checklist-view",behaviors:[ViewBehavior],properties:{currentSite:Object,mapData:Object,nextPage:{type:String,value:"map"}},_onCheckboxTap:function(e){const t=e.currentTarget;e.target.item;this.currentSite.responses[t.index].selected=t.checked},_next:function(){this.currentSite.visited=!0,this.nextPage=this._visitedAllSites()?"spirit":"map",this._goToPage(this.nextPage)},_visitedAllSites:function(){for(var e=0;e<this.mapData.length;e++)if(!this.mapData[e].visited)return!1;return!0}});</script>
 </dom-module>

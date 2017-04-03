@@ -7,12 +7,24 @@
       img {
         width: 80%;
         height: 80%;
+        margin:0 auto;
+        display: block;
+        padding-top: 50px;
+        padding-bottom: 30px;
       }
     </style>
-    <img src="../../images/LogoText.png">
-    <br>
-    <paper-button raised="" on-tap="_start">Play</paper-button>
-  </template>
-  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],_start:function(){this._goToPage("intro")}});</script>
+    <img src="../../images/new_words.png">
+    <container>
+      <div class="text">
+        Nature spirits lurk around Ball State campus, watching how people treat the environment.
+      </div>
+      <div class="text">
+        Maybe one will approach you!
+      </div>
+    <container>
+
+    <paper-button class="center" raised="" on-tap="_start">Play</paper-button>
+  </container></container></template>
+  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],_start:function(){this._goToPage("map")}});</script>
 </dom-module>
 </body></html>
