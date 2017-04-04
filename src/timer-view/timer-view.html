@@ -29,7 +29,7 @@
         <div id="countdown">
           [[secondsRemaining]]
         </div>
-        <iron-timer id="timer" start-time="30" current-time="{{secondsRemaining}}"></iron-timer>
+        <iron-timer id="timer" start-time="[[_startTime(devMode)]]" current-time="{{secondsRemaining}}"></iron-timer>
       </div>
     </container>
     <template is="dom-if" if$="[[devMode]]">
@@ -64,6 +64,10 @@
             observers: [
                 '_startTimerOnPageEntry(routeData)'
             ],
+
+            _startTime: function(devMode) {
+                return devMode ? "3" : "30";
+            },
 
             _startTimerOnPageEntry: function(routeData) {
                 if (routeData.page == "timer") {
