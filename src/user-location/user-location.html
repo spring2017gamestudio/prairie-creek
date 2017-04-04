@@ -1,11 +1,16 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-timer/iron-timer.html">
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
+<link rel="import"
+      href="../../bower_components/iron-timer/iron-timer.html">
 
 
 <dom-module id="user-location">
   <template>
     <div>
-      <iron-timer id="locationTimer" start-time="[[updateRate]]" current-time="0" on-iron-timer-end="_updateLocation"></iron-timer>
+      <iron-timer id="locationTimer"
+                  start-time="[[updateRate]]"
+                  current-time="0"
+                  on-iron-timer-end="_onTimerEnd"></iron-timer>
     </div>
   </template>
   <script>
@@ -28,6 +33,10 @@
           readOnly: true,
           value: 2
         },
+        active: {
+          type: Boolean,
+          value: false
+        },
         currentSite: {
           type: Object
         },
@@ -41,33 +50,39 @@
         '_devModeCheck(devMode)'
       ],
 
-      ready: function() {
+      ready: function () {
+        // Don't do an active check here: we want to always acquire
+        // our first location, no matter what view we are on.
+        // The timer update function will check the active state for future
+        // updates.
         this.$.locationTimer.start();
+        this._updatePosition();
+      },
+
+      _updatePosition: function (position) {
         var that = this;
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function (position) {
           var coords = position.coords;
           that._setLatitude(coords.latitude);
           that._setLongitude(coords.longitude);
-          console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
+          if (document.location.host.startsWith('localhost')) {
+            console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
+          }
         });
       },
 
-      _devModeCheck: function(devMode){
-        if (devMode == true){
+      _devModeCheck: function (devMode) {
+        if (devMode == true) {
           this.$.locationTimer.pause();
         }
       },
 
-      _updateLocation: function(){
+      _onTimerEnd: function () {
+        if (this.active) {
+          this._updatePosition();
+        }
         this.$.locationTimer.reset();
         this.$.locationTimer.start();
-        var that = this;
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var coords = position.coords;
-          that._setLatitude(coords.latitude);
-          that._setLongitude(coords.longitude);
-          console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
-        });
       }
     });
   </script>
