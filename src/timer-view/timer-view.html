@@ -36,7 +36,7 @@
         raised
         on-tap="_next"
         disabled$="[[!_hasNoSecondsRemaining(secondsRemaining)]]">
-          Go to checklist
+          [[buttonText]]
       </paper-button>
     </container>
     <template is="dom-if" if$="[[devMode]]">
@@ -64,6 +64,11 @@
                 devMode: {
                     type: Boolean,
                     value: false
+                },
+
+                buttonText: {
+                    type: String,
+                    computed: '_buttonText(secondsRemaining)'
                 }
             },
 
@@ -94,6 +99,10 @@
 
             _hasNoSecondsRemaining: function(secondsRemaining) {
                 return secondsRemaining == 0;
+            },
+
+            _buttonText: function(secondsRemaining) {
+                return secondsRemaining==0 ? 'Ready' : 'Waiting...';
             }
         });
     </script>
