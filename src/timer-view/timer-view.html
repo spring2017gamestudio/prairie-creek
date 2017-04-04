@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-timer/iron-timer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
 
 <link rel="import" href="../shared-styles/shared-styles.html">
 <link rel="import" href="../view-behavior/view-behavior.html">
@@ -30,14 +31,6 @@
         </div>
         <iron-timer id="timer" start-time="30" current-time="{{secondsRemaining}}"></iron-timer>
       </div>
-      <paper-button
-        class="center"
-        id="button"
-        raised
-        on-tap="_next"
-        disabled$="[[!_hasNoSecondsRemaining(secondsRemaining)]]">
-          [[buttonText]]
-      </paper-button>
     </container>
     <template is="dom-if" if$="[[devMode]]">
       <div class="debugging">
@@ -58,23 +51,18 @@
                 },
 
                 secondsRemaining: {
-                    type: Number
+                    type: Number,
+                    observer: '_onTimerTick'
                 },
 
                 devMode: {
                     type: Boolean,
                     value: false
-                },
-
-                buttonText: {
-                    type: String,
-                    computed: '_buttonText(secondsRemaining)'
                 }
             },
 
             observers: [
-                '_startTimerOnPageEntry(routeData)',
-                '_pauseTimer(secondsRemaining)'
+                '_startTimerOnPageEntry(routeData)'
             ],
 
             _startTimerOnPageEntry: function(routeData) {
@@ -90,19 +78,12 @@
                 this._goToPage('checklist');
             },
 
-            _pauseTimer: function(secondsRemaining) {
+            _onTimerTick: function(secondsRemaining) {
                 if (secondsRemaining <= 0) {
                     this.$.timer.pause();
                     this.$.timer.currentTime = 0;
+                    this._next();
                 }
-            },
-
-            _hasNoSecondsRemaining: function(secondsRemaining) {
-                return secondsRemaining == 0;
-            },
-
-            _buttonText: function(secondsRemaining) {
-                return secondsRemaining==0 ? 'Ready' : 'Waiting...';
             }
         });
     </script>
