@@ -129,6 +129,10 @@
         '_siteChanged(currentSite)'
       ],
 
+      ready: function() {
+        this.gpsActive = true;
+      },
+
       _determineIcon: function(site) {
         if(site.visited  && !site.icon.includes("-gray")) {
           site.icon=site.icon.replace('.png', '-gray.png');
