@@ -21,7 +21,7 @@
         <div id="countdown">
           [[secondsRemaining]]
         </div>
-        <iron-timer id="timer" start-time="30" current-time="{{secondsRemaining}}"></iron-timer>
+        <iron-timer id="timer" start-time="[[_startTime(devMode)]]" current-time="{{secondsRemaining}}"></iron-timer>
       </div>
     </container>
     <template is="dom-if" if$="[[devMode]]">
@@ -30,6 +30,6 @@
       </div>
     </template>
     </template>
-    <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],properties:{currentSite:Object,prompt:{type:String},secondsRemaining:{type:Number,observer:"_onTimerTick"},devMode:{type:Boolean,value:!1}},observers:["_startTimerOnPageEntry(routeData)"],_startTimerOnPageEntry:function(e){"timer"==e.page&&(this.$.timer.reset(),this.$.timer.start())},_next:function(){this.$.timer.currentTime=0,this.$.timer.reset(),this._goToPage("checklist")},_onTimerTick:function(e){e<=0&&(this.$.timer.pause(),this.$.timer.currentTime=0,this._next())}});</script>
+    <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],properties:{currentSite:Object,prompt:{type:String},secondsRemaining:{type:Number,observer:"_onTimerTick"},devMode:{type:Boolean,value:!1}},observers:["_startTimerOnPageEntry(routeData)"],_startTime:function(e){return e?"3":"30"},_startTimerOnPageEntry:function(e){"timer"==e.page&&(this.$.timer.reset(),this.$.timer.start())},_next:function(){this.$.timer.currentTime=0,this.$.timer.reset(),this._goToPage("checklist")},_onTimerTick:function(e){e<=0&&(this.$.timer.pause(),this.$.timer.currentTime=0,this._next())}});</script>
 </dom-module>
 </body></html>
