@@ -188,12 +188,9 @@
       paper-checkbox {
         display: block;
       }
-      #question{
-        @apply(--paper-font-headline);
-      }
     </style>
     <container>
-      <div class="text" id="question">
+      <div class="text">
         [[currentSite.question]]
       </div>
       <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">

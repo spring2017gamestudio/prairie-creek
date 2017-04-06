@@ -627,17 +627,19 @@ _styles:[],_properties:null,customStyle:{},_styleCache:new t,_element:Polymer.Do
       --font-common-base: 'Nunito Sans', sans-serif;
       --paper-font-common-base: var(--font-common-base);
       --primary-background-color: #dfd4c3;
-      --primary-font-color: #171a23;
+      --primary-font-color: #D4441B;
+      --secondary-font-color: #171a23;
+      --primary-accent-color: #db913f;
     }
       .debugging {
         background-color: #eeddee;
       }
       paper-button {
         text-align: center;
-        border: 2px solid #db913f;
+        border: 2px solid var(--primary-accent-color);
         border-radius: 12px;
-        background-color: #db913f;
-        color: #171a23;
+        background-color: var(--primary-accent-color);
+        color: var(--secondary-font-color);
       }
       paper-checkbox {
         display: block;
@@ -654,9 +656,9 @@ _styles:[],_properties:null,customStyle:{},_styleCache:new t,_element:Polymer.Do
         margin-right: 20px;
       }
       .text {
-        color: #D4441B;
+        @apply(--paper-font-subhead);
+        color: var(--primary-font-color);
         text-align: center;
-        font-size: 18pt;
         padding-bottom: 10px;
       }
 
@@ -1914,8 +1916,6 @@ this.timeStamp=Date.now()},i=window.Element.prototype.animate;window.Element.pro
     <style include="shared-styles">
        :host {
          font-family: var(--font-common-base);
-         color: var(--primary-font-color);
-         @apply(--paper-font-subhead);
        }
 
        :host > * {
