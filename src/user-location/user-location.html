@@ -44,6 +44,10 @@
           type: Boolean,
           notify: true
         },
+        _first: {
+          type: Boolean,
+          value: true
+        }
       },
 
       observers: [
@@ -62,11 +66,14 @@
       _updatePosition: function (position) {
         var that = this;
         navigator.geolocation.getCurrentPosition(function (position) {
-          var coords = position.coords;
-          that._setLatitude(coords.latitude);
-          that._setLongitude(coords.longitude);
-          if (document.location.host.startsWith('localhost')) {
-            console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
+          if (that.active || that._first) {
+            that._first = false;
+            var coords = position.coords;
+            that._setLatitude(coords.latitude);
+            that._setLongitude(coords.longitude);
+            if (document.location.host.startsWith('localhost')) {
+              console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
+            }
           }
         });
       },
