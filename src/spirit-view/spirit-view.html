@@ -29,7 +29,7 @@
     <container class="text">
       [[selectedSpirit.text]]
     </container>
-    <paper-button raised="" on-tap="_next">Go to title screen</paper-button>
+    <paper-button raised="" on-tap="_next">Play Again!</paper-button>
   </template>
     <script>Polymer({is:"spirit-view",behaviors:[ViewBehavior],properties:{mapData:{type:Object,notify:!0},spiritData:{type:Object,notify:!0},selectedSpirit:{type:Object,notify:!0,computed:"_currentSpiritText(mapData,spiritData)"},hideImageForTesting:{type:Boolean,value:!1}},_currentSpiritText:function(e,t){for(var i=0,r=0;r<e.length;r++)for(var a=0;a<e[r].responses.length;a++)i+=e[r].responses[a].selected?e[r].responses[a].value:0;return t[Math.sign(i)+1]},_next:function(){this._goToPage("title")}});</script>
 </dom-module>
