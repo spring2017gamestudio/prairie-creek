@@ -14,17 +14,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="shared-styles">
   <template>
     <style>
-    :root{
-      --font-common-base: 'Nunito Sans', sans-serif;
-      --paper-font-common-base: var(--font-common-base);
-      --primary-background-color: #8bc34a;
-      --primary-font-color: #000000;
-      --secondary-font-color: #000000;
-      --primary-accent-color: #fff568;
-    }
+       :root {
+        --font-common-base: 'Nunito Sans', sans-serif;
+        --paper-font-common-base: var(--font-common-base);
+        --primary-background-color: #8bc34a;
+        --primary-font-color: #000000;
+        --secondary-font-color: #000000;
+        --primary-accent-color: #fff568;
+      }
+      
       .debugging {
         background-color: #eeddee;
       }
+      
       paper-button {
         text-align: center;
         border: 2px solid var(--primary-accent-color);
@@ -32,28 +34,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: var(--primary-accent-color);
         color: var(--secondary-font-color);
       }
+      
       paper-checkbox {
         display: block;
         margin-bottom: 10px;
       }
+      
       .center {
         display: block;
         margin: 0 auto;
         width: 20%;
       }
+      
       container {
         display: block;
         margin-left: 20px;
         margin-right: 20px;
       }
+      
+      .bigtext {
+        @apply(--paper-font-title);
+        color: var(--primary-font-color);
+        text-align: center;
+        white-space: normal;
+      }
+
       .text {
         @apply(--paper-font-subhead);
         color: var(--primary-font-color);
         text-align: center;
         padding-bottom: 10px;
-        font-size: 14pt;
       }
-
     </style>
   </template>
 </dom-module>
