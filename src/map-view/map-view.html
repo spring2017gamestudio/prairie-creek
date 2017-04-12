@@ -29,8 +29,8 @@
         width: 30%;
         margin:0 auto;
       }
-      .text {
-        font-size: 2em;
+
+      #prompt {
         padding-top: 20px;
         padding-bottom: 20px;
       }
@@ -49,12 +49,15 @@
         </google-map>
       </template>
 
-      <div class="text" id="instructions" hidden$="[[!showInstructions]]">
-        Please visit one of these locations.
+      <div id="prompt">
+        <div class="text" id="instructions" hidden$="[[!showInstructions]]">
+          Please visit one of these locations.
+        </div>
+        <div class="text" id="arrival" hidden$="[[showInstructions]]">
+          You are at the [[currentSite.name]]
+        </div>
       </div>
-      <div class="text" id="arrival" hidden$="[[showInstructions]]">
-        You are at [[currentSite.name]]
-      </div>
+
       <paper-button class="proceed" id="proceed" raised on-tap="_proceed" hidden$="[[showInstructions]]">
         Explore
       </paper-button>
