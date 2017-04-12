@@ -4,97 +4,161 @@
   <script>
     const _default = [
       {
-        latitude: 40.203797,
-        longitude: -85.408037,
-        name: "Bell Tower",
+        latitude: 40.122386,
+        longitude: -85.281263,
+        name: "Playground",
         range: 0.0003,
+        prompt: 'Use your fingers to feel as many different textures as you can.',
+        question: 'What did you touch?',
+        visited: false,
+        icon: 'images/markers/iconplaceholder.png',
+        responses: [
+          {
+            text: 'Bumpy Plastic',
+            value: -1
+          },
+          {
+            text: 'Rough Bark',
+            value: +3
+          },
+          {
+            text: 'Slimy Insects',
+            value: -2
+          },
+          {
+            text: 'Soft Grass',
+            value: -1
+          },
+          {
+            text: 'Hot Metal',
+            value: -1
+          }
+        ]
+      },
+      {
+        latitude: 40.122663,
+        longitude: -85.282950,
+        name: "Beach",
+        range: 0.0002,
         prompt: 'Breathe deeply and consider what you smell.',
         question: 'What did you smell?',
         visited: false,
-        icon: 'images/markers/belltower.png',
+        icon:'images/markers/iconplaceholder.png',
         responses: [
-          {
-            text: 'Food',
-            value: -1
-          },
           {
             text: 'Grass',
             value: +3
           },
           {
-            text: 'Cars',
-            value: -2
-          },
-          {
-            text: 'Trash',
-            value: -1
-          },
-          {
-            text: 'Perfume',
-            value: -1
-          }
-        ]
-      },
-      {
-        latitude: 40.203295,
-        longitude: -85.407271,
-        name: "Frog Baby",
-        range: 0.0002,
-        prompt: 'Observe your surroundings.',
-        question: 'What did you see?',
-        visited: false,
-        icon:'images/markers/frogbaby.png',
-        responses: [
-          {
-            text: 'Water',
-            value: +3
-          },
-          {
-            text: 'Trees',
+            text: 'Salt',
             value: +2
           },
           {
-            text: 'Litter',
+            text: 'Animal Droppings',
             value: -4
           },
           {
-            text: 'Flowers',
+            text: 'Rotting food',
             value: +2
           },
           {
-            text: 'Metal',
+            text: 'Flowers',
             value: -1
           }
         ]
       },
       {
-        latitude: 40.204352,
-        longitude: -85.406867,
-        name: "Architecture Building",
+        latitude: 40.121932,
+        longitude: -85.283052,
+        name: "Pier",
         range: 0.0003,
-        prompt: 'Take a moment to listen to the world around you.',
-        question: 'What did you hear?',
+        prompt: 'Observe the water.',
+        question: 'What did you see in the water?',
         visited: false,
-        icon: 'images/markers/cap.png',
+        icon: 'images/markers/iconplaceholder.png',
         responses: [
           {
-            text: 'Birds',
+            text: 'Animal Droppings',
             value: +2
           },
           {
-            text: 'Music',
+            text: 'Paper',
             value: 0
           },
           {
-            text: 'Traffic',
+            text: 'Fish',
             value: -3
           },
           {
-            text: 'Talking',
+            text: 'Algae',
             value: 0
           },
           {
-            text: 'Wind',
+            text: 'Plastic',
+            value: +2
+          }
+        ]
+      },
+      {
+        latitude: 40.121240,
+        longitude: -85.282425,
+        name: "Woods By The Water",
+        range: 0.0002,
+        prompt: 'Take a moment to see to the world around you.',
+        question: 'What did you see?',
+        visited: false,
+        icon:'images/markers/iconplaceholder.png',
+        responses: [
+          {
+            text: 'Furry Creatures',
+            value: +3
+          },
+          {
+            text: 'Metal',
+            value: +2
+          },
+          {
+            text: 'Plants',
+            value: -4
+          },
+          {
+            text: 'Soda',
+            value: +2
+          },
+          {
+            text: 'Paint',
+            value: -1
+          }
+        ]
+      },
+      {
+        latitude: 40.123235,
+        longitude: -85.282088,
+        name: "Field",
+        range: 0.0003,
+        prompt: 'Take a moment to listen closely to your surroundings.',
+        question: 'What did you hear?',
+        visited: false,
+        icon: 'images/markers/iconplaceholder.png',
+        responses: [
+          {
+            text: 'Engines',
+            value: +2
+          },
+          {
+            text: 'Chirping',
+            value: 0
+          },
+          {
+            text: 'Water Swishing',
+            value: -3
+          },
+          {
+            text: 'Ringing',
+            value: 0
+          },
+          {
+            text: 'Leaves',
             value: +2
           }
         ]
