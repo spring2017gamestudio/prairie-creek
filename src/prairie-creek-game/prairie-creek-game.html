@@ -65,7 +65,17 @@
         current-site="[[currentSite]]"
         route-data="{{routeData}}">
       </checklist-view>
-      <spirit-view name="spirit" current-site="{{currentSite}}" spirit-data="[[spiritData]]" route-data="{{routeData}}"></spirit-view>
+      <spirit-view 
+        name="spirit"
+        map-data="[[mapData]]"
+        current-site="{{currentSite}}"
+        spirit-data="[[spiritData]]"
+        route-data="{{routeData}}">
+      </spirit-view>
+      <team-view
+        name="team"
+        route-data="{{routeData}}">
+      </team-view>
       <missing-view name="missing" route-data="{{routeData}}"></missing-view>
     </iron-pages>
   </template>

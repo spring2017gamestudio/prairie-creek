@@ -41,11 +41,7 @@
       behaviors: [ViewBehavior],
       properties: {
         currentSite: Object,
-        mapData: Object,
-        nextPage: {
-          type: String,
-          value: 'map'
-        }
+        mapData: Object
       },
       _onCheckboxTap: function(event) {
         const checkbox = event.currentTarget;
@@ -54,16 +50,7 @@
       },
       _next: function() {
         this.currentSite.visited = true;
-        this.nextPage = this._visitedAllSites() ? 'spirit' : 'map';
-        this._goToPage(this.nextPage);
-      },
-      _visitedAllSites: function() {
-        for (var i = 0; i < this.mapData.length; i++) {
-          if (!this.mapData[i].visited) {
-            return false;
-          }
-        }
-        return true;
+        this._goToPage('spirit');
       }
     });
   </script>
