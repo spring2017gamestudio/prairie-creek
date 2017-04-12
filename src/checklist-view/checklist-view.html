@@ -188,9 +188,12 @@
       paper-checkbox {
         display: block;
       }
+      #heading {
+        padding-bottom: 1em;
+      }
     </style>
     <container>
-      <div class="text">
+      <div class="bigtext" id="heading">
         [[currentSite.question]]
       </div>
       <template id="checkboxarea" is="dom-repeat" items="[[currentSite.responses]]">

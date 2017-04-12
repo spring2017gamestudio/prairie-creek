@@ -4,17 +4,19 @@
 </head><body><dom-module id="shared-styles">
   <template>
     <style>
-    :root{
-      --font-common-base: 'Nunito Sans', sans-serif;
-      --paper-font-common-base: var(--font-common-base);
-      --primary-background-color: #8bc34a;
-      --primary-font-color: #000000;
-      --secondary-font-color: #000000;
-      --primary-accent-color: #fff568;
-    }
+       :root {
+        --font-common-base: 'Nunito Sans', sans-serif;
+        --paper-font-common-base: var(--font-common-base);
+        --primary-background-color: #8bc34a;
+        --primary-font-color: #000000;
+        --secondary-font-color: #3d4a36;
+        --primary-accent-color: #fff568;
+      }
+      
       .debugging {
         background-color: #eeddee;
       }
+      
       paper-button {
         text-align: center;
         border: 2px solid var(--primary-accent-color);
@@ -22,29 +24,41 @@
         background-color: var(--primary-accent-color);
         color: var(--secondary-font-color);
       }
+      
       paper-checkbox {
         display: block;
         margin-bottom: 10px;
       }
+      
       .center {
         display: block;
         margin: 0 auto;
         width: 20%;
       }
+      
       container {
         display: block;
         margin-left: 20px;
         margin-right: 20px;
       }
-      .text {
-        @apply(--paper-font-subhead);
+      
+      .bigtext {
+        @apply(--font-common-base);
         color: var(--primary-font-color);
         text-align: center;
-        padding-bottom: 10px;
-        font-size: 14pt;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 36px;
       }
 
+      .text {
+        @apply(--font-common-base);
+        color: var(--primary-font-color);
+        text-align: center;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 30px;
+      }
     </style>
   </template>
-</dom-module>
-</body></html>
+</dom-module></body></html>

@@ -623,17 +623,19 @@ _styles:[],_properties:null,customStyle:{},_styleCache:new t,_element:Polymer.Do
 <dom-module id="shared-styles" assetpath="../shared-styles/">
   <template>
     <style>
-    :root{
-      --font-common-base: 'Nunito Sans', sans-serif;
-      --paper-font-common-base: var(--font-common-base);
-      --primary-background-color: #8bc34a;
-      --primary-font-color: #000000;
-      --secondary-font-color: #000000;
-      --primary-accent-color: #fff568;
-    }
+       :root {
+        --font-common-base: 'Nunito Sans', sans-serif;
+        --paper-font-common-base: var(--font-common-base);
+        --primary-background-color: #8bc34a;
+        --primary-font-color: #000000;
+        --secondary-font-color: #3d4a36;
+        --primary-accent-color: #fff568;
+      }
+      
       .debugging {
         background-color: #eeddee;
       }
+      
       paper-button {
         text-align: center;
         border: 2px solid var(--primary-accent-color);
@@ -641,32 +643,44 @@ _styles:[],_properties:null,customStyle:{},_styleCache:new t,_element:Polymer.Do
         background-color: var(--primary-accent-color);
         color: var(--secondary-font-color);
       }
+      
       paper-checkbox {
         display: block;
         margin-bottom: 10px;
       }
+      
       .center {
         display: block;
         margin: 0 auto;
         width: 20%;
       }
+      
       container {
         display: block;
         margin-left: 20px;
         margin-right: 20px;
       }
-      .text {
-        @apply(--paper-font-subhead);
+      
+      .bigtext {
+        @apply(--font-common-base);
         color: var(--primary-font-color);
         text-align: center;
-        padding-bottom: 10px;
-        font-size: 14pt;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 36px;
       }
 
+      .text {
+        @apply(--font-common-base);
+        color: var(--primary-font-color);
+        text-align: center;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 30px;
+      }
     </style>
   </template>
-</dom-module>
-<dom-module id="iron-timer" assetpath="../../bower_components/iron-timer/">
+</dom-module><dom-module id="iron-timer" assetpath="../../bower_components/iron-timer/">
 </dom-module>
 
 <script>!function(){Polymer({is:"iron-timer",properties:{startTime:{type:Number,value:0},currentTime:{type:Number,notify:!0},isRunning:{type:Boolean,reflectToAttribute:!0,notify:!0,value:!1},_elapsed:{type:Number,value:0}},ready:function(){this.set("currentTime",this.startTime)},start:function(){this.startTime&&!this.isRunning&&(this._elapsed=Math.floor(performance.now()/1e3),this.isRunning=!0,window.requestAnimationFrame(this._decreaseTimer.bind(this)))},pause:function(){this.isRunning=!1},isStarted:function(){return Boolean(this._elapsed)},reset:function(){this.set("currentTime",this.startTime),this.set("_elapsed",0)},_decreaseTimer:function(e){if(this.isRunning){if(0===this.currentTime)return this.pause(),void this.fire("iron-timer-end");var i=Math.floor(e/1e3),t=i-this._elapsed;this.currentTime=this.currentTime-t,this._elapsed=i,window.requestAnimationFrame(this._decreaseTimer.bind(this))}}})}();</script>
@@ -1939,7 +1953,6 @@ this.timeStamp=Date.now()},i=window.Element.prototype.animate;window.Element.pro
 
     <iron-pages id="pages" selected="[[routeData.page]]" attr-for-selected="name" on-iron-select="_onPageChanged">
       <title-view name="title" route-data="{{routeData}}"></title-view>
-      <intro-view name="intro" route-data="{{routeData}}"></intro-view>
       <map-view name="map" locations="[[mapData]]" latitude="{{latitude}}" longitude="{{longitude}}" current-site="[[currentSite]]" route-data="{{routeData}}" dev-mode="[[devMode]]" gps-active="">
       </map-view>
       <timer-view name="timer" prompt="[[currentSite.prompt]]" route-data="{{routeData}}" dev-mode="[[devMode]]">
