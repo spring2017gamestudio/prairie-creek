@@ -3,7 +3,6 @@
   "shell": "src/prairie-creek-game/prairie-creek-game.html",
   "fragments": [
     "src/checklist-view/checklist-view.html",
-    "src/intro-view/intro-view.html",
     "src/map-view/map-view.html",
     "src/missing-view/missing-view.html",
     "src/timer-view/timer-view.html",
