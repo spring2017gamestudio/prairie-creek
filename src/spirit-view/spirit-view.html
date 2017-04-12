@@ -41,7 +41,7 @@
             is: 'spirit-view',
             behaviors: [ViewBehavior],
             properties: {
-                mapData: {
+                currentSite: {
                     type: Object,
                     notify: true
                 },
@@ -52,7 +52,7 @@
                 selectedSpirit: {
                     type: Object,
                     notify: true,
-                    computed: '_currentSpiritText(mapData,spiritData)'
+                    computed: '_currentSpiritText(currentSite,spiritData)'
                 },
                 hideImageForTesting: {
                   type: Boolean,
@@ -60,14 +60,16 @@
                 }
             },
 
-            _currentSpiritText: function(mapData, spiritData) {
+            _currentSpiritText: function(currentSite, spiritData) {
                 var spiritValue = 0;
-                for (var i = 0; i < mapData.length; i++) {
-                    for (var j = 0; j < mapData[i].responses.length; j++) {
-                        spiritValue += (mapData[i].responses[j].selected ? mapData[i].responses[j].value : 0);
+                    for (var i = 0; i < currentSite.responses.length; i++) {
+                        spiritValue += (currentSite.responses[i].selected ? currentSite.responses[i].value : 0);
                     }
-                }
-                return spiritData[Math.sign(spiritValue) + 1];
+                    if(spiritValue >= 0){
+                      return spiritData['natural'];
+                    }else{
+                      return spiritData['artificial'];
+                    }
             },
 
             _next: function() {

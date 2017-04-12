@@ -20,8 +20,7 @@
   </test-fixture>
 
   <script>
-    const allSites = [
-      {
+    const currentSite = {
         visited: true,
         responses: [
           {
@@ -40,42 +39,18 @@
             selected: false
           }
         ]
-      },
-      {
-        visited: false,
-        responses: [
-          {
-            text: 'Water',
-            value: +3,
-            selected: false
-          },
-          {
-            text: 'Trees',
-            value: +2,
-            selected: false
-          },
-          {
-            text: 'Litter',
-            value: -4,
-            selected: true
-          }
-        ]
-      }];
+      };
 
-    const textData = [
-      {
+    const textData = {
+      artificial:{
         text: 'There were a lot of unnatural things around you.',
         image: ''
       },
-      {
-        text: 'Your surroundings were a mixture of natural and unnatural items.',
-        image: ''      
-      },
-      {
+      natural:{
         text: 'You are surrounded by natural things.',
         image: ''
       }
-    ];
+    };
 
     describe('spirit-view with sample site data and spirit text', function () {
       var element;
@@ -87,7 +62,7 @@
       });
 
       function resetMapData() {
-        element.mapData = clone(allSites);
+        element.currentSite = clone(currentSite);
       }
 
       function clone(obj) {
@@ -96,7 +71,7 @@
 
       it('the current spirit text is the first option', function () {
         element.spiritData = clone(textData);
-        expect(element.selectedSpirit.text).to.deep.equal(textData[0].text);
+        expect(element.selectedSpirit.text).to.deep.equal(textData['natural'].text);
       });
 
     });
