@@ -20,13 +20,8 @@
         font-family: var(--font-common-base);
       }
       
-      :host > * {
-        height: 100%;
-        margin: 0 0;
-      }
-      
       drop-menu {
-        position: absolute;
+        position: fixed;
         top: 0px;
         right: 0px;
         z-index: 1;
@@ -34,7 +29,8 @@
       
       iron-pages {
         background-color: var(--primary-background-color);
-        position: absolute;
+        position: relative;
+        top: 0px;
         z-index: 0;
       }
     </style>
