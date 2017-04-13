@@ -7,6 +7,8 @@
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 
+<script src="../spirit-selector.js"></script>
+
 <dom-module id="spirit-view">
   <template>
     <style include="shared-styles">
@@ -37,11 +39,11 @@
     </style>
     <template is="dom-if"
               if$="[[!hideImageForTesting]]">
-      !!Spirit Image Goes Here!!
+      <img src="images/spirits/[[spiritImage]]"></img>
     </template>
-    <container class="text">
-     !!Spirit Text Goes Here!!
-    </container>
+    <div class="text">
+     [[spiritText]]
+    </div>
     <paper-button raised
                   on-tap="_next">
       Continue
@@ -56,9 +58,6 @@
           type: Object,
           notify: true
         },
-        mapData: {
-          type: Object
-        },
         spiritData: {
           type: Object,
           notify: true
@@ -66,6 +65,21 @@
         hideImageForTesting: {
           type: Boolean,
           value: false
+        },
+        spiritImage: String,
+        spiritText: String
+      },
+
+      observers: [
+        '_onPageChange(routeData.page, currentSite)'
+      ],
+
+      _onPageChange: function(page, currentSite) {
+        if (page==='spirit') {
+          var selected = selectSpirit(currentSite);
+          console.log('selected is ', selected.image);
+          this.spiritImage = selected.image;
+          this.spiritText = selected.text;
         }
       },
 

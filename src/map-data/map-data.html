@@ -7,6 +7,7 @@
         latitude: 40.122386,
         longitude: -85.281263,
         name: "Playground",
+        shortname: "playground",
         range: 0.0003,
         prompt: 'Use your fingers to feel as many different textures as you can.',
         question: 'What did you touch?',
@@ -23,11 +24,11 @@
           },
           {
             text: 'Slimy Insects',
-            value: -2
+            value: +2
           },
           {
             text: 'Soft Grass',
-            value: -1
+            value: +1
           },
           {
             text: 'Hot Metal',
@@ -39,6 +40,7 @@
         latitude: 40.122663,
         longitude: -85.282950,
         name: "Beach",
+        shortname: "beach",
         range: 0.0002,
         prompt: 'Breathe deeply and consider what you smell.',
         question: 'What did you smell?',
@@ -71,6 +73,7 @@
         latitude: 40.121932,
         longitude: -85.283052,
         name: "Pier",
+        shortname: "pier",
         range: 0.0003,
         prompt: 'Observe the water.',
         question: 'What did you see in the water?',
@@ -103,6 +106,7 @@
         latitude: 40.121240,
         longitude: -85.282425,
         name: "Woods By The Water",
+        shortname: "woods",
         range: 0.0002,
         prompt: 'Take a moment to see to the world around you.',
         question: 'What did you see?',
@@ -115,15 +119,15 @@
           },
           {
             text: 'Metal',
-            value: +2
+            value: -2
           },
           {
             text: 'Plants',
-            value: -4
+            value: +4
           },
           {
             text: 'Soda',
-            value: +2
+            value: -2
           },
           {
             text: 'Paint',
@@ -135,6 +139,7 @@
         latitude: 40.123235,
         longitude: -85.282088,
         name: "Field",
+        shortname: "field",
         range: 0.0003,
         prompt: 'Take a moment to listen closely to your surroundings.',
         question: 'What did you hear?',
@@ -165,17 +170,6 @@
       }
     ];
 
-    const _spiritData = {
-      artificial:{
-        text:'You noticed many man-made things on your walk. You are approached by the spirit of man\'s influence on nature.',
-        image: 'images/spirits/artificial.png'
-      },
-      natural:{
-        text: 'You noticed the natural beauty around you, and you are approached by a spirit of nature.',
-        image: 'images/spirits/natural.png'
-      }
-    };
-
     Polymer({
       is: 'map-data',
       properties: {
@@ -184,13 +178,6 @@
           type: Object,
           value: function () {
             return JSON.parse(JSON.stringify(_default));
-          }
-        },
-        spiritData: {
-          notify: true,
-          type: Object,
-          value: function () {
-            return JSON.parse(JSON.stringify(_spiritData));
           }
         }
       },
