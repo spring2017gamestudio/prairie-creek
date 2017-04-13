@@ -29,7 +29,7 @@
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/bower_components/webcomponentsjs/webcomponents-lite.min.js","a95deb54f6feaeb9cb96266b7800dbb1"],["/index.html","e5763bece4c92983126fb501fda17f33"],["/manifest.json","193668e641e5547d422d7edd5ddf7954"],["/src/checklist-view/checklist-view.html","6e590730d6926c58378868fae6015c3c"],["/src/map-view/map-view.html","0e478d8650cdd485b0557e5427b3c04b"],["/src/missing-view/missing-view.html","9c4821745f9fa139ca563a6dec358d31"],["/src/prairie-creek-game/prairie-creek-game.html","c478f907b1caac893c19999229aa2c75"],["/src/spirit-view/spirit-view.html","ebf39d6216656fa27da5aab532d9f122"],["/src/timer-view/timer-view.html","7fd3e03453ae567c2fc00ee4d96cd92c"],["/src/title-view/title-view.html","c50dd8b901d9b83649147bcf8bfe92ce"]];
+var PrecacheConfig = [["/bower_components/webcomponentsjs/webcomponents-lite.min.js","a95deb54f6feaeb9cb96266b7800dbb1"],["/index.html","18145523e95f7a0965243b4f0044df2c"],["/manifest.json","193668e641e5547d422d7edd5ddf7954"],["/src/checklist-view/checklist-view.html","6e590730d6926c58378868fae6015c3c"],["/src/map-view/map-view.html","0e478d8650cdd485b0557e5427b3c04b"],["/src/missing-view/missing-view.html","9c4821745f9fa139ca563a6dec358d31"],["/src/prairie-creek-game/prairie-creek-game.html","13916ce837eebd03b4b9f947936dfde5"],["/src/spirit-view/spirit-view.html","ebf39d6216656fa27da5aab532d9f122"],["/src/timer-view/timer-view.html","7fd3e03453ae567c2fc00ee4d96cd92c"],["/src/title-view/title-view.html","c50dd8b901d9b83649147bcf8bfe92ce"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 

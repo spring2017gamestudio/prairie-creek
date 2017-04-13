@@ -1907,13 +1907,6 @@ this.bubbles=!1,this.cancelable=!1,this.currentTarget=t,this.defaultPrevented=!1
 </dom-module>
 <dom-module id="drop-menu" assetpath="../drop-menu/">
   <template>
-    <style include="shared-styles">
-    :host{position: absolute;
-          top: 0px;
-          right: 0px;
-          z-index: 1;
-        }
-    </style>
     <div>
     <paper-menu-button horizontal-align="right" close-on-activate="true">
       <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
@@ -1928,18 +1921,23 @@ this.bubbles=!1,this.cancelable=!1,this.currentTarget=t,this.defaultPrevented=!1
 </div><dom-module id="prairie-creek-game">
   <template>
     <style include="shared-styles">
-       :host {
-         font-family: var(--font-common-base);
-       }
-
-       :host > * {
-         height: 100%;
-         margin: 0 0;
-       }
-
-       iron-pages{
-         background-color: var(--primary-background-color);
-       }
+      :host {
+        font-family: var(--font-common-base);
+      }
+      
+      drop-menu {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        z-index: 1;
+      }
+      
+      iron-pages {
+        background-color: var(--primary-background-color);
+        position: relative;
+        top: 0px;
+        z-index: 0;
+      }
     </style>
     <app-location route="{{route}}" use-hash-as-path=""></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{tail}}"></app-route>
