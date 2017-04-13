@@ -1,50 +1,29 @@
-# The Prairie Creek Game [![Build Status](https://travis-ci.org/spring2017gamestudio/prairie-creek.svg?branch=master)](https://travis-ci.org/spring2017gamestudio/prairie-creek)
+# Spirits at  Prairie Creek Park [![Build Status](https://travis-ci.org/spring2017gamestudio/prairie-creek.svg?branch=master)](https://travis-ci.org/spring2017gamestudio/prairie-creek)
 
-This is a locative adventure game set at Prairie Creek Reservoir
-in Muncie.
-It is based on the [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit).
+This is a geolocative adventure game set at 
+[Prairie Creek Reservoir](http://www.cityofmuncie.com/muncie-prairie-creek-reservoir-office.htm)
+near Muncie, Indiana. This game has been developed by a multidisciplinary undergraduate
+team at [Ball State University](http://bsu.edu) working under the direction of
+[Paul Gestwicki](http://www.cs.bsu.edu/~pvg), in collaboration with
+[Muncie Sanitary District](http://www.munciesanitary.org/)&mdash;specifically
+[Camp Prairie Creek](http://www.munciesanitary.org/department-pages/stormwater/camp-prairie-creek),
+a free summer camp for school-age children that features themes of water quality,
+sustainability, environmentalism, and outdoorsmanship.
 
-## Notes from Polymer Starter Kit
+You can play the game for free online, but it is only playable at [Prairie Creek Park](https://www.google.com/maps/place/Prairie+Creek+Park/@40.1305419,-85.2978604,15z/data=!4m12!1m6!3m5!1s0x88153dbc662e6527:0x269343d76a2f29e5!2sPrairie+Creek+Reservoir!8m2!3d40.1225435!4d-85.2821016!3m4!1s0x0:0x5de41bebe474361b!8m2!3d40.1240078!4d-85.2818549).
+Once you're near the park, you can load the game from
+[https://spring2017gamestudio.github.io/prairie-creek/](https://spring2017gamestudio.github.io/prairie-creek/).
+The game is designed to be played by families or small groups. We hope you enjoy it!
 
-### Build
+## Licensing
 
-This command performs HTML, CSS, and JS minification on the application
-dependencies, and generates a service-worker.js file with code to pre-cache the
-dependencies based on the entrypoint and fragments specified in `polymer.json`.
-The minified files are output to the `build/unbundled` folder, and are suitable
-for serving from a HTTP/2+Push compatible server.
+The source code for this project is licensed under (probably GPL, TBD soon) 
+and the art assets are made available under (probably CC-BY-SA, TBD soon).
 
-In addition the command also creates a fallback `build/bundled` folder,
-generated using fragment bundling, suitable for serving from non
-H2/push-compatible servers or to clients that do not support H2/Push.
+## Technical notes
 
-    polymer build
-
-### Preview the build
-
-This command serves the minified version of the app at `http://localhost:8080`
-in an unbundled state, as it would be served by a push-compatible server:
-
-    polymer serve build/unbundled
-
-This command serves the minified version of the app at `http://localhost:8080`
-generated using fragment bundling:
-
-    polymer serve build/bundled
-
-### Run tests
-
-This command will run
-[Web Component Tester](https://github.com/Polymer/web-component-tester) against the
-browsers currently installed on your machine.
-
-    polymer test
-
-### Adding a new view
-
-You can extend the app by adding more views that will be demand-loaded
-e.g. based on the route, or to progressively render non-critical sections
-of the application.  Each new demand-loaded fragment should be added to the
-list of `fragments` in the included `polymer.json` file.  This will ensure
-those components and their dependencies are added to the list of pre-cached
-components (and will have bundles created in the fallback `bundled` build).
+_Spirits at Prairie Creek Park_ is a mobile web application written using
+[Polymer](https://www.polymer-project.org/). We have used GitHub for version control
+and [Travis CI](https://travis-ci.org/spring2017gamestudio/prairie-creek) for continuous
+integration. Thanks to the developers and maintainers of these systems and their support
+of open source projects!
