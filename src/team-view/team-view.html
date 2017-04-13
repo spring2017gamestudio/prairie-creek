@@ -3,30 +3,69 @@
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
 
-
-<link rel="import" href="../shared-styles/shared-styles.html">
-
+<link rel="import"
+      href="../shared-styles/shared-styles.html">
 <link rel="import"
       href="../view-behavior/view-behavior.html">
-
+<script src="../spirit-selector.js"></script>
 
 
 <dom-module id="team-view">
     <template>
         <style include="shared-styles">
-             :host {
+           :host {
                 display: block;
             }
         </style>
-        !!Show Spirit Team Here!!
-        <paper-button raised on-tap="_next">Play Again</paper-button>
+        <template is="dom-repeat"
+                  items="[[mapData]]">
+            <selected-spirit page="[[routeData.page]]" site="[[item]]"></selected-spirit>
+        </template>
+        <br/>
+        <paper-button raised
+                      on-tap="_next">Play Again</paper-button>
     </template>
     <script>
         Polymer({
             is: 'team-view',
             behaviors: [ViewBehavior],
-            _next: function() {
+            properties: {
+                mapData: Object
+            },
+            _next: function () {
                 this._goToPage('title');
+            }
+        });
+    </script>
+</dom-module>
+
+<dom-module id="selected-spirit">
+    <template>
+        <style>
+            img {
+                width: 18%;
+                display: inline;
+                padding-top: 30px;
+                padding-bottom: 30px;
+            }
+        </style>
+        <img src="images/spirits/[[image]]"></img>
+    </template>
+    <script>
+        Polymer({
+            is: 'selected-spirit',
+            properties: {
+                site: Object,
+                page: String,
+                image:  String,
+            },
+            observers: [
+                '_pageChanged(page,site)'
+            ],
+            _pageChanged: function(page, site) {
+                if (page==='team' && site!==undefined) {
+                    this.image = selectSpirit(this.site).image;
+                }
             }
         });
     </script>

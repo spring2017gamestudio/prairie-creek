@@ -69,7 +69,7 @@
       ],
 
       _onPageChange: function(page, currentSite) {
-        if (page==='spirit') {
+        if (page==='spirit' && currentSite) {
           var selected = selectSpirit(currentSite);
           this.spiritImage = selected.image;
           this.spiritText = selected.text;
