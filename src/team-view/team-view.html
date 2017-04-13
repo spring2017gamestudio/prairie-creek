@@ -1,0 +1,30 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><div hidden="" by-vulcanize=""><script>function selectSpirit(e){for(var r=0,a=0;a<e.responses.length;a++)e.responses[a].selected&&(r+=e.responses[a].value);var t=r<0?"artificial":"natural";return{image:e.shortname+"-"+t+".png",text:r<0?e.artificial:e.natural}}</script></div><dom-module id="team-view">
+    <template>
+        <style include="shared-styles">
+           :host {
+                display: block;
+            }
+        </style>
+        <template is="dom-repeat" items="[[mapData]]">
+            <selected-spirit page="[[routeData.page]]" site="[[item]]"></selected-spirit>
+        </template>
+        <br>
+        <paper-button raised="" on-tap="_next">Play Again</paper-button>
+    </template>
+    <script>Polymer({is:"team-view",behaviors:[ViewBehavior],properties:{mapData:Object},_next:function(){this._goToPage("title")}});</script>
+</dom-module>
+
+<dom-module id="selected-spirit">
+    <template>
+        <style>
+            img {
+                width: 18%;
+                display: inline;
+                padding-top: 30px;
+                padding-bottom: 30px;
+            }
+        </style>
+        <img src="images/spirits/[[image]]">
+    </template>
+    <script>Polymer({is:"selected-spirit",properties:{site:Object,page:String,image:String},observers:["_pageChanged(page,site)"],_pageChanged:function(e,i){"team"===e&&void 0!==i&&(this.image=selectSpirit(this.site).image)}});</script>
+</dom-module></body></html>

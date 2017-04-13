@@ -1,9 +1,10 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><dom-module id="spirit-view">
-    <template>
+<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><div hidden="" by-vulcanize=""><script>function selectSpirit(e){for(var r=0,a=0;a<e.responses.length;a++)e.responses[a].selected&&(r+=e.responses[a].value);var t=r<0?"artificial":"natural";return{image:e.shortname+"-"+t+".png",text:r<0?e.artificial:e.natural}}</script></div><dom-module id="spirit-view">
+  <template>
     <style include="shared-styles">
-      :host {
+       :host {
         display: block;
       }
+      
       img {
         width: 80%;
         height: 80%;
@@ -13,24 +14,27 @@
         padding-top: 30px;
         padding-bottom: 30px;
       }
-      .text{
+      
+      .text {
         margin-left: 20px;
         padding-top: 20px;
       }
+      
       paper-button {
         display: block;
-        margin:0 auto;
+        margin: 0 auto;
         width: 30%;
       }
     </style>
     <template is="dom-if" if$="[[!hideImageForTesting]]">
-      <img src="{{selectedSpirit.image}}">
+      <img src="images/spirits/[[spiritImage]]">
     </template>
-    <container class="text">
-      [[selectedSpirit.text]]
-    </container>
-    <paper-button raised="" on-tap="_next">Play Again!</paper-button>
+    <div class="text">
+     [[spiritText]]
+    </div>
+    <paper-button raised="" on-tap="_next">
+      Continue
+    </paper-button>
   </template>
-    <script>Polymer({is:"spirit-view",behaviors:[ViewBehavior],properties:{currentSite:{type:Object,notify:!0},spiritData:{type:Object,notify:!0},selectedSpirit:{type:Object,notify:!0,computed:"_currentSpiritText(currentSite,spiritData)"},hideImageForTesting:{type:Boolean,value:!1}},_currentSpiritText:function(e,t){for(var i=0,r=0;r<e.responses.length;r++)i+=e.responses[r].selected?e.responses[r].value:0;return i>=0?t.natural:t.artificial},_next:function(){this._goToPage("title")}});</script>
-</dom-module>
-</body></html>
+  <script>Polymer({is:"spirit-view",behaviors:[ViewBehavior],properties:{currentSite:Object,mapData:Object,hideImageForTesting:{type:Boolean,value:!1},spiritImage:String,spiritText:String},observers:["_onPageChange(routeData.page, currentSite)"],_onPageChange:function(t,e){if("spirit"===t&&e){var i=selectSpirit(e);this.spiritImage=i.image,this.spiritText=i.text}},_next:function(){this._goToPage(this._visitedAllSites()?"team":"map")},_visitedAllSites:function(){for(var t=0;t<this.mapData.length;t++)if(!this.mapData[t].visited)return!1;return!0}});</script>
+</dom-module></body></html>

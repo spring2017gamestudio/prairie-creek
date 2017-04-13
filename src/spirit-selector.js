@@ -1,0 +1,1 @@
+function selectSpirit(e){for(var r=0,a=0;a<e.responses.length;a++)e.responses[a].selected&&(r+=e.responses[a].value);var t=r<0?"artificial":"natural";return{image:e.shortname+"-"+t+".png",text:r<0?e.artificial:e.natural}}

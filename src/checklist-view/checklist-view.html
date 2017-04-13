@@ -204,6 +204,6 @@
       <paper-button class="center" id="submit" raised="" on-tap="_next">Next</paper-button>
     </container>
   </template>
-  <script>Polymer({is:"checklist-view",behaviors:[ViewBehavior],properties:{currentSite:Object,mapData:Object,nextPage:{type:String,value:"map"}},_onCheckboxTap:function(e){const t=e.currentTarget;e.target.item;this.currentSite.responses[t.index].selected=t.checked},_next:function(){this.currentSite.visited=!0,this.nextPage=this._visitedAllSites()?"spirit":"map",this._goToPage(this.nextPage)},_visitedAllSites:function(){for(var e=0;e<this.mapData.length;e++)if(!this.mapData[e].visited)return!1;return!0}});</script>
+  <script>Polymer({is:"checklist-view",behaviors:[ViewBehavior],properties:{currentSite:Object,mapData:Object},_onCheckboxTap:function(e){const t=e.currentTarget;e.target.item;this.currentSite.responses[t.index].selected=t.checked},_next:function(){this.currentSite.visited=!0,this._goToPage("spirit")}});</script>
 </dom-module>
 </body></html>
