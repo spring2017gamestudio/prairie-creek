@@ -16,18 +16,23 @@
 <dom-module id="prairie-creek-game">
   <template>
     <style include="shared-styles">
-       :host {
-         font-family: var(--font-common-base);
-       }
-
-       :host > * {
-         height: 100%;
-         margin: 0 0;
-       }
-
-       iron-pages{
-         background-color: var(--primary-background-color);
-       }
+      :host {
+        font-family: var(--font-common-base);
+      }
+      
+      drop-menu {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        z-index: 1;
+      }
+      
+      iron-pages {
+        background-color: var(--primary-background-color);
+        position: relative;
+        top: 0px;
+        z-index: 0;
+      }
     </style>
     <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{tail}}"></app-route>
@@ -35,35 +40,18 @@
     <map-data data="{{mapData}}" spirit-data="{{spiritData}}"></map-data>
     <user-location active="[[gpsActive]]" latitude="{{latitude}}" longitude="{{longitude}}" dev-mode="[[devMode]]"></user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
-    <iron-localstorage
-      name="my-app-storage"
-      value="{{mapData}}">
+    <iron-localstorage name="my-app-storage" value="{{mapData}}">
     </iron-localstorage>
     <drop-menu on-reset="_resetGame"></drop-menu>
 
     <iron-pages id="pages" selected="[[routeData.page]]" attr-for-selected="name" on-iron-select="_onPageChanged">
       <title-view name="title" route-data="{{routeData}}"></title-view>
-      <map-view
-        name="map"
-        locations="[[mapData]]"
-        latitude="{{latitude}}"
-        longitude="{{longitude}}"
-        current-site="[[currentSite]]"
-        route-data="{{routeData}}"
-        dev-mode="[[devMode]]"
-        gps-active>
+      <map-view name="map" locations="[[mapData]]" latitude="{{latitude}}" longitude="{{longitude}}" current-site="[[currentSite]]"
+        route-data="{{routeData}}" dev-mode="[[devMode]]" gps-active>
       </map-view>
-      <timer-view
-        name="timer"
-        prompt="[[currentSite.prompt]]"
-        route-data="{{routeData}}"
-        dev-mode="[[devMode]]">
+      <timer-view name="timer" prompt="[[currentSite.prompt]]" route-data="{{routeData}}" dev-mode="[[devMode]]">
       </timer-view>
-      <checklist-view
-        name="checklist"
-        map-data="{{mapData}}"
-        current-site="[[currentSite]]"
-        route-data="{{routeData}}">
+      <checklist-view name="checklist" map-data="{{mapData}}" current-site="[[currentSite]]" route-data="{{routeData}}">
       </checklist-view>
       <spirit-view name="spirit" current-site="{{currentSite}}" spirit-data="[[spiritData]]" route-data="{{routeData}}"></spirit-view>
       <missing-view name="missing" route-data="{{routeData}}"></missing-view>
