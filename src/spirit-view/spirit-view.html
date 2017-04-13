@@ -54,14 +54,8 @@
       is: 'spirit-view',
       behaviors: [ViewBehavior],
       properties: {
-        currentSite: {
-          type: Object,
-          notify: true
-        },
-        spiritData: {
-          type: Object,
-          notify: true
-        },
+        currentSite: Object,
+        mapData: Object,
         hideImageForTesting: {
           type: Boolean,
           value: false
@@ -77,7 +71,6 @@
       _onPageChange: function(page, currentSite) {
         if (page==='spirit') {
           var selected = selectSpirit(currentSite);
-          console.log('selected is ', selected.image);
           this.spiritImage = selected.image;
           this.spiritText = selected.text;
         }

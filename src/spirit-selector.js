@@ -8,6 +8,6 @@ function selectSpirit(site) {
     var type = (sum < 0) ? 'artificial' : 'natural';
     return {
         image: site.shortname + '-' + type + '.png',
-        text: (sum < 0) ? 'You found artificial things' : 'You found natural things'
+        text: (sum < 0) ? site.artificial : site.natural
     };
 }

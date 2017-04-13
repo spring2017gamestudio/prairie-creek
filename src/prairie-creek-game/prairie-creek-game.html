@@ -45,24 +45,46 @@
     <drop-menu on-reset="_resetGame"></drop-menu>
 
     <iron-pages id="pages" selected="[[routeData.page]]" attr-for-selected="name" on-iron-select="_onPageChanged">
-      <title-view name="title" route-data="{{routeData}}"></title-view>
-      <map-view name="map" locations="[[mapData]]" latitude="{{latitude}}" longitude="{{longitude}}" current-site="[[currentSite]]"
-        route-data="{{routeData}}" dev-mode="[[devMode]]" gps-active>
+      <title-view
+        name="title"
+        route-data="{{routeData}}">
+      </title-view>
+      <map-view
+        name="map"
+        locations="[[mapData]]"
+        latitude="{{latitude}}"
+        longitude="{{longitude}}"
+        current-site="[[currentSite]]"
+        route-data="{{routeData}}"
+        dev-mode="[[devMode]]"
+        gps-active>
       </map-view>
-      <timer-view name="timer" prompt="[[currentSite.prompt]]" route-data="{{routeData}}" dev-mode="[[devMode]]">
+      <timer-view
+        name="timer"
+        prompt="[[currentSite.prompt]]"
+        route-data="{{routeData}}"
+        dev-mode="[[devMode]]">
       </timer-view>
-      <checklist-view name="checklist" map-data="{{mapData}}" current-site="[[currentSite]]" route-data="{{routeData}}">
+      <checklist-view
+        name="checklist"
+        map-data="{{mapData}}"
+        current-site="[[currentSite]]"
+        route-data="{{routeData}}">
       </checklist-view>
       <spirit-view 
         name="spirit"
-        current-site="{{currentSite}}"
+        map-data="[[mapData]]"
+        current-site="[[currentSite]]"
         route-data="{{routeData}}">
       </spirit-view>
       <team-view
         name="team"
         route-data="{{routeData}}">
       </team-view>
-      <missing-view name="missing" route-data="{{routeData}}"></missing-view>
+      <missing-view 
+        name="missing"
+        route-data="{{routeData}}">
+      </missing-view>
     </iron-pages>
   </template>
 
