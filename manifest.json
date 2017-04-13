@@ -1,10 +1,10 @@
 {
-  "name": "The Prairie Creek Game",
-  "short_name": "Prairie Creek Game",
-  "start_url": "/?homescreen=1",
+  "name": "Spirits at Prairie Creek Park",
+  "short_name": "Spirits",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#3f51b5",
-  "background_color": "#3f51b5",
+  "theme_color": "#8bc34a",
+  "background_color": "#8bc34a",
   "icons": [
     {
       "src": "images/manifest/icon-192x192.png",
