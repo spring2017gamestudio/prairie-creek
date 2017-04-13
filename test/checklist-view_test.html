@@ -101,41 +101,6 @@
                 it('marks the site as visited', function () {
                     expect(element.currentSite.visited).to.be.true;
                 });
-                it('routes to map view since there are more unmarked sites', function () {
-                    expect(element.nextPage).to.equal('map');
-                });
-            });
-
-            describe('routing as sites are visited', function () {
-
-                function visitSite(index) {
-                    setCurrentSiteTo(index);
-                    MockInteractions.tap(element.$.submit);
-                }
-
-                describe('the submit button is pressed and there are no unvisited sites', function () {
-                    beforeEach(function () {
-                        visitSite(0);
-                        visitSite(1);
-                    });
-
-                    it('routes to spirit view', function () {
-                        expect(element.nextPage).to.equal('spirit');
-                    });
-                });
-
-                describe('nextPage was spirit from previous play, then locations are unmarked', function () {
-                    beforeEach(function () {
-                        visitSite(0);
-                        visitSite(1);
-                        resetMapData();
-                        visitSite(0);
-                    });
-
-                    it('routes to map view because some sites are unvisited', function () {
-                        expect(element.nextPage).to.equal('map');
-                    });
-                });
             });
 
             describe('checking a box, navigating to a different site, and then returning to this view', function () {

@@ -20,61 +20,6 @@
   </test-fixture>
 
   <script>
-    const currentSite = {
-        visited: true,
-        responses: [
-          {
-            text: 'Food',
-            value: -1,
-            selected: false
-          },
-          {
-            text: 'Grass',
-            value: +3,
-            selected: true
-          },
-          {
-            text: 'Cars',
-            value: -2,
-            selected: false
-          }
-        ]
-      };
-
-    const textData = {
-      artificial:{
-        text: 'There were a lot of unnatural things around you.',
-        image: ''
-      },
-      natural:{
-        text: 'You are surrounded by natural things.',
-        image: ''
-      }
-    };
-
-    describe('spirit-view with sample site data and spirit text', function () {
-      var element;
-
-      beforeEach(function (done) {
-        element = fixture('basic');
-        resetMapData();
-        flush(done);
-      });
-
-      function resetMapData() {
-        element.currentSite = clone(currentSite);
-      }
-
-      function clone(obj) {
-        return JSON.parse(JSON.stringify(obj));
-      }
-
-      it('the current spirit text is the first option', function () {
-        element.spiritData = clone(textData);
-        expect(element.selectedSpirit.text).to.deep.equal(textData['natural'].text);
-      });
-
-    });
   </script>
 
 </body>
