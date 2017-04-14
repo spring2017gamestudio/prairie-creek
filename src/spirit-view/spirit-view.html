@@ -1,4 +1,11 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../prairie-creek-game/prairie-creek-game.html"></head><body><div hidden="" by-vulcanize=""><script>function selectSpirit(e){for(var r=0,a=0;a<e.responses.length;a++)e.responses[a].selected&&(r+=e.responses[a].value);var t=r<0?"artificial":"natural";return{image:e.shortname+"-"+t+".png",text:r<0?e.artificial:e.natural}}</script></div><dom-module id="spirit-view">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../view-behavior/view-behavior.html">
+<link rel="import" href="../shared-styles/shared-styles.html">
+
+<script src="../spirit-selector.js"></script>
+
+</head><body><dom-module id="spirit-view">
   <template>
     <style include="shared-styles">
        :host {
