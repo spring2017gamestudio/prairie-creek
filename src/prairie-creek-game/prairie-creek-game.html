@@ -13,6 +13,14 @@
 <link rel="import" href="../shared-styles/shared-styles.html">
 <link rel="import" href="../drop-menu/drop-menu.html">
 
+<link rel="import" href="../title-view/title-view.html">
+<link rel="import" href="../map-view/map-view.html">
+<link rel="import" href="../timer-view/timer-view.html">
+<link rel="import" href="../checklist-view/checklist-view.html">
+<link rel="import" href="../spirit-view/spirit-view.html">
+<link rel="import" href="../team-view/team-view.html">
+<link rel="import" href="../missing-view/missing-view.html">
+
 <dom-module id="prairie-creek-game">
   <template>
     <style include="shared-styles">
@@ -145,8 +153,8 @@
                 this.$$('map-data').reset();
               }
 
-              var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
-              this.importHref(resolvedPageUrl, null, this._showPage404, true);
+              //var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
+              //this.importHref(resolvedPageUrl, null, this._showPage404, true);
             }
           },
 
