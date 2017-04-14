@@ -85,6 +85,7 @@
       },
 
       _next: function () {
+        this.currentSite.spiritName=this.$.name.value;
         this.$.name.value="";
         this._goToPage(this._visitedAllSites() ? 'team' : 'map');
       },
