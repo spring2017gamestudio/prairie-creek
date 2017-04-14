@@ -71,9 +71,7 @@
             var coords = position.coords;
             that._setLatitude(coords.latitude);
             that._setLongitude(coords.longitude);
-            if (document.location.host.startsWith('localhost')) {
-              console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
-            }
+            console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
           }
         });
       },
