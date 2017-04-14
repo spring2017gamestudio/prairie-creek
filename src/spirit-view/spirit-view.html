@@ -51,7 +51,7 @@
     <div class="text">
      [[spiritText]]
    </div>
-   <paper-input always-float-label label="Name Your Spirit"></paper-input>
+   <paper-input id="name" always-float-label label="Name Your Spirit"></paper-input>
    <paper-button raised
                   on-tap="_next">
       Continue
@@ -85,6 +85,7 @@
       },
 
       _next: function () {
+        this.$.name.value="";
         this._goToPage(this._visitedAllSites() ? 'team' : 'map');
       },
 
