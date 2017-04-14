@@ -1,18 +1,6 @@
-<link rel="import"
-      href="../../bower_components/polymer/polymer.html">
-<link rel="import"
-      href="../../bower_components/iron-timer/iron-timer.html">
-
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="user-location">
-  <template>
-    <div>
-      <iron-timer id="locationTimer"
-                  start-time="[[updateRate]]"
-                  current-time="0"
-                  on-iron-timer-end="_onTimerEnd"></iron-timer>
-    </div>
-  </template>
   <script>
     Polymer({
       is: 'user-location',
@@ -43,53 +31,45 @@
         devMode: {
           type: Boolean,
           notify: true
-        },
-        _first: {
-          type: Boolean,
-          value: true
         }
       },
-
-      observers: [
-        '_devModeCheck(devMode)'
-      ],
 
       ready: function () {
-        // Don't do an active check here: we want to always acquire
-        // our first location, no matter what view we are on.
-        // The timer update function will check the active state for future
-        // updates.
-        this.$.locationTimer.start();
-        this._updatePosition();
+        if ("geolocation" in navigator) {
+          var that = this;
+          navigator.geolocation.getCurrentPosition(this._updatePosition(), this._onError);
+          navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError);
+        } else {
+          alert('Geolocation not available on this device.');
+          console.log('Geolocation not available');
+        }
       },
 
-      _updatePosition: function (position) {
+      _onError: function (error) {
+        console.log('Geolocation error(' + error.code + '): ' + error.message);
+      },
+
+      _onPositionChanged: function () {
         var that = this;
-        navigator.geolocation.getCurrentPosition(function (position) {
-          if (that.active || that._first) {
-            that._first = false;
-            var coords = position.coords;
-            that._setLatitude(coords.latitude);
-            that._setLongitude(coords.longitude);
-            if (document.location.host.startsWith('localhost')) {
-              console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
-            }
+        return function (position) {
+          if (that.devMode) {
+            console.log('Ignoring location change; devmode')
+          } else if (!that.active) {
+            console.log('Ignoring location change; inactive');
+          } else {
+            that._updatePosition()(position);
           }
-        });
-      },
-
-      _devModeCheck: function (devMode) {
-        if (devMode == true) {
-          this.$.locationTimer.pause();
         }
       },
 
-      _onTimerEnd: function () {
-        if (this.active) {
-          this._updatePosition();
+      _updatePosition: function () {
+        var that = this;
+        return function (position) {
+          var coords = position.coords;
+          that._setLatitude(coords.latitude);
+          that._setLongitude(coords.longitude);
+          console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
         }
-        this.$.locationTimer.reset();
-        this.$.locationTimer.start();
       }
     });
   </script>
