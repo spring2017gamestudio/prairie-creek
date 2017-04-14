@@ -73,6 +73,8 @@
             that._setLongitude(coords.longitude);
             console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
           }
+        }, function(error) {
+          console.log('Geolocation error (', error.code, '): ', error.message);
         });
       },
 
