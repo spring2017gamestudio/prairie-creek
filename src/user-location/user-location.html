@@ -1,4 +1,5 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="user-location">
   <script>
@@ -28,8 +29,8 @@
         currentSite: {
           type: Object
         },
-        devMode: {
-          type: Boolean,
+        error: {
+          type: String,
           notify: true
         }
       },
@@ -37,8 +38,8 @@
       ready: function () {
         if ("geolocation" in navigator) {
           var that = this;
-          navigator.geolocation.getCurrentPosition(this._updatePosition(), this._onError);
-          navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError);
+          navigator.geolocation.getCurrentPosition(this._updatePosition(), this._onError());
+          navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError());
         } else {
           alert('Geolocation not available on this device.');
           console.log('Geolocation not available');
@@ -46,15 +47,30 @@
       },
 
       _onError: function (error) {
-        console.log('Geolocation error(' + error.code + '): ' + error.message);
+        var that = this;
+        return function (error) {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              that.error = "Permission denied";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              that.error = "Position unavailable";
+              break;
+            case error.TIMEOUT:
+              that.error = "Timeout";
+              break;
+            case error.UNKNOWN_ERROR:
+              that.error = "Unknown error";
+              break;
+          }
+          console.log('Geolocation error(' + error.code + '): ' + that.error);
+        };
       },
 
       _onPositionChanged: function () {
         var that = this;
         return function (position) {
-          if (that.devMode) {
-            console.log('Ignoring location change; devmode')
-          } else if (!that.active) {
+          if (!that.active) {
             console.log('Ignoring location change; inactive');
           } else {
             that._updatePosition()(position);
@@ -69,6 +85,7 @@
           that._setLatitude(coords.latitude);
           that._setLongitude(coords.longitude);
           console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
+          that.error = '';
         }
       }
     });
