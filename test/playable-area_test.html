@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>playable-area tests</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../src/playable-area/playable-area.html">
+
+</head>
+
+<body>
+    <test-fixture id="outside-area">
+        <template>
+      <playable-area latitude="100"
+                     longitude="100"
+                     area-latitude="5"
+                     area-longitude="5"
+                     area-radius="0.002">
+      </playable-area>
+    </template>
+    </test-fixture>
+
+    <test-fixture id="inside-area">
+      <template>
+        <playable-area latitude="5"
+                       longitude="5"
+                       area-latitude="5"
+                       area-longitude="5"
+                       area-radius=".002">
+        </playable-area>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="atPlayground">
+      <template>
+        <playable-area latitude="40.122386"
+                       longitude="-85.281263">
+        </playable-area>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="atPier">
+      <template>
+        <playable-area latitude="40.121932"
+                       longitude="-85.283052">
+        </playable-area>
+      </template>
+    </test-fixture>
+
+    <script>
+        describe('out of playable range', function() {
+            var element;
+            beforeEach(function() {
+                element = fixture('outside-area');
+            });
+            it('player is outside of playable area', function() {
+                expect(element.inPlayableRange).to.be.false;
+            });
+        });
+       describe('in playable range', function(){
+          var element;
+          beforeEach(function() {
+              element = fixture('inside-area');
+          });
+          it('player is inside playable range', function() {
+            expect(element.inPlayableRange).to.be.true;
+          });
+        });
+        describe('player is at marked site', function(){
+          var element;
+          beforeEach(function(){
+            element = fixture('atPlayground');
+          });
+          it('player is inside playable area at Playground', function(){
+            expect(element.inPlayableRange).to.be.true;
+         });
+        });
+        describe('player is inside playable range', function(){
+          var element;
+          beforeEach(function(){
+            element = fixture('atPier');
+          });
+          it('player is inside playable range at Pier', function(){
+            expect(element.inPlayableRange).to.be.true;
+          });
+        });
+    </script>
+
+</body>
+
+</html>
