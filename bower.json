@@ -24,7 +24,7 @@
     "paper-menu": "PolymerElements/paper-menu#^1.2.2"
   },
   "devDependencies": {
-    "web-component-tester": "^4.0.0"
+    "web-component-tester": "^5.0.0"
   },
   "private": true
 }
