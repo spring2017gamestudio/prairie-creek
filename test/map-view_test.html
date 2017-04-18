@@ -19,42 +19,7 @@
     </template>
   </test-fixture>
 
-  <test-fixture id="noLatLong">
-    <template>
-      <map-view hide-map-for-testing></map-view>
-    </template>
-  </test-fixture>
-
   <script>
-    describe('no lat or long map-view test', function() {
-      var element;
-
-      beforeEach(function () {
-        element = fixture('noLatLong');
-      });
-
-      function setLatLongTo(value) {
-        element.latitude = value;
-        element.longitude = value;
-      }
-
-      describe('have no latitude or longitude', function() {
-        it('gps message is shown', function() {
-          expect(element.$.gpsmessage.hidden).to.be.false;
-          expect(element.$.locationOn.hidden).to.be.true;
-        });
-
-        it('gps message is hidden', function(done) {
-          setLatLongTo(40);
-          flush(function() {
-            expect(element.$.gpsmessage.hidden).to.be.true;
-            expect(element.$.locationOn.hidden).to.be.false;
-            done();
-          })
-        });
-      });
-    });
-
     describe('map-view tests', function () {
       var element;
 

@@ -37,7 +37,7 @@
       }
     </style>
 
-    <div id="locationOn" hidden$="[[!hasLatLong]]">
+    <div id="locationOn">
       <template is="dom-if" if$="[[!hideMapForTesting]]">
         <google-map 
           id="map"
@@ -85,9 +85,6 @@
         </div>
       </template>
     </div>
-    <div id="gpsmessage" hidden$="[[hasLatLong]]">
-        Please Enable GPS
-    </div>
   </template>
   <script>
     Polymer({
@@ -113,13 +110,6 @@
         devMode: {
           type: Object
         },
-
-        hasLatLong: {
-          type: Boolean,
-          value: false,
-          notify: true,
-          computed: '_latLongDefined(latitude,longitude)'
-        },
         hideMapForTesting: {
           type: Boolean,
           value: false
@@ -143,10 +133,6 @@
           site.icon=site.icon.replace('.png', '-gray.png');
         }
         return site.icon;
-      },
-
-      _latLongDefined: function(latitude, longitude) {
-        return latitude && longitude;
       },
 
       _siteChanged: function(currentSite) {

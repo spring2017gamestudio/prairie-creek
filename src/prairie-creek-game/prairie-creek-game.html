@@ -77,7 +77,10 @@
     <iron-pages id="pages" selected="[[routeData.page]]" attr-for-selected="name" on-iron-select="_onPageChanged">
       <title-view
         name="title"
-        route-data="{{routeData}}">
+        route-data="{{routeData}}"
+        latitude="[[latitude]]"
+        longitude="[[longitude]]"
+        gps-active>
       </title-view>
       <map-view
         name="map"
@@ -180,9 +183,6 @@
               if (page === 'title') {
                 this.$$('map-data').reset();
               }
-
-              //var resolvedPageUrl = this.resolveUrl('../' + page + '-view/' + page + '-view.html');
-              //this.importHref(resolvedPageUrl, null, this._showPage404, true);
             }
           },
 
