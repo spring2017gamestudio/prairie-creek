@@ -1,24 +1,30 @@
 <html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
-
-
 
 </head><body><dom-module id="title-view">
   <template>
     <style include="shared-styles">
-      :host {
+       :host {
         display: block;
       }
+      
       img {
         width: 90%;
         height: 90%;
-        margin:0 auto;
+        margin: 0 auto;
         display: block;
       }
+      
       .text {
         padding-bottom: 1em;
+      }
+      
+      paper-button {
+        margin: auto;
+        display: block;
       }
     </style>
     <img src="../../images/LogoText.png">
@@ -29,10 +35,11 @@
       <div class="text">
         Maybe one will approach you!
       </div>
-    <container>
+      <container>
 
-    <paper-button class="center" raised="" on-tap="_start">Play</paper-button>
+        <paper-button id="play" raised="" on-tap="_start" disabled="" disabled$="[[_hasLocation(latitude,longitude)]]">
+          [[buttonText]]
+        </paper-button>
   </container></container></template>
-  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],_start:function(){this._goToPage("map")}});</script>
-</dom-module>
-</body></html>
+  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],properties:{latitude:Number,longitude:Number,buttonText:{type:String,value:"Acquiring position",computed:"_buttonText(latitude,longitude)"}},_start:function(){this._goToPage("map")},_hasLocation:function(t,e){this.$.play.disabled=!1},_buttonText:function(t,e){return"Play!"}});</script>
+</dom-module></body></html>
