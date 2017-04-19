@@ -2,16 +2,18 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
 
 <script src="../spirit-selector.js"></script>
 
 </head><body><dom-module id="spirit-view">
-  <template>
+    <template>
     <style include="shared-styles">
        :host {
         display: block;
       }
-      
+
       img {
         width: 80%;
         height: 80%;
@@ -21,27 +23,35 @@
         padding-top: 30px;
         padding-bottom: 30px;
       }
-      
+
       .text {
         margin-left: 20px;
         padding-top: 20px;
       }
-      
+
       paper-button {
         display: block;
         margin: 0 auto;
         width: 30%;
       }
+      paper-input {
+        display: block;
+        margin: 0 auto;
+        width: 80%;
+      }
     </style>
+    <div class="text">
+        [[spiritText.text]]
+    </div>
     <template is="dom-if" if$="[[!hideImageForTesting]]">
       <img src="images/spirits/[[spiritImage]]">
     </template>
-    <div class="text">
-     [[spiritText]]
-    </div>
+
+    <paper-input id="name" label="What do you call it?" value="[[spiritText.name]]"></paper-input>
     <paper-button raised="" on-tap="_next">
-      Continue
+        Continue
     </paper-button>
-  </template>
-  <script>Polymer({is:"spirit-view",behaviors:[ViewBehavior],properties:{currentSite:Object,mapData:Object,hideImageForTesting:{type:Boolean,value:!1},spiritImage:String,spiritText:String},observers:["_onPageChange(routeData.page, currentSite)"],_onPageChange:function(t,e){if("spirit"===t&&e){var i=selectSpirit(e);this.spiritImage=i.image,this.spiritText=i.text}},_next:function(){this._goToPage(this._visitedAllSites()?"team":"map")},_visitedAllSites:function(){for(var t=0;t<this.mapData.length;t++)if(!this.mapData[t].visited)return!1;return!0}});</script>
-</dom-module></body></html>
+    </template>
+    <script>Polymer({is:"spirit-view",behaviors:[ViewBehavior],properties:{currentSite:Object,mapData:Object,hideImageForTesting:{type:Boolean,value:!1},spiritImage:String,spiritText:Object},observers:["_onPageChange(routeData.page, currentSite)"],_onPageChange:function(e,t){if("spirit"===e&&t){var i=selectSpirit(t);this.spiritImage=i.image,this.spiritText=i.text}},_next:function(){console.log(this.$.name.valu),""!=this.$.name.value&&(this.spiritText.name=this.$.name.value),this.$.name.value="",this._goToPage(this._visitedAllSites()?"team":"map")},_visitedAllSites:function(){for(var e=0;e<this.mapData.length;e++)if(!this.mapData[e].visited)return!1;return!0}});</script>
+</dom-module>
+</body></html>

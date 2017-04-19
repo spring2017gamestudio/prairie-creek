@@ -29,7 +29,7 @@
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/bower_components/webcomponentsjs/webcomponents-lite.min.js","a95deb54f6feaeb9cb96266b7800dbb1"],["/index.html","18145523e95f7a0965243b4f0044df2c"],["/manifest.json","193668e641e5547d422d7edd5ddf7954"],["/src/prairie-creek-game/prairie-creek-game.html","b95c8eecc12682106a4e8acc936b09a4"]];
+var PrecacheConfig = [["/bower_components/webcomponentsjs/webcomponents-lite.min.js","a95deb54f6feaeb9cb96266b7800dbb1"],["/index.html","18145523e95f7a0965243b4f0044df2c"],["/manifest.json","193668e641e5547d422d7edd5ddf7954"],["/src/prairie-creek-game/prairie-creek-game.html","11ad6a5b03d6509e4f850d8ecb7ead69"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 

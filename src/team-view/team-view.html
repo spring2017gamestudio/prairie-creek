@@ -33,6 +33,8 @@
             }
         </style>
         <img src="images/spirits/[[image]]">
+        <span id="name">[[name]]</span>
     </template>
-    <script>Polymer({is:"selected-spirit",properties:{site:Object,page:String,image:String},observers:["_pageChanged(page,site)"],_pageChanged:function(e,i){"team"===e&&void 0!==i&&(this.image=selectSpirit(this.site).image)}});</script>
-</dom-module></body></html>
+    <script>Polymer({is:"selected-spirit",properties:{site:Object,page:String,image:String,name:String},observers:["_pageChanged(page,site)"],_pageChanged:function(e,i){if("team"===e&&void 0!==i){var t=selectSpirit(this.site);this.image=t.image,this.name=t.text.name}}});</script>
+</dom-module>
+</body></html>
