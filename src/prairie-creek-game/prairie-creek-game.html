@@ -51,7 +51,7 @@
       }
     </style>
     <app-location route="{{route}}" use-hash-as-path></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{tail}}"></app-route>
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}"></app-route>
     <map-data data="{{mapData}}"></map-data>
     <user-location 
       active="[[gpsActive]]" 
@@ -160,7 +160,8 @@
               gpsActive: {
                 type: Boolean,
                 value: false,
-              }
+              },
+              gpsError: String
           },
 
           observers: [
