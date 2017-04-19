@@ -57,7 +57,8 @@
       active="[[gpsActive]]" 
       latitude="{{latitude}}"
       longitude="{{longitude}}"
-      error="{{gpsError}}">
+      error="{{gpsError}}"
+      high-accuracy="[[devMode.highAccuracy]]">
     </user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
     <iron-localstorage name="my-app-storage" value="{{mapData}}">
@@ -152,7 +153,8 @@
                   return {
                     echo: false,
                     warp: false,
-                    override: false
+                    override: false,
+                    highAccuracy: false
                   };
                 },
                 observer: '_devModeChanged'
