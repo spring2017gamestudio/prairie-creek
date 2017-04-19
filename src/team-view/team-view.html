@@ -66,8 +66,9 @@
             ],
             _pageChanged: function(page, site) {
                 if (page==='team' && site!==undefined) {
-                    this.image = selectSpirit(this.site).image;
-                    this.name = site.spiritName;
+                  var selected=selectSpirit(this.site)
+                    this.image = selected.image;
+                    this.name = selected.text.name;
                 }
             }
         });
