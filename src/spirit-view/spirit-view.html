@@ -6,6 +6,8 @@
       href="../view-behavior/view-behavior.html">
 <link rel="import"
       href="../shared-styles/shared-styles.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
 
 <script src="../spirit-selector.js"></script>
 
@@ -15,7 +17,7 @@
        :host {
         display: block;
       }
-      
+
       img {
         width: 80%;
         height: 80%;
@@ -25,16 +27,21 @@
         padding-top: 30px;
         padding-bottom: 30px;
       }
-      
+
       .text {
         margin-left: 20px;
         padding-top: 20px;
       }
-      
+
       paper-button {
         display: block;
         margin: 0 auto;
         width: 30%;
+      }
+      paper-input {
+        display: block;
+        margin: 0 auto;
+        width: 80%;
       }
     </style>
     <template is="dom-if"
@@ -43,8 +50,9 @@
     </template>
     <div class="text">
      [[spiritText]]
-    </div>
-    <paper-button raised
+   </div>
+   <paper-input id="name" always-float-label label="Name Your Spirit"></paper-input>
+   <paper-button raised
                   on-tap="_next">
       Continue
     </paper-button>
@@ -77,6 +85,8 @@
       },
 
       _next: function () {
+        this.currentSite.spiritName=this.$.name.value;
+        this.$.name.value="";
         this._goToPage(this._visitedAllSites() ? 'team' : 'map');
       },
 

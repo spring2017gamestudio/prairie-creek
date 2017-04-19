@@ -50,6 +50,7 @@
             }
         </style>
         <img src="images/spirits/[[image]]"></img>
+        <span id="name">[[name]]</span>
     </template>
     <script>
         Polymer({
@@ -58,6 +59,7 @@
                 site: Object,
                 page: String,
                 image:  String,
+                name: String,
             },
             observers: [
                 '_pageChanged(page,site)'
@@ -65,6 +67,7 @@
             _pageChanged: function(page, site) {
                 if (page==='team' && site!==undefined) {
                     this.image = selectSpirit(this.site).image;
+                    this.name = site.spiritName;
                 }
             }
         });
