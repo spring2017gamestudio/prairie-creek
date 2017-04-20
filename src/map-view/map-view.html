@@ -14,6 +14,8 @@
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 
+<script src="../visited-icon.js"></script>
+
 <dom-module id="map-view">
   <template>
     <style include="shared-styles">
@@ -129,8 +131,8 @@
       },
 
       _determineIcon: function(site) {
-        if(site.visited  && !site.icon.includes("-gray")) {
-          site.icon=site.icon.replace('.png', '-gray.png');
+        if(site.visited) {
+          site.icon=visitedIcon(site.icon);
         }
         return site.icon;
       },
