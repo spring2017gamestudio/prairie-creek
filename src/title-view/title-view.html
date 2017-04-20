@@ -14,18 +14,18 @@
        :host {
         display: block;
       }
-      
+
       img {
         width: 90%;
         height: 90%;
         margin: 0 auto;
         display: block;
       }
-      
+
       .text {
         padding-bottom: 1em;
       }
-      
+
       paper-button {
         margin: auto;
         display: block;
@@ -52,7 +52,6 @@
   <script>
     Polymer({
       is: 'title-view',
-      behaviors: [ViewBehavior],
       properties: {
         latitude: Number,
         longitude: Number,
@@ -60,11 +59,19 @@
           type: String,
           value: 'Acquiring position',
           computed: '_buttonText(latitude,longitude)'
+        },
+        currentState: {
+          type: String,
+          notify: true
+        },
+        nextState: {
+          type: String,
+          value: "map"
         }
       },
 
       _start: function () {
-        this._goToPage('map');
+        this.currentState = this.nextState;
       },
 
       _hasLocation: function (latitude, longitude) {

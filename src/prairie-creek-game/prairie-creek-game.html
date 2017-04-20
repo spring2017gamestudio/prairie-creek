@@ -29,7 +29,7 @@
       :host {
         font-family: var(--font-common-base);
       }
-      
+
       drop-menu {
         position: fixed;
         top: 0px;
@@ -42,7 +42,7 @@
         top: 0px;
         left: 0px;
       }
-      
+
       iron-pages {
         background-color: var(--primary-background-color);
         position: relative;
@@ -50,11 +50,9 @@
         z-index: 0;
       }
     </style>
-    <app-location route="{{route}}" use-hash-as-path></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}"></app-route>
     <map-data data="{{mapData}}"></map-data>
-    <user-location 
-      active="[[gpsActive]]" 
+    <user-location
+      active="[[gpsActive]]"
       latitude="{{latitude}}"
       longitude="{{longitude}}"
       error="{{gpsError}}">
@@ -62,7 +60,7 @@
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
     <iron-localstorage name="my-app-storage" value="{{mapData}}">
     </iron-localstorage>
-    <drop-menu 
+    <drop-menu
       on-reset="_resetGame"
       dev-mode="{{devMode}}">
     </drop-menu>
@@ -74,10 +72,10 @@
       </dev-mode-echo>
     </template>
 
-    <iron-pages id="pages" selected="[[routeData.page]]" attr-for-selected="name" on-iron-select="_onPageChanged">
+    <iron-pages id="pages" selected="[[currentState]]" attr-for-selected="name" on-iron-select="_onPageChanged">
       <title-view
         name="title"
-        route-data="{{routeData}}"
+        current-state="{{currentState}}"
         latitude="[[latitude]]"
         longitude="[[longitude]]"
         gps-active>
@@ -88,14 +86,14 @@
         latitude="{{latitude}}"
         longitude="{{longitude}}"
         current-site="[[currentSite]]"
-        route-data="{{routeData}}"
+        current-state="{{currentState}}"
         dev-mode="[[devMode]]"
         gps-active>
       </map-view>
       <timer-view
         name="timer"
         prompt="[[currentSite.prompt]]"
-        route-data="{{routeData}}"
+        current-state="{{currentState}}"
         dev-mode="[[devMode]]">
       </timer-view>
       <checklist-view
@@ -104,7 +102,7 @@
         current-site="[[currentSite]]"
         route-data="{{routeData}}">
       </checklist-view>
-      <spirit-view 
+      <spirit-view
         name="spirit"
         map-data="[[mapData]]"
         current-site="[[currentSite]]"
@@ -115,7 +113,7 @@
         map-data="[[mapData]]"
         route-data="{{routeData}}">
       </team-view>
-      <missing-view 
+      <missing-view
         name="missing"
         route-data="{{routeData}}">
       </missing-view>
@@ -141,6 +139,11 @@
                 type: Object,
                 notify: true,
               },
+              currentState: {
+                type: String,
+                value: "title",
+                notify: true
+              },
               currentSite: {
                 type: Object,
                 notify: true
@@ -165,12 +168,16 @@
           },
 
           observers: [
-            '_onRoutePathChanged(route.path)',
-            '_pageChanged(routeData.page)'
+            '_stateChange(currentState)',
+            '_pageChanged(currentState)'
           ],
-
+          _stateChange: function(currentState){
+            console.log("state: ",currentState);
+          },
           _onRoutePathChanged: function(path) {
             // If we do not have an initial URL, redirect to title.
+            console.log(this.$$('app-route').data);
+            console.log('routeData in pc ',this.routeData);
             if (!path) {
               this.set('route.path', '/title');
             }

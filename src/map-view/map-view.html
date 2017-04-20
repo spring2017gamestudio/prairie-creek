@@ -39,7 +39,7 @@
 
     <div id="locationOn">
       <template is="dom-if" if$="[[!hideMapForTesting]]">
-        <google-map 
+        <google-map
           id="map"
           zoom="6"
           latitude="[[latitude]]"
@@ -102,6 +102,11 @@
         locations: {
           type: Array
         },
+        currentState: {
+          type: String,
+          notify: true
+        },
+        nextState: 'timer',
         currentSite: {
           type: Object,
           value: null,
@@ -164,7 +169,7 @@
         this.showInstructions = true;
         if(!this.hideMapForTesting) {
           this._updateIcon(this.currentSite);
-          this._goToPage('timer');
+          this.currentState=this.nextState;
         }
       },
 
