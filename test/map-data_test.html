@@ -1,14 +1,18 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>map-data bdd test</title>
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../bower_components/web-component-tester/browser.js"></script>
 
 
-    <link rel="import" href="../src/map-data/map-data.html">
+    <link rel="import"
+          href="../src/map-data/map-data.html">
+    <script src="../src/visited-icon.js"></script>
+    <script src="../src/spirit-selector.js"></script>
 
 </head>
 
@@ -36,11 +40,60 @@
             });
 
             describe('reset', function () {
-                it('resets the data', function() {
+                it('resets the data', function () {
                     element.data.touched = true;
                     element.reset();
                     expect(element.data.touched).to.be.undefined;
                 })
+            });
+
+            describe('asset validation', function () {
+                // This encodes the relative path for running in web-component tester,
+                // so the paths match what would happen in production.
+                const imagePath = '../../../';
+                var promise;
+
+                it('has an image for each icon', function () {
+                    var promises = [];
+                    element.data.forEach(function (site) {
+                        const icon = imagePath + site.icon;
+                        promises.push(makePromiseFor(icon));
+                    });
+                    return Promise.all(promises);
+                });
+
+                function makePromiseFor(icon) {
+                    return new Promise(function(resolve,reject) {
+                        var img = new Image();
+                            img.onload = function () {
+                                resolve();
+                            };
+                            img.onerror = function() {
+                                reject(icon + ' not found!');
+                            };
+                            img.src = icon;
+                    });
+                };
+
+                it('has an gray variant image for each icon', function () {
+                    var promises = [];
+                    element.data.forEach(function (site) {
+                        var icon = visitedIcon(imagePath + site.icon);
+                        promises.push(makePromiseFor(icon));
+                    });
+                    return Promise.all(promises);
+                });
+
+                it('has images for each spirit-site-value combination', function() {
+                    var promises = [];
+                    element.data.forEach(function(site) {
+                        var natural = imagePath + _select('natural', site).image;
+                        promises.push(makePromiseFor(natural));
+                        var artificial = imagePath + _select('artificial', site).image;
+                        promises.push(makePromiseFor(artificial));
+                    });
+                    return Promise.all(promises);
+                });
             });
         });
     </script>
