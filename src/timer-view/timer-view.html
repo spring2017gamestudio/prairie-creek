@@ -8,36 +8,33 @@
 
 </head><body><dom-module id="timer-view">
     <template>
-    <style include="shared-styles">
-      :host {
-        display: block;
-      }
-      .text{
-        padding-top: 50px;
-      }
-      .center {
-        width: 40%;
-      }
-      #countdown {
-        margin: 15px 0px 15px 0px;
-        @apply(--paper-font-display3);
-      }
-    </style>
-    <container>
-      <div class="bigtext">
-        [[prompt]]
-        <div id="countdown">
-          [[secondsRemaining]]
-        </div>
-        <iron-timer id="timer" start-time="[[_startTime(devMode)]]" current-time="{{secondsRemaining}}"></iron-timer>
-      </div>
-    </container>
-    <template is="dom-if" if$="[[devMode]]">
-      <div class="debugging">
-        <paper-button raised="" on-tap="_next">Skip</paper-button>
-      </div>
+        <style include="shared-styles">
+             :host {
+                display: block;
+            }
+            
+            .text {
+                padding-top: 50px;
+            }
+            
+            .center {
+                width: 40%;
+            }
+            
+            #countdown {
+                margin: 15px 0px 15px 0px;
+                @apply(--paper-font-display3);
+            }
+        </style>
+        <container>
+            <div class="bigtext">
+                [[prompt]]
+                <div id="countdown">
+                    [[secondsRemaining]]
+                </div>
+                <iron-timer id="timer" start-time="[[_startTime(shortTimer)]]" current-time="{{secondsRemaining}}"></iron-timer>
+            </div>
+        </container>
     </template>
-    </template>
-    <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],properties:{currentSite:Object,prompt:{type:String},secondsRemaining:{type:Number,observer:"_onTimerTick"},devMode:{type:Boolean,value:!1}},observers:["_startTimerOnPageEntry(routeData)"],_startTime:function(e){return e?"3":"30"},_startTimerOnPageEntry:function(e){"timer"==e.page&&(this.$.timer.reset(),this.$.timer.start())},_next:function(){this.$.timer.currentTime=0,this.$.timer.reset(),this._goToPage("checklist")},_onTimerTick:function(e){e<=0&&(this.$.timer.pause(),this.$.timer.currentTime=0,this._next())}});</script>
-</dom-module>
-</body></html>
+    <script>Polymer({is:"timer-view",behaviors:[ViewBehavior],properties:{currentSite:Object,prompt:{type:String},secondsRemaining:{type:Number,observer:"_onTimerTick"},shortTimer:{type:Boolean,value:!1}},observers:["_startTimerOnPageEntry(routeData)"],_startTime:function(e){return e?"2":"30"},_devModeChanged:function(e){console.log("dev mode changed to ",e),this.$.timer.startTime=this._startTime()},_startTimerOnPageEntry:function(e){"timer"==e.page&&(this.$.timer.reset(),this.$.timer.start())},_next:function(){this.$.timer.currentTime=0,this.$.timer.reset(),this._goToPage("checklist")},_onTimerTick:function(e){e<=0&&(this.$.timer.pause(),this.$.timer.currentTime=0,this._next())}});</script>
+</dom-module></body></html>
