@@ -5,8 +5,6 @@
 
 <link rel="import"
       href="../shared-styles/shared-styles.html">
-<link rel="import"
-      href="../view-behavior/view-behavior.html">
 <script src="../spirit-selector.js"></script>
 
 
@@ -28,12 +26,19 @@
     <script>
         Polymer({
             is: 'team-view',
-            behaviors: [ViewBehavior],
             properties: {
-                mapData: Object
+                mapData: Object,
+                currentState: {
+                  type: String,
+                  notify: true
+                },
+                nextState: {
+                  type: String,
+                  value: "title"
+                },
             },
             _next: function () {
-                this._goToPage('title');
+                this.currentState = this.nextState;
             }
         });
     </script>
@@ -58,9 +63,13 @@
                 site: Object,
                 page: String,
                 image:  String,
+                currentState: {
+                  type: String,
+                  notify: true
+                },
             },
             observers: [
-                '_pageChanged(page,site)'
+                '_pageChanged(currentState,site)'
             ],
             _pageChanged: function(page, site) {
                 if (page==='team' && site!==undefined) {

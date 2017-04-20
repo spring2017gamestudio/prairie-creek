@@ -10,8 +10,6 @@
 <link rel="import"
       href="../drop-menu/drop-menu.html">
 <link rel="import"
-      href="../view-behavior/view-behavior.html">
-<link rel="import"
       href="../shared-styles/shared-styles.html">
 
 <dom-module id="map-view">
@@ -89,7 +87,6 @@
   <script>
     Polymer({
       is: 'map-view',
-      behaviors: [ViewBehavior],
       properties: {
         latitude: {
           type: Number,
@@ -106,7 +103,10 @@
           type: String,
           notify: true
         },
-        nextState: 'timer',
+        nextState: {
+          type: String,
+          value: "timer"
+        },
         currentSite: {
           type: Object,
           value: null,

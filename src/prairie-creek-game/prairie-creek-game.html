@@ -100,22 +100,22 @@
         name="checklist"
         map-data="{{mapData}}"
         current-site="[[currentSite]]"
-        route-data="{{routeData}}">
+        current-state="{{currentState}}">
       </checklist-view>
       <spirit-view
         name="spirit"
         map-data="[[mapData]]"
         current-site="[[currentSite]]"
-        route-data="{{routeData}}">
+        current-state="{{currentState}}">
       </spirit-view>
       <team-view
         name="team"
         map-data="[[mapData]]"
-        route-data="{{routeData}}">
+        current-state="{{currentState}}">
       </team-view>
       <missing-view
         name="missing"
-        route-data="{{routeData}}">
+        current-state="{{currentState}}">
       </missing-view>
     </iron-pages>
   </template>
@@ -131,13 +131,6 @@
               },
               spiritData: {
                 type: Object
-              },
-              route: {
-                type: Object,
-              },
-              routeData: {
-                type: Object,
-                notify: true,
               },
               currentState: {
                 type: String,
@@ -168,20 +161,8 @@
           },
 
           observers: [
-            '_stateChange(currentState)',
             '_pageChanged(currentState)'
           ],
-          _stateChange: function(currentState){
-            console.log("state: ",currentState);
-          },
-          _onRoutePathChanged: function(path) {
-            // If we do not have an initial URL, redirect to title.
-            console.log(this.$$('app-route').data);
-            console.log('routeData in pc ',this.routeData);
-            if (!path) {
-              this.set('route.path', '/title');
-            }
-          },
 
           _pageChanged: function(page) {
             var temp = this.mapData;
@@ -195,15 +176,15 @@
           },
 
           _showPage404: function() {
-              this.set('routeData.page', 'missing');
+              //this.currentState = 'missing';
           },
 
           _onPageChanged: function(e) {
             this.gpsActive = this.$.pages.selectedItem.hasAttribute('gps-active');
           },
 
-          _resetGame: function(){
-            this.set('route.path', '/title');
+          _resetGame: function() {
+            this.currentState = "title";
           },
 
           _devModeChanged: function(devMode) {

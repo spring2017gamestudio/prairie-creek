@@ -3,8 +3,6 @@
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 
-<link rel="import" href="../view-behavior/view-behavior.html">
-
 <dom-module id="checklist-view">
   <template>
     <style include="shared-styles">
@@ -38,10 +36,17 @@
   <script>
     Polymer({
       is: 'checklist-view',
-      behaviors: [ViewBehavior],
       properties: {
         currentSite: Object,
-        mapData: Object
+        mapData: Object,
+        currentState: {
+          type: String,
+          notify: true
+        },
+        nextState: {
+          type: String,
+          value: "spirit"
+        }
       },
       _onCheckboxTap: function(event) {
         const checkbox = event.currentTarget;
@@ -50,7 +55,7 @@
       },
       _next: function() {
         this.currentSite.visited = true;
-        this._goToPage('spirit');
+        this.currentState = this.nextState;
       }
     });
   </script>
