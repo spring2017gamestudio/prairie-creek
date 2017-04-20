@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>spirit-view bdd test</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import"
+          href="../src/timer-view/timer-view.html">
+</head>
+
+<body>
+
+    <test-fixture id="basic">
+        <template>
+            <timer-view>
+            </timer-view>
+        </template>
+    </test-fixture>
+
+    <script>
+        describe('timer-view tests', function () {
+            var element;
+
+            beforeEach(function (done) {
+                element = fixture('basic');
+                flush(done);
+            });
+
+            it('uses a shorter timer when devMode.shortTimer is true', function() {
+                const regularTimer = startTime();
+                element.shortTimer = true;
+                const devTimer = startTime();
+                expect(devTimer).to.be.below(regularTimer);
+            });
+
+            function startTime() {
+                return element.$.timer.startTime;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

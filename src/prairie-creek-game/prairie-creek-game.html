@@ -97,7 +97,7 @@
         name="timer"
         prompt="[[currentSite.prompt]]"
         route-data="{{routeData}}"
-        dev-mode="[[devMode]]">
+        short-timer="[[devMode.shortTimer]]">
       </timer-view>
       <checklist-view
         name="checklist"
@@ -154,7 +154,8 @@
                     echo: false,
                     warp: false,
                     override: false,
-                    highAccuracy: false
+                    highAccuracy: false,
+                    shortTimer: false
                   };
                 },
                 observer: '_devModeChanged'
