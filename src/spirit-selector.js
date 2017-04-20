@@ -6,8 +6,12 @@ function selectSpirit(site) {
         }
     }
     var type = (sum < 0) ? 'artificial' : 'natural';
+    return _select(type, site);
+}
+
+function _select(type, site) {
     return {
-        image: site.shortname + '-' + type + '.png',
-        text: (sum < 0) ? site.artificial : site.natural
+        image: 'images/spirits/' + site.shortname + '-' + type + '.png',
+        text: (type==='artificial') ? site.artificial : site.natural
     };
 }
