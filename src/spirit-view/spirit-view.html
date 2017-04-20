@@ -48,7 +48,7 @@
       <img src="images/spirits/[[spiritImage]]"></img>
     </template>
 
-    <paper-input id="name" label="What do you call it?" value="[[spiritText.name]]" on-tap="_removeName"></paper-input>
+    <paper-input id="name" label="What do you call it?" placeholder="[[spiritText.name]]" on-tap="_removeName"></paper-input>
     <paper-button raised on-tap="_next">
         Continue
     </paper-button>
@@ -81,7 +81,6 @@
             },
 
             _next: function() {
-                console.log(this.$.name.valu)
                 if (this.$.name.value != "") {
                     this.spiritText.name = this.$.name.value;
                 }
@@ -96,12 +95,6 @@
                     }
                 }
                 return true;
-            },
-
-            _removeName: function() {
-                if (this.$.name.value == this.spiritText.name) {
-                    this.$.name.value = "";
-                }
             }
         });
     </script>
