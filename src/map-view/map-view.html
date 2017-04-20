@@ -7,6 +7,8 @@
 <link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 
+<script src="../visited-icon.js"></script>
+
 </head><body><dom-module id="map-view">
   <template>
     <style include="shared-styles">
@@ -67,6 +69,6 @@
       </template>
     </div>
   </template>
-  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object,value:null,notify:!0},devMode:{type:Object},hideMapForTesting:{type:Boolean,value:!1},showInstructions:{type:Boolean,value:!0}},observers:["_siteChanged(currentSite)"],ready:function(){this.gpsActive=!0},_determineIcon:function(t){return t.visited&&!t.icon.includes("-gray")&&(t.icon=t.icon.replace(".png","-gray.png")),t.icon},_siteChanged:function(t){this.showInstructions=null==t||t.visited},_enableLocationOverride:function(){this.$$("#map").setAttribute("click-events",!0)},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.latitude=e,this.longitude=i},_warpToLocation:function(t){this.latitude=t.model.get("item.latitude"),this.longitude=t.model.get("item.longitude")},_proceed:function(){this.set("currentSite.visited",!0),this.showInstructions=!0,this.hideMapForTesting||(this._updateIcon(this.currentSite),this._goToPage("timer"))},_updateIcon:function(t){var e=this.locations.indexOf(t),i=Polymer.dom(this.root).querySelectorAll(".siteMarker")[e];i.icon=i.icon.replace(".png","-gray.png")}});</script>
+  <script>Polymer({is:"map-view",behaviors:[ViewBehavior],properties:{latitude:{type:Number,notify:!0},longitude:{type:Number,notify:!0},locations:{type:Array},currentSite:{type:Object,value:null,notify:!0},devMode:{type:Object},hideMapForTesting:{type:Boolean,value:!1},showInstructions:{type:Boolean,value:!0}},observers:["_siteChanged(currentSite)"],ready:function(){this.gpsActive=!0},_determineIcon:function(t){return t.visited&&(t.icon=visitedIcon(t.icon)),t.icon},_siteChanged:function(t){this.showInstructions=null==t||t.visited},_enableLocationOverride:function(){this.$$("#map").setAttribute("click-events",!0)},_debugLocation:function(t){var e=t.detail.latLng.lat(),i=t.detail.latLng.lng();this.latitude=e,this.longitude=i},_warpToLocation:function(t){this.latitude=t.model.get("item.latitude"),this.longitude=t.model.get("item.longitude")},_proceed:function(){this.set("currentSite.visited",!0),this.showInstructions=!0,this.hideMapForTesting||(this._updateIcon(this.currentSite),this._goToPage("timer"))},_updateIcon:function(t){var e=this.locations.indexOf(t),i=Polymer.dom(this.root).querySelectorAll(".siteMarker")[e];i.icon=i.icon.replace(".png","-gray.png")}});</script>
 </dom-module>
 </body></html>
