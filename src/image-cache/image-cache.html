@@ -1,0 +1,48 @@
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="image-cache">
+    <script>
+        Polymer({
+            is: 'image-cache',
+            properties: {
+                mapData: {
+                    type: Array,
+                    observer: '_update'
+                },
+                /** The actual cache (DO NOT USE).
+                 * Note that no one ever actually needs to read from this. Simply
+                 * storing the image data seems to do the job within the browser.
+                 * Loading the data without holding a reference to it does not 
+                 * keep it in memory.
+                 */
+                cache: {
+                    type: Array,
+                    notify: true,
+                    value: function () { return []; }
+                },
+                firstRun: {
+                    type: Boolean,
+                    value: true,
+                    readOnly: true
+                }
+            },
+
+            _update: function (data) {
+                if (data && data.length > 0 && this.firstRun) {
+                    this._setFirstRun(false);
+                    console.log('Updating image cache');
+                    var that = this;
+                    data.forEach(function (site) {
+                        ['natural', 'artificial'].forEach(function (type) {
+                            const path = 'images/spirits/' + site.shortname + '-' + type + '.png';
+                            var img = new Image();
+                            img.src = path;
+                            that.cache[site.shortname+type] = img;
+                        });
+                    });
+                } 
+            }
+        });
+    </script>
+</dom-module>
