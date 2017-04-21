@@ -1,0 +1,5 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+
+</head><body><dom-module id="image-cache">
+    <script>Polymer({is:"image-cache",properties:{mapData:{type:Array,observer:"_update"},cache:{type:Array,notify:!0,value:function(){return[]}},firstRun:{type:Boolean,value:!0,readOnly:!0}},_update:function(a){if(a&&a.length>0&&this.firstRun){this._setFirstRun(!1),console.log("Updating image cache");var e=this;a.forEach(function(a){["natural","artificial"].forEach(function(t){const r="images/spirits/"+a.shortname+"-"+t+".png";var n=new Image;n.src=r,e.cache[a.shortname+t]=n})})}}});</script>
+</dom-module></body></html>
