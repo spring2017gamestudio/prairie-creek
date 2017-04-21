@@ -20,8 +20,19 @@
   <script>
     Polymer({
       is: 'missing-view',
+      properties: {
+        currentState: {
+          type: String,
+          notify: true
+        },
+        nextState: {
+          type: String,
+          value: "title",
+          notify: true
+        }
+      },
       _goHome: function() {
-        this._goToPage('title');
+        this.currentState = this.nextState;
       }
     });
   </script>
