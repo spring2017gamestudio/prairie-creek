@@ -70,6 +70,9 @@
       value="{{appState}}"
       on-iron-localstorage-load-empty="_initializeAppState">
     </iron-localstorage>
+    <iron-localstorage name="currentSite" value="{{currentSite}}">
+    </iron-localstorage>
+
     <drop-menu
       on-reset="_resetGame"
       dev-mode="{{devMode}}">
