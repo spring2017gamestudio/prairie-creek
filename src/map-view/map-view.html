@@ -9,6 +9,7 @@
 
 <link rel="import"
       href="../drop-menu/drop-menu.html">
+<link rel="import" href="../view-behavior/view-behavior.html">     
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 
@@ -89,6 +90,7 @@
   <script>
     Polymer({
       is: 'map-view',
+      behaviors: [ViewBehavior],
       properties: {
         latitude: {
           type: Number,
@@ -100,14 +102,6 @@
         },
         locations: {
           type: Array
-        },
-        currentState: {
-          type: String,
-          notify: true
-        },
-        nextState: {
-          type: String,
-          value: "timer"
         },
         currentSite: {
           type: Object,
@@ -171,7 +165,7 @@
         this.showInstructions = true;
         if(!this.hideMapForTesting) {
           this._updateIcon(this.currentSite);
-          this.currentState=this.nextState;
+          this._goToView('timer');
         }
       },
 

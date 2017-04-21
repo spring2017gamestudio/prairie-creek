@@ -61,7 +61,14 @@
       high-accuracy="[[devMode.highAccuracy]]">
     </user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
-    <iron-localstorage name="my-app-storage" value="{{mapData}}">
+    <iron-localstorage
+      name="my-app-storage"
+      value="{{mapData}}">
+    </iron-localstorage>
+    <iron-localstorage
+      name="appState"
+      value="{{appState}}"
+      on-iron-localstorage-load-empty="_initializeAppState">
     </iron-localstorage>
     <drop-menu
       on-reset="_resetGame"
@@ -75,10 +82,10 @@
       </dev-mode-echo>
     </template>
 
-    <iron-pages id="pages" selected="[[currentState]]" attr-for-selected="name" on-iron-select="_onPageChanged">
+    <iron-pages id="pages" selected="[[appState]]" attr-for-selected="name" on-iron-select="_onPageChanged">
       <title-view
         name="title"
-        current-state="{{currentState}}"
+        app-state="{{appState}}"
         latitude="[[latitude]]"
         longitude="[[longitude]]"
         gps-active>
@@ -89,7 +96,7 @@
         latitude="{{latitude}}"
         longitude="{{longitude}}"
         current-site="[[currentSite]]"
-        current-state="{{currentState}}"
+        app-state="{{appState}}"
         dev-mode="[[devMode]]"
         gps-active>
       </map-view>
@@ -135,7 +142,7 @@
               spiritData: {
                 type: Object
               },
-              currentState: {
+              appState: {
                 type: String,
                 value: "title",
                 notify: true
@@ -155,8 +162,7 @@
                     highAccuracy: true,
                     shortTimer: false
                   };
-                },
-                observer: '_devModeChanged'
+                }
               },
               gpsActive: {
                 type: Boolean,
@@ -181,7 +187,7 @@
           },
 
           _showPage404: function() {
-              this.currentState = 'missing';
+              this.appState = 'missing';
           },
 
           _onPageChanged: function(e) {
@@ -189,12 +195,12 @@
           },
 
           _resetGame: function() {
-            this.currentState = "title";
+            this.appState = "title";
           },
 
-          _devModeChanged: function(devMode) {
-            console.log('dev mode: ', devMode);
-          },
+          _initializeAppState: function() {
+            this.appState = "title";
+          }
       });
   </script>
 </dom-module>

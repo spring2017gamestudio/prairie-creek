@@ -4,7 +4,9 @@
       href="../../bower_components/iron-timer/iron-timer.html">
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
+      
 
+<link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 
@@ -34,16 +36,18 @@
                 <div id="countdown">
                     [[secondsRemaining]]
                 </div>
-                <iron-timer id="timer"
-                            start-time="[[_startTime(shortTimer)]]"
-                            current-time="{{secondsRemaining}}"></iron-timer>
+                <iron-timer 
+                    id="timer"
+                    start-time="[[_startTime(shortTimer)]]"
+                    current-time="{{secondsRemaining}}">
+                </iron-timer>
             </div>
         </container>
     </template>
     <script>
         Polymer({
             is: 'timer-view',
-
+            behaviors: [ViewBehavior],
             properties: {
                 currentSite: Object,
 
@@ -55,14 +59,6 @@
                     type: Number,
                     observer: '_onTimerTick'
                 },
-                currentState: {
-                  type: String,
-                  notify: true
-                },
-                nextState: {
-                  type: String,
-                  value: "checklist"
-                },
                 shortTimer: {
                     type: Boolean,
                     value: false,
@@ -70,7 +66,7 @@
             },
 
             observers: [
-                '_startTimerOnPageEntry(currentState)'
+                '_startTimerOnPageEntry(appState)'
             ],
 
             _startTime: function (shortTimer) {
@@ -82,8 +78,8 @@
                 this.$.timer.startTime = this._startTime();
             },
 
-            _startTimerOnPageEntry: function(routeData) {
-                if (this.currentState == "timer") {
+            _startTimerOnPageEntry: function(appState) {
+                if (appState === "timer") {
                     this.$.timer.reset();
                     this.$.timer.start();
                 }
@@ -92,7 +88,7 @@
             _next: function () {
                 this.$.timer.currentTime = 0;
                 this.$.timer.reset();
-                this.currentState = this.nextState;
+                this._goToView('checklist');
             },
 
             _onTimerTick: function (secondsRemaining) {

@@ -3,6 +3,9 @@
 <link rel="import" href="../shared-styles/shared-styles.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
+<link rel="import" href="../view-behavior/view-behavior.html">
+<link rel="import" href="../shared-styles/shared-styles.html">
+
 <script src="../spirit-selector.js"></script>
 
 <dom-module id="spirit-view">
@@ -55,6 +58,7 @@
     <script>
         Polymer({
             is: 'spirit-view',
+            behaviors: [ViewBehavior],
             properties: {
                 currentSite: Object,
                 mapData: Object,
@@ -62,20 +66,16 @@
                     type: Boolean,
                     value: false
                 },
-                currentState: {
-                  type: String,
-                  notify: true
-                },
                 spiritImage: String,
                 spiritText: Object
             },
 
             observers: [
-                '_onPageChange(routeData.page, currentSite)'
+                '_onPageChange(appState, currentSite)'
             ],
 
-            _onPageChange: function(page, currentSite) {
-                if (page === 'spirit' && currentSite) {
+            _onPageChange: function(appState, currentSite) {
+                if (appState === 'spirit' && currentSite) {
                     var selected = selectSpirit(currentSite);
                     this.spiritImage = selected.image;
                     this.spiritText = selected.text;
@@ -87,7 +87,7 @@
                     this.spiritText.name = this.$.name.value;
                 }
                 this.$.name.value = "";
-                this.currentState = this._visitedAllSites() ? 'team' : 'map';
+                this._goToView(this._visitedAllSites() ? 'team' : 'map');
             },
 
             _visitedAllSites: function() {

@@ -1,0 +1,15 @@
+<script>
+  /** @polymerBehavior ViewBehavior */
+  ViewBehavior = {
+    properties: {
+      appState: {
+        type: String,
+        notify: true
+      }
+    },
+
+    _goToView: function(state) {
+      this.appState = state;
+    }
+  };
+</script>

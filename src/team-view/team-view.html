@@ -3,6 +3,7 @@
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
 
+<link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 <script src="../spirit-selector.js"></script>
@@ -26,19 +27,12 @@
     <script>
         Polymer({
             is: 'team-view',
+            behaviors: [ViewBehavior],
             properties: {
-                mapData: Object,
-                currentState: {
-                  type: String,
-                  notify: true
-                },
-                nextState: {
-                  type: String,
-                  value: "title"
-                },
+                mapData: Object
             },
             _next: function () {
-                this.currentState = this.nextState;
+                this._goToView('title');
             }
         });
     </script>
