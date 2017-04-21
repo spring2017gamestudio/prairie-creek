@@ -30,7 +30,7 @@
       :host {
         font-family: var(--font-common-base);
       }
-      
+
       drop-menu {
         position: fixed;
         top: 0px;
@@ -43,7 +43,7 @@
         top: 0px;
         left: 0px;
       }
-      
+
       iron-pages {
         background-color: var(--primary-background-color);
         position: relative;
@@ -51,21 +51,29 @@
         z-index: 0;
       }
     </style>
-    <app-location route="{{route}}" use-hash-as-path></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}"></app-route>
     <map-data data="{{mapData}}"></map-data>
     <image-cache map-data="[[mapData]]"></image-cache>
-    <user-location 
-      active="[[gpsActive]]" 
+    <user-location
+      active="[[gpsActive]]"
       latitude="{{latitude}}"
       longitude="{{longitude}}"
       error="{{gpsError}}"
       high-accuracy="[[devMode.highAccuracy]]">
     </user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
-    <iron-localstorage name="my-app-storage" value="{{mapData}}">
+    <iron-localstorage
+      name="my-app-storage"
+      value="{{mapData}}">
     </iron-localstorage>
-    <drop-menu 
+    <iron-localstorage
+      name="appState"
+      value="{{appState}}"
+      on-iron-localstorage-load-empty="_initializeAppState">
+    </iron-localstorage>
+    <iron-localstorage name="currentSite" value="{{currentSite}}">
+    </iron-localstorage>
+
+    <drop-menu
       on-reset="_resetGame"
       dev-mode="{{devMode}}">
     </drop-menu>
@@ -77,10 +85,10 @@
       </dev-mode-echo>
     </template>
 
-    <iron-pages id="pages" selected="[[routeData.page]]" attr-for-selected="name" on-iron-select="_onPageChanged">
+    <iron-pages id="pages" selected="[[appState]]" attr-for-selected="name" on-iron-select="_onPageChanged">
       <title-view
         name="title"
-        route-data="{{routeData}}"
+        app-state="{{appState}}"
         latitude="[[latitude]]"
         longitude="[[longitude]]"
         gps-active>
@@ -91,36 +99,36 @@
         latitude="{{latitude}}"
         longitude="{{longitude}}"
         current-site="[[currentSite]]"
-        route-data="{{routeData}}"
+        app-state="{{appState}}"
         dev-mode="[[devMode]]"
         gps-active>
       </map-view>
       <timer-view
         name="timer"
         prompt="[[currentSite.prompt]]"
-        route-data="{{routeData}}"
+        app-state="{{appState}}"
         short-timer="[[devMode.shortTimer]]">
       </timer-view>
       <checklist-view
         name="checklist"
         map-data="{{mapData}}"
         current-site="[[currentSite]]"
-        route-data="{{routeData}}">
+        app-state="{{appState}}">
       </checklist-view>
-      <spirit-view 
+      <spirit-view
         name="spirit"
         map-data="[[mapData]]"
         current-site="[[currentSite]]"
-        route-data="{{routeData}}">
+        app-state="{{appState}}">
       </spirit-view>
       <team-view
         name="team"
         map-data="[[mapData]]"
-        route-data="{{routeData}}">
+        app-state="{{appState}}">
       </team-view>
-      <missing-view 
+      <missing-view
         name="missing"
-        route-data="{{routeData}}">
+        app-state="{{appState}}">
       </missing-view>
     </iron-pages>
   </template>
@@ -137,12 +145,10 @@
               spiritData: {
                 type: Object
               },
-              route: {
-                type: Object,
-              },
-              routeData: {
-                type: Object,
-                notify: true,
+              appState: {
+                type: String,
+                value: "title",
+                notify: true
               },
               currentSite: {
                 type: Object,
@@ -159,8 +165,7 @@
                     highAccuracy: true,
                     shortTimer: false
                   };
-                },
-                observer: '_devModeChanged'
+                }
               },
               gpsActive: {
                 type: Boolean,
@@ -170,16 +175,8 @@
           },
 
           observers: [
-            '_onRoutePathChanged(route.path)',
-            '_pageChanged(routeData.page)'
+            '_pageChanged(appState)'
           ],
-
-          _onRoutePathChanged: function(path) {
-            // If we do not have an initial URL, redirect to title.
-            if (!path) {
-              this.set('route.path', '/title');
-            }
-          },
 
           _pageChanged: function(page) {
             var temp = this.mapData;
@@ -193,20 +190,20 @@
           },
 
           _showPage404: function() {
-              this.set('routeData.page', 'missing');
+              this.appState = 'missing';
           },
 
           _onPageChanged: function(e) {
             this.gpsActive = this.$.pages.selectedItem.hasAttribute('gps-active');
           },
 
-          _resetGame: function(){
-            this.set('route.path', '/title');
+          _resetGame: function() {
+            this.appState = "title";
           },
 
-          _devModeChanged: function(devMode) {
-            console.log('dev mode: ', devMode);
-          },
+          _initializeAppState: function() {
+            this.appState = "title";
+          }
       });
   </script>
 </dom-module>

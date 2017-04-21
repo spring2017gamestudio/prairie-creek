@@ -1,9 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
+<link rel="import" href="../view-behavior/view-behavior.html">
+<link rel="import" href="../shared-styles/shared-styles.html">
 
 <script src="../spirit-selector.js"></script>
 
@@ -70,11 +71,11 @@
             },
 
             observers: [
-                '_onPageChange(routeData.page, currentSite)'
+                '_onPageChange(appState, currentSite)'
             ],
 
-            _onPageChange: function(page, currentSite) {
-                if (page === 'spirit' && currentSite) {
+            _onPageChange: function(appState, currentSite) {
+                if (appState === 'spirit' && currentSite) {
                     var selected = selectSpirit(currentSite);
                     this.spiritImage = selected.image;
                     this.spiritText = selected.text;
@@ -86,7 +87,7 @@
                     this.spiritText.name = this.$.name.value;
                 }
                 this.$.name.value = "";
-                this._goToPage(this._visitedAllSites() ? 'team' : 'map');
+                this._goToView(this._visitedAllSites() ? 'team' : 'map');
             },
 
             _visitedAllSites: function() {

@@ -1,6 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 
 
@@ -21,9 +20,19 @@
   <script>
     Polymer({
       is: 'missing-view',
-      behaviors: [ViewBehavior],
+      properties: {
+        currentState: {
+          type: String,
+          notify: true
+        },
+        nextState: {
+          type: String,
+          value: "title",
+          notify: true
+        }
+      },
       _goHome: function() {
-        this._goToPage('title');
+        this.currentState = this.nextState;
       }
     });
   </script>

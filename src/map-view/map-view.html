@@ -9,8 +9,7 @@
 
 <link rel="import"
       href="../drop-menu/drop-menu.html">
-<link rel="import"
-      href="../view-behavior/view-behavior.html">
+<link rel="import" href="../view-behavior/view-behavior.html">     
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 
@@ -41,7 +40,7 @@
 
     <div id="locationOn">
       <template is="dom-if" if$="[[!hideMapForTesting]]">
-        <google-map 
+        <google-map
           id="map"
           zoom="6"
           latitude="[[latitude]]"
@@ -166,7 +165,7 @@
         this.showInstructions = true;
         if(!this.hideMapForTesting) {
           this._updateIcon(this.currentSite);
-          this._goToPage('timer');
+          this._goToView('timer');
         }
       },
 

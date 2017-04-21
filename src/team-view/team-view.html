@@ -3,10 +3,9 @@
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
 
+<link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import"
       href="../shared-styles/shared-styles.html">
-<link rel="import"
-      href="../view-behavior/view-behavior.html">
 <script src="../spirit-selector.js"></script>
 
 
@@ -19,7 +18,7 @@
         </style>
         <template is="dom-repeat"
                   items="[[mapData]]">
-            <selected-spirit page="[[routeData.page]]" site="[[item]]"></selected-spirit>
+            <selected-spirit page="[[currentState]]" site="[[item]]"></selected-spirit>
         </template>
         <br/>
         <paper-button raised
@@ -33,7 +32,7 @@
                 mapData: Object
             },
             _next: function () {
-                this._goToPage('title');
+                this._goToView('title');
             }
         });
     </script>
@@ -55,6 +54,7 @@
     <script>
         Polymer({
             is: 'selected-spirit',
+            behaviors: [ViewBehavior],
             properties: {
                 site: Object,
                 page: String,
@@ -62,7 +62,7 @@
                 name: String,
             },
             observers: [
-                '_pageChanged(page,site)'
+                '_pageChanged(appState,site)'
             ],
             _pageChanged: function(page, site) {
                 if (page==='team' && site!==undefined) {
