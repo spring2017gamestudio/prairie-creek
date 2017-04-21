@@ -1,5 +1,4 @@
-<link rel="import"
-      href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="user-location">
   <script>
@@ -16,22 +15,21 @@
           notify: true,
           readOnly: true
         },
-        updateRate: {
-          type: Number,
-          notify: true,
-          readOnly: true,
-          value: 2
-        },
         active: {
           type: Boolean,
           value: false
         },
-        currentSite: {
-          type: Object
-        },
         error: {
           type: String,
           notify: true
+        },
+        _watchId: {
+          type: Number
+        },
+        highAccuracy: {
+          type: Boolean,
+          value: false,
+          observer: '_onAccuracyChange'
         }
       },
 
@@ -39,7 +37,7 @@
         if ("geolocation" in navigator) {
           var that = this;
           navigator.geolocation.getCurrentPosition(this._updatePosition(), this._onError());
-          navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError());
+          this._watchId = navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError());
         } else {
           alert('Geolocation not available on this device.');
           console.log('Geolocation not available');
@@ -87,7 +85,14 @@
           console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
           that.error = '';
         }
-      }
+      },
+
+      _onAccuracyChange: function (highAccuracy) {
+        console.log('Switching to ', highAccuracy ? 'high' : 'low', ' accuracy GPS');
+        navigator.geolocation.clearWatch(this._watchId);
+        this._watchId = navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError(),
+          { enableHighAccuracy: highAccuracy });
+      },
     });
   </script>
 </dom-module>

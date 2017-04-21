@@ -12,6 +12,7 @@
 <link rel="import" href="../user-location/user-location.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 <link rel="import" href="../drop-menu/drop-menu.html">
+<link rel="import" href="../image-cache/image-cache.html">
 
 <link rel="import" href="../title-view/title-view.html">
 <link rel="import" href="../map-view/map-view.html">
@@ -51,11 +52,13 @@
       }
     </style>
     <map-data data="{{mapData}}"></map-data>
-    <user-location
-      active="[[gpsActive]]"
+    <image-cache map-data="[[mapData]]"></image-cache>
+    <user-location 
+      active="[[gpsActive]]" 
       latitude="{{latitude}}"
       longitude="{{longitude}}"
-      error="{{gpsError}}">
+      error="{{gpsError}}"
+      high-accuracy="[[devMode.highAccuracy]]">
     </user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
     <iron-localstorage name="my-app-storage" value="{{mapData}}">
@@ -94,7 +97,7 @@
         name="timer"
         prompt="[[currentSite.prompt]]"
         current-state="{{currentState}}"
-        dev-mode="[[devMode]]">
+        short-timer="[[devMode.shortTimer]]">
       </timer-view>
       <checklist-view
         name="checklist"
@@ -148,7 +151,9 @@
                   return {
                     echo: false,
                     warp: false,
-                    override: false
+                    override: false,
+                    highAccuracy: true,
+                    shortTimer: false
                   };
                 },
                 observer: '_devModeChanged'

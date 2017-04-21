@@ -35,31 +35,37 @@
             value: -1
           }
         ],
-        natural: 'You touched natural things.',
-        artificial: 'You touched artificial things.'
+        natural: {
+          text:'This spirit approaches you based on the natural things you touched.',
+          name:'Playground Nature Spirit'
+        },
+        artificial: {
+          text:'This spirit approaches you based on the artificial things you touched.',
+          name:'Playground Artificial Spirit'
+        }
       },
       {
-        latitude: 40.122663,
-        longitude: -85.282950,
-        name: "Beach",
-        shortname: "beach",
+        latitude: 40.122736,
+        longitude: -85.282465,
+        name: "Bath House",
+        shortname: "bathHouse",
         range: 0.0002,
         prompt: 'Breathe deeply and consider what you smell.',
         question: 'What did you smell?',
         visited: false,
-        icon:'images/markers/beach.png',
+        icon:'images/markers/bathhouse.png',
         responses: [
           {
             text: 'Grass',
-            value: +3
+            value: +1
           },
           {
             text: 'Exhaust Fumes',
-            value: -2
+            value: -1
           },
           {
             text: 'Animal Droppings',
-            value: +4
+            value: +1
           },
           {
             text: 'Rotting food',
@@ -70,8 +76,14 @@
             value: +1
           }
         ],
-        natural: 'You smelled natural things.',
-        artificial: 'You smelled artificial things.'
+        natural: {
+          text:'This spirit approaches you based on the artificial things you smelled.',
+          name:'Bath House Nature Spirit'
+        },
+        artificial: {
+          text:'This spirit approaches you based on the natural things you smelled.',
+          name:'Bath House Artificial spirit'
+        }
       },
       {
         latitude: 40.121932,
@@ -86,7 +98,7 @@
         responses: [
           {
             text: 'Animal Droppings',
-            value: +2
+            value: +1
           },
           {
             text: 'Paper',
@@ -94,7 +106,7 @@
           },
           {
             text: 'Fish',
-            value: +3
+            value: +1
           },
           {
             text: 'Algae',
@@ -102,46 +114,58 @@
           },
           {
             text: 'Plastic',
-            value: -2
+            value: -1
           }
         ],
-        natural: 'You saw natural things.',
-        artificial: 'You saw artificial things.'
+        natural: {
+          text:'This spirit approaches you based on the artificial things you saw in the water.',
+          name:'Pier Nature Spirit'
+      },
+        artificial: {
+          text:'This spirit approaches you based on the natural things you saw in the water.',
+          name:'Pier Artificial Spirit'
+        }
       },
       {
-        latitude: 40.121240,
-        longitude: -85.282425,
-        name: "Woods By The Water",
-        shortname: "woods",
+        latitude: 40.122058,
+        longitude: -85.281752,
+        name: "Basketball Court",
+        shortname: "bball",
         range: 0.0002,
         prompt: 'Take a moment to see to the world around you.',
         question: 'What did you see?',
         visited: false,
-        icon:'images/markers/woods.png',
+        icon:'images/markers/basketball.png',
         responses: [
           {
             text: 'Furry Creatures',
-            value: +3
+            value: +1
           },
           {
             text: 'Metal',
-            value: -2
+            value: -1
           },
           {
             text: 'Plants',
-            value: +4
+            value: +1
           },
           {
             text: 'Soda',
-            value: -2
+            value: -1
           },
           {
             text: 'Paint',
             value: -1
           }
         ],
-        natural: 'You saw natural things.',
-        artificial: 'You saw artificial things.'
+        natural: {
+          text:'This spirit approaches you based on the artificial things you saw.',
+          name: 'Basketball Nature Spirit'
+        },
+        artificial: {
+          text:'This spirit approaches you based on the natural things you saw.',
+          name: 'Basketball Artificial Spirit'
+        }
       },
       {
         latitude: 40.123235,
@@ -156,7 +180,7 @@
         responses: [
           {
             text: 'Engines',
-            value: -2
+            value: -1
           },
           {
             text: 'Chirping',
@@ -164,7 +188,7 @@
           },
           {
             text: 'Water Swishing',
-            value: +3
+            value: +1
           },
           {
             text: 'Ringing',
@@ -172,11 +196,17 @@
           },
           {
             text: 'Leaves',
-            value: +2
+            value: +1
           }
         ],
-        natural: 'You heard natural things.',
-        artificial: 'You heard artificial things.'
+        natural: {
+          text:'This spirit approaches you based on the artificial things you heard.',
+          name:'Field Nature Spirit'
+        },
+        artificial: {
+          text:'This spirit approaches you based on the natural things you heard.',
+          name:'Field Artifical Spirit'
+        }
       }
     ];
 
