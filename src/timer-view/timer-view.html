@@ -4,7 +4,7 @@
       href="../../bower_components/iron-timer/iron-timer.html">
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
-      
+
 
 <link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import"
@@ -16,15 +16,15 @@
              :host {
                 display: block;
             }
-            
+
             .text {
                 padding-top: 50px;
             }
-            
+
             .center {
                 width: 40%;
             }
-            
+
             #countdown {
                 margin: 15px 0px 15px 0px;
                 @apply(--paper-font-display3);
@@ -36,7 +36,7 @@
                 <div id="countdown">
                     [[secondsRemaining]]
                 </div>
-                <iron-timer 
+                <iron-timer
                     id="timer"
                     start-time="[[_startTime(shortTimer)]]"
                     current-time="{{secondsRemaining}}">
@@ -79,6 +79,7 @@
             },
 
             _startTimerOnPageEntry: function(appState) {
+                console.log(appState);
                 if (appState === "timer") {
                     this.$.timer.reset();
                     this.$.timer.start();

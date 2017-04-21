@@ -53,8 +53,8 @@
     </style>
     <map-data data="{{mapData}}"></map-data>
     <image-cache map-data="[[mapData]]"></image-cache>
-    <user-location 
-      active="[[gpsActive]]" 
+    <user-location
+      active="[[gpsActive]]"
       latitude="{{latitude}}"
       longitude="{{longitude}}"
       error="{{gpsError}}"
@@ -103,7 +103,7 @@
       <timer-view
         name="timer"
         prompt="[[currentSite.prompt]]"
-        current-state="{{currentState}}"
+        app-state="{{appState}}"
         short-timer="[[devMode.shortTimer]]">
       </timer-view>
       <checklist-view
@@ -172,7 +172,7 @@
           },
 
           observers: [
-            '_pageChanged(currentState)'
+            '_pageChanged(appState)'
           ],
 
           _pageChanged: function(page) {
