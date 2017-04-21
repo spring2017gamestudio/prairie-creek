@@ -54,18 +54,15 @@
     <script>
         Polymer({
             is: 'selected-spirit',
+            behaviors: [ViewBehavior],
             properties: {
                 site: Object,
                 page: String,
                 image:  String,
-                currentState: {
-                  type: String,
-                  notify: true
-                },
                 name: String,
             },
             observers: [
-                '_pageChanged(currentState,site)'
+                '_pageChanged(appState,site)'
             ],
             _pageChanged: function(page, site) {
                 if (page==='team' && site!==undefined) {
