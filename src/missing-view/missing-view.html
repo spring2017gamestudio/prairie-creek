@@ -1,6 +1,5 @@
 <html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 
 
@@ -18,6 +17,6 @@
     <paper-button raised="" on-tap="_goHome">Go There Now</paper-button>
 
   </template>
-  <script>Polymer({is:"missing-view",behaviors:[ViewBehavior],_goHome:function(){this._goToPage("title")}});</script>
+  <script>Polymer({is:"missing-view",properties:{currentState:{type:String,notify:!0},nextState:{type:String,value:"title",notify:!0}},_goHome:function(){this.currentState=this.nextState}});</script>
 </dom-module>
 </body></html>

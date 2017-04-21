@@ -41,5 +41,5 @@
           [[buttonText]]
         </paper-button>
   </container></container></template>
-  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],properties:{latitude:Number,longitude:Number,buttonText:{type:String,value:"Acquiring position",computed:"_buttonText(latitude,longitude)"}},_start:function(){this._goToPage("map")},_hasLocation:function(t,e){this.$.play.disabled=!1},_buttonText:function(t,e){return"Play!"}});</script>
+  <script>Polymer({is:"title-view",behaviors:[ViewBehavior],properties:{latitude:Number,longitude:Number,buttonText:{type:String,value:"Acquiring position",computed:"_buttonText(latitude,longitude)"}},_start:function(){this._goToView("map")},_hasLocation:function(t,i){this.$.play.disabled=!1},_buttonText:function(t,i){return"Play!"}});</script>
 </dom-module></body></html>
