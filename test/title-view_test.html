@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>spirit-view bdd test</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import"
+          href="../src/title-view/title-view.html">
+</head>
+
+<body>
+
+    <test-fixture id="no-location">
+        <template>
+            <title-view hide-image-for-testing>
+            </title-view>
+        </template>
+    </test-fixture>
+
+    <script>
+        describe('title-view tests', function () {
+            describe('no-location tests', function () {
+                var element;
+                beforeEach(function () {
+                    element = fixture('no-location');
+                });
+                it('has disabled the play button', function () {
+                    expect(element.$.play.disabled).to.be.true;
+                });
+                it('enables the button when latitude and longitude are set', function (done) {
+                    element.latitude = 0;
+                    element.longitude = 0;
+                    flush(function () {
+                        expect(element.$.play.disabled).to.be.false;
+                        done();
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

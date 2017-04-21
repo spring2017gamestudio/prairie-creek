@@ -14,6 +14,8 @@
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 
+<script src="../visited-icon.js"></script>
+
 <dom-module id="map-view">
   <template>
     <style include="shared-styles">
@@ -24,6 +26,7 @@
       google-map {
         height: 50vh;
       }
+
       paper-button.proceed {
         display: block;
         width: 30%;
@@ -36,9 +39,16 @@
       }
     </style>
 
-    <div id="locationOn" hidden$="[[!hasLatLong]]">
+    <div id="locationOn">
       <template is="dom-if" if$="[[!hideMapForTesting]]">
-        <google-map id="map" zoom="6" latitude="[[latitude]]" longitude="[[longitude]]" on-google-map-click="_debugLocation" api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
+        <google-map 
+          id="map"
+          zoom="6"
+          latitude="[[latitude]]"
+          longitude="[[longitude]]"
+          click-events$="[[devMode.override]]"
+          on-google-map-click="_debugLocation"
+          api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
           fit-to-markers>
           <template is="dom-repeat" items="[[locations]]" item="item">
             <google-map-marker class='siteMarker' latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[_determineIcon(item)]]">
@@ -62,26 +72,20 @@
         Explore
       </paper-button>
 
-      <template is="dom-if" if$="[[devMode]]">
+      <template is="dom-if" if$="[[devMode.warp]]">
         <div class="debugging">
-          <paper-button raised on-tap="_enableLocationOverride">Enable Location Override</paper-button>
-            <div>
-              Warp to:
-              <template is="dom-repeat" items="[[locations]]" item="item">
-                <paper-button
-                  raised
-                  latitude="[[item.latitude]]"
-                  longitude="[[item.longitude]]"
-                  on-tap="_warpToLocation">
-                  [[item.name]]
-                </paper-button>
-              </template>
-            </div>
+          Warp to:
+          <template is="dom-repeat" items="[[locations]]" item="item">
+            <paper-button
+              raised
+              latitude="[[item.latitude]]"
+              longitude="[[item.longitude]]"
+              on-tap="_warpToLocation">
+              [[item.name]]
+            </paper-button>
+          </template>
         </div>
       </template>
-    </div>
-    <div id="gpsmessage" hidden$="[[hasLatLong]]">
-        Please Enable GPS
     </div>
   </template>
   <script>
@@ -106,15 +110,7 @@
           notify: true
         },
         devMode: {
-          type: Boolean,
-          value: false
-        },
-
-        hasLatLong: {
-          type: Boolean,
-          value: false,
-          notify: true,
-          computed: '_latLongDefined(latitude,longitude)'
+          type: Object
         },
         hideMapForTesting: {
           type: Boolean,
@@ -135,14 +131,10 @@
       },
 
       _determineIcon: function(site) {
-        if(site.visited  && !site.icon.includes("-gray")) {
-          site.icon=site.icon.replace('.png', '-gray.png');
+        if(site.visited) {
+          site.icon=visitedIcon(site.icon);
         }
         return site.icon;
-      },
-
-      _latLongDefined: function(latitude, longitude) {
-        return latitude && longitude;
       },
 
       _siteChanged: function(currentSite) {

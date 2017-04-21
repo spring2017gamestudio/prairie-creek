@@ -21,10 +21,11 @@
     "drop-menu": "acordeonl/drop-menu#^1.14.0",
     "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2",
     "paper-item": "PolymerElements/paper-item#^1.2.1",
-    "paper-menu": "PolymerElements/paper-menu#^1.2.2"
+    "paper-menu": "PolymerElements/paper-menu#^1.2.2",
+    "paper-input": "PolymerElements/paper-input#^1.1.23"
   },
   "devDependencies": {
-    "web-component-tester": "^4.0.0"
+    "web-component-tester": "^5.0.0"
   },
   "private": true
 }

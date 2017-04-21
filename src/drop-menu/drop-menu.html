@@ -1,27 +1,78 @@
-<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
+
+<link rel="import"
+      href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import"
+      href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import"
+      href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import"
+      href="../../bower_components/paper-item/paper-item.html">
+<link rel="import"
+      href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import"
+      href="../../bower_components/paper-menu/paper-submenu.html">
+<link rel="import"
+      href="../../bower_components/paper-menu-button/paper-menu-button.html">
+
+<link rel="import"
+      href="../shared-styles/shared-styles.html">
+
 
 <dom-module id="drop-menu">
   <template>
-    <div>
-    <paper-menu-button horizontal-align="right" close-on-activate="true">
-      <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
+    <style include="shared-styles">
+
+    </style>
+    <paper-menu-button id="menu" horizontal-align="right" ignore-select>
+      <paper-icon-button icon="menu"
+                         class="dropdown-trigger"></paper-icon-button>
       <paper-menu class="dropdown-content">
         <paper-item on-tap="_resetGame">Reset</paper-item>
+        <paper-submenu>
+          <paper-item class="menu-trigger">
+            Advanced
+          </paper-item>
+          <paper-menu class="menu-content">
+            <paper-checkbox checked="{{devMode.echo}}">
+              Echo Location
+            </paper-checkbox>
+            <paper-checkbox checked="{{devMode.warp}}">
+              Enable Warp
+            </paper-checkbox>
+            <paper-checkbox checked="{{devMode.override}}">
+              Location Override
+            </paper-checkbox>
+            <paper-checkbox checked="{{devMode.highAccuracy}}">
+              Use high accuracy
+            </paper-checkbox>
+            <paper-checkbox checked="{{devMode.shortTimer}}">
+              Use short timer
+            </paper-checkbox>
+          </paper-menu>
+        </paper-submenu>
       </paper-menu>
     </paper-menu-button>
-  </div>
   </template>
   <script>
     Polymer({
       is: "drop-menu",
+      properties: {
+        devMode: {
+          type: Object,
+          notify: true
+        },
+        disableGps: {
+          type: Boolean,
+          notify: true
+        }
+      },
 
-      _resetGame: function(){
+      _resetGame: function (e) {
+        this.$.menu.opened = false;
         this.fire('reset');
       }
     });
-    </script>
+  </script>
 </dom-module>
