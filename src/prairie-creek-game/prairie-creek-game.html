@@ -58,7 +58,8 @@
       latitude="{{latitude}}"
       longitude="{{longitude}}"
       error="{{gpsError}}"
-      high-accuracy="[[devMode.highAccuracy]]">
+      high-accuracy="[[devMode.highAccuracy]]"
+      watch="[[devMode.userLocation]]">
     </user-location>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
     <iron-localstorage
@@ -163,7 +164,8 @@
                     warp: false,
                     override: false,
                     highAccuracy: true,
-                    shortTimer: false
+                    shortTimer: false,
+                    userLocation: true
                   };
                 }
               },
