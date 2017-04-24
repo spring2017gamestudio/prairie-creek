@@ -29,18 +29,37 @@
         highAccuracy: {
           type: Boolean,
           value: false,
-          observer: '_onAccuracyChange'
+          observer: '_updateWatchLocation'
+        },
+        watch: {
+          type: Boolean,
+          value: true,
+          observer: '_updateWatchLocation'
         }
       },
 
       ready: function () {
         if ("geolocation" in navigator) {
-          var that = this;
-          navigator.geolocation.getCurrentPosition(this._updatePosition(), this._onError());
-          this._watchId = navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError());
+          this._updateWatchLocation();
         } else {
           alert('Geolocation not available on this device.');
           console.log('Geolocation not available');
+        }
+      },
+
+      _updateWatchLocation: function() {
+        var options = { enableHighAccuracy: this.highAccuracy };
+        this._clearAnyExistingWatches();
+        if (this.watch) {
+          navigator.geolocation.getCurrentPosition(this._updatePosition(), this._onError(), options);
+          this._watchId = navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError(), options);
+        }
+      },
+
+      _clearAnyExistingWatches: function() {
+         if (this._watchId) {
+          navigator.geolocation.clearWatch(this._watchId);
+          this._watchId = null;
         }
       },
 
@@ -85,14 +104,7 @@
           console.log('Latitude is ', that.latitude, ' and longitude is ', that.longitude);
           that.error = '';
         }
-      },
-
-      _onAccuracyChange: function (highAccuracy) {
-        console.log('Switching to ', highAccuracy ? 'high' : 'low', ' accuracy GPS');
-        navigator.geolocation.clearWatch(this._watchId);
-        this._watchId = navigator.geolocation.watchPosition(this._onPositionChanged(), this._onError(),
-          { enableHighAccuracy: highAccuracy });
-      },
+      }
     });
   </script>
 </dom-module>
