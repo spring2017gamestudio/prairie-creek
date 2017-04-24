@@ -48,6 +48,8 @@
           longitude="[[longitude]]"
           click-events$="[[devMode.override]]"
           on-google-map-click="_debugLocation"
+          disable-default-ui
+          disable-zoom
           api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM">
           <template is="dom-repeat" items="[[locations]]" item="item">
             <google-map-marker class='siteMarker' latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[_determineIcon(item)]]">
@@ -165,7 +167,7 @@
         this.showInstructions = true;
         if(!this.hideMapForTesting) {
           this._updateIcon(this.currentSite);
-          this._goToPage('timer');
+          this._goToView('timer');
         }
       },
 
