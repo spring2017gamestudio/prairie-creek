@@ -9,7 +9,8 @@
 
 <link rel="import"
       href="../drop-menu/drop-menu.html">
-<link rel="import" href="../view-behavior/view-behavior.html">     
+<link rel="import"
+      href="../view-behavior/view-behavior.html">
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 
@@ -42,13 +43,12 @@
       <template is="dom-if" if$="[[!hideMapForTesting]]">
         <google-map
           id="map"
-          zoom="6"
+          zoom="17"
           latitude="[[latitude]]"
           longitude="[[longitude]]"
           click-events$="[[devMode.override]]"
           on-google-map-click="_debugLocation"
-          api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM"
-          fit-to-markers>
+          api-key="AIzaSyDwMK5MooS-bAAEdTq74fgxcc_GVQpd7TM">
           <template is="dom-repeat" items="[[locations]]" item="item">
             <google-map-marker class='siteMarker' latitude="[[item.latitude]]" longitude="[[item.longitude]]" icon="[[_determineIcon(item)]]">
             </google-map-marker>
@@ -165,7 +165,7 @@
         this.showInstructions = true;
         if(!this.hideMapForTesting) {
           this._updateIcon(this.currentSite);
-          this._goToView('timer');
+          this._goToPage('timer');
         }
       },
 
