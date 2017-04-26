@@ -1,1 +1,1 @@
-function visitedIcon(n){return n.includes("-gray.png")?n:n.replace(".png","-gray.png")}
+function visitedIcon(a){return a.includes('-gray.png')?a:a.replace('.png','-gray.png')}

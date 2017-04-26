@@ -1,1 +1,1 @@
-function selectSpirit(e){for(var t=0,i=0;i<e.responses.length;i++)e.responses[i].selected&&(t+=e.responses[i].value);return _select(t<0?"artificial":"natural",e)}function _select(e,t){return{image:"images/spirits/"+t.shortname+"-"+e+".png",text:"artificial"===e?t.artificial:t.natural}}
+function selectSpirit(a){for(var b=0,c=0;c<a.responses.length;c++)a.responses[c].selected&&(b+=a.responses[c].value);var d=0>b?'artificial':'natural';return _select(d,a)}function _select(a,b){return{image:'images/spirits/'+b.shortname+'-'+a+'.png',text:'artificial'===a?b.artificial:b.natural}}

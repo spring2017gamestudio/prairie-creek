@@ -1,9 +1,1 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
-
-</head><body><dom-module id="current-site">
-  <template>
-    <array-selector id="selector" items="{{sites}}" selected="{{site}}"></array-selector>
-  </template>
-  <script>Polymer({is:"current-site",properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,value:null}},observers:["_determineSite(latitude,longitude,sites)"],_determineSite:function(e,t,r){for(var i,l,s,n,u=1e6,o=0;o<r.length;o++)l=e-r[o].latitude,s=t-r[o].longitude,(i=Math.sqrt(l*l+s*s))<u&&i<=r[o].range&&(u=i,n=o);1e6==u?this.$.selector.clearSelection():this.$.selector.select(r[n])}});</script>
-</dom-module>
-</body></html>
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html"></head><body><dom-module id="current-site"><template><array-selector id="selector" items="{{sites}}" selected="{{site}}"></array-selector></template><script>Polymer({is:'current-site',properties:{latitude:Number,longitude:Number,range:Number,sites:{type:Array},site:{type:Object,notify:!0,value:null}},observers:['_determineSite(latitude,longitude,sites)'],_determineSite:function(a,b,c){const d=1e6;for(var f,g,h,j,e=d,k=0;k<c.length;k++)g=a-c[k].latitude,h=b-c[k].longitude,f=Math.sqrt(g*g+h*h),f<e&&f<=c[k].range&&(e=f,j=k);e==d?this.$.selector.clearSelection():this.$.selector.select(c[j])}});</script></dom-module></body></html>
