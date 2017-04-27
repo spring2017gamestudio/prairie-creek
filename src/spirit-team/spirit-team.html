@@ -29,17 +29,6 @@
                     value: function () { return [] }
                 },
             },
-
-            ready: function () {
-                console.log("ready and images are ", this.images);
-            },
-
-            observers: ['_imagesChanged(images.splices)'],
-
-            _imagesChanged: function () {
-                var f = Polymer.dom(this.$.imagetemplate).querySelectorAll('img');
-                console.log('f is ', f);
-            }
         });
     </script>
 </dom-module>
@@ -48,7 +37,7 @@
     <template>
         <style>
              :host {
-                display: block;
+                display: inline-block;
             }
             
             img {

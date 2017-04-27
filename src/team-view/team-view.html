@@ -3,7 +3,11 @@
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
 
-<link rel="import" href="../view-behavior/view-behavior.html">
+
+<link rel="import"
+      href="../spirit-team/spirit-team.html">
+<link rel="import"
+      href="../view-behavior/view-behavior.html">
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 <script src="../spirit-selector.js"></script>
@@ -12,15 +16,26 @@
 <dom-module id="team-view">
     <template>
         <style include="shared-styles">
-           :host {
+             :host {
                 display: block;
             }
+            spirit-team {
+                height: 50vh;
+            }
+            paper-button {
+                margin-left: 25%;
+                width: 50%;
+            }
         </style>
-        <template is="dom-repeat"
-                  items="[[mapData]]">
-            <selected-spirit page="[[currentState]]" site="[[item]]"></selected-spirit>
-        </template>
-        <br/>
+
+        <div class="text">
+            Congratulations! You have found a spirit at each location,
+            and now they have all come together to protect Prairie Creek
+            Park.
+        </div>
+
+        <spirit-team id="team"></spirit-team>
+
         <paper-button raised
                       on-tap="_next">Play Again</paper-button>
     </template>
@@ -31,44 +46,23 @@
             properties: {
                 mapData: Object
             },
+            observers: [
+                '_appStateChanged(appState)'
+            ],
             _next: function () {
                 this._goToView('title');
-            }
-        });
-    </script>
-</dom-module>
-
-<dom-module id="selected-spirit">
-    <template>
-        <style>
-            img {
-                width: 18%;
-                display: inline;
-                padding-top: 30px;
-                padding-bottom: 30px;
-            }
-        </style>
-        <img src="[[image]]"></img>
-        <span id="name">[[name]]</span>
-    </template>
-    <script>
-        Polymer({
-            is: 'selected-spirit',
-            behaviors: [ViewBehavior],
-            properties: {
-                site: Object,
-                page: String,
-                image:  String,
-                name: String,
             },
-            observers: [
-                '_pageChanged(appState,site)'
-            ],
-            _pageChanged: function(page, site) {
-                if (page==='team' && site!==undefined) {
-                  var selected=selectSpirit(this.site)
-                    this.image = selected.image;
-                    this.name = selected.text.name;
+            _selectedSpiritImages: function () {
+                var array = [];
+                for (var i = 0; i < this.mapData.length; i++) {
+                    var selected = selectSpirit(this.mapData[i]);
+                    array.push(selected.image);
+                }
+                return array;
+            },
+            _appStateChanged: function (state) {
+                if (state === 'team') {
+                    this.$.team.images = this._selectedSpiritImages();
                 }
             }
         });
