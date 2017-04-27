@@ -1,0 +1,30 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../shared-styles/shared-styles.html">
+
+
+<dom-module id="spirit-team">
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
+            }
+            img {
+                width: 20%;
+            }
+        </style>
+        <template is="dom-repeat" items="[[images]]">
+            <img src="[[item]]">
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: 'spirit-team',
+            properties: {
+                images: Array
+            },
+
+        });
+    </script>
+</dom-module>

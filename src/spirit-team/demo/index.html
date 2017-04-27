@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <title>
+        spirit-team demo
+    </title>
+    <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="../spirit-team.html">
+    <style>
+        spirit-team {
+        }
+    </style>
+</head>
+
+<body>
+    This shows how the spirit-team element works.
+
+    <template is="dom-bind">
+        <spirit-team images="{{getImages()}}">
+        </spirit-team>
+    </template>
+
+    <script>
+        var el = document.querySelector('[is=dom-bind]');
+        el.getImages = function() {
+            var array = [];
+            for (var i=0; i<5; i++) {
+                array.push('guy-with-hat.png');
+            }
+            return array;
+        };
+    </script>
+
+</body>
+
+</html>
