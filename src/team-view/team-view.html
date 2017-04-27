@@ -3,7 +3,11 @@
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
 
-<link rel="import" href="../view-behavior/view-behavior.html">
+
+<link rel="import"
+      href="../spirit-team/spirit-team.html">
+<link rel="import"
+      href="../view-behavior/view-behavior.html">
 <link rel="import"
       href="../shared-styles/shared-styles.html">
 <script src="../spirit-selector.js"></script>
@@ -12,15 +16,26 @@
 <dom-module id="team-view">
     <template>
         <style include="shared-styles">
-           :host {
+             :host {
                 display: block;
             }
+            
+            spirit-team {
+                height: 50vh;
+            }
+            
+            paper-button {
+                margin-left: 25%;
+                width: 50%;
+            }
         </style>
-        <template is="dom-repeat"
-                  items="[[mapData]]">
-            <selected-spirit page="[[currentState]]" site="[[item]]"></selected-spirit>
-        </template>
-        <br/>
+
+        <div class="text">
+            [[_spiritNames]] have come together to protect Prairie Creek Park!
+        </div>
+
+        <spirit-team id="team"></spirit-team>
+
         <paper-button raised
                       on-tap="_next">Play Again</paper-button>
     </template>
@@ -29,47 +44,65 @@
             is: 'team-view',
             behaviors: [ViewBehavior],
             properties: {
-                mapData: Object
-            },
-            _next: function () {
-                this._goToView('title');
-            }
-        });
-    </script>
-</dom-module>
-
-<dom-module id="selected-spirit">
-    <template>
-        <style>
-            img {
-                width: 18%;
-                display: inline;
-                padding-top: 30px;
-                padding-bottom: 30px;
-            }
-        </style>
-        <img src="[[image]]"></img>
-        <span id="name">[[name]]</span>
-    </template>
-    <script>
-        Polymer({
-            is: 'selected-spirit',
-            behaviors: [ViewBehavior],
-            properties: {
-                site: Object,
-                page: String,
-                image:  String,
-                name: String,
+                mapData: Object,
+                _spiritNames: String
             },
             observers: [
-                '_pageChanged(appState,site)'
+                '_appStateChanged(appState)'
             ],
-            _pageChanged: function(page, site) {
-                if (page==='team' && site!==undefined) {
-                  var selected=selectSpirit(this.site)
-                    this.image = selected.image;
-                    this.name = selected.text.name;
+
+            _next: function () {
+                this._goToView('title');
+            },
+
+            _appStateChanged: function (state) {
+                if (state === 'team') {
+                    var selectedSpirits = this._selectedSpirits();
+                    this.$.team.images = this._toImageArray(selectedSpirits);
+                    this._spiritNames = this._makeNameString(selectedSpirits);
                 }
+            },
+
+             _selectedSpirits: function () {
+                var array = [];
+                for (var i = 0; i < this.mapData.length; i++) {
+                    var selected = selectSpirit(this.mapData[i]);
+                    array.push(selected);
+                }
+                this._shuffle(array);
+                return array;
+            },
+
+            _shuffle: function (a) {
+                var j, x, i;
+                for (i = a.length; i; i--) {
+                    j = Math.floor(Math.random() * i);
+                    x = a[i - 1];
+                    a[i - 1] = a[j];
+                    a[j] = x;
+                }
+            },
+
+            _toImageArray: function(input) {
+                var array = [];
+                for (var i=0; i < input.length; i++) {
+                    array.push(input[i].image);
+                }
+                return array;
+            },
+
+            _makeNameString: function(input) {
+                var s = '';
+                for (var i=0; i < input.length; i++) {
+                    s += input[i].text.name;
+                    if (i < input.length - 1) {
+                        s += ', ';
+                    }
+                    if (i === input.length - 2) {
+                        s += 'and ';
+                    }
+                }
+                return s;
             }
         });
     </script>
