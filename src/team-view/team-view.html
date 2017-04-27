@@ -31,7 +31,7 @@
         </style>
 
         <div class="text">
-            Congratulations! You have found a spirit at each location, and now they have all come together to protect Prairie Creek Park.
+            [[_spiritNames]] have come together to protect Prairie Creek Park!
         </div>
 
         <spirit-team id="team"></spirit-team>
@@ -44,28 +44,35 @@
             is: 'team-view',
             behaviors: [ViewBehavior],
             properties: {
-                mapData: Object
+                mapData: Object,
+                _spiritNames: String
             },
             observers: [
                 '_appStateChanged(appState)'
             ],
+
             _next: function () {
                 this._goToView('title');
             },
-            _selectedSpiritImages: function () {
+
+            _appStateChanged: function (state) {
+                if (state === 'team') {
+                    var selectedSpirits = this._selectedSpirits();
+                    this.$.team.images = this._toImageArray(selectedSpirits);
+                    this._spiritNames = this._makeNameString(selectedSpirits);
+                }
+            },
+
+             _selectedSpirits: function () {
                 var array = [];
                 for (var i = 0; i < this.mapData.length; i++) {
                     var selected = selectSpirit(this.mapData[i]);
-                    array.push(selected.image);
+                    array.push(selected);
                 }
                 this._shuffle(array);
                 return array;
             },
-            _appStateChanged: function (state) {
-                if (state === 'team') {
-                    this.$.team.images = this._selectedSpiritImages();
-                }
-            },
+
             _shuffle: function (a) {
                 var j, x, i;
                 for (i = a.length; i; i--) {
@@ -74,6 +81,28 @@
                     a[i - 1] = a[j];
                     a[j] = x;
                 }
+            },
+
+            _toImageArray: function(input) {
+                var array = [];
+                for (var i=0; i < input.length; i++) {
+                    array.push(input[i].image);
+                }
+                return array;
+            },
+
+            _makeNameString: function(input) {
+                var s = '';
+                for (var i=0; i < input.length; i++) {
+                    s += input[i].text.name;
+                    if (i < input.length - 1) {
+                        s += ', ';
+                    }
+                    if (i === input.length - 2) {
+                        s += 'and ';
+                    }
+                }
+                return s;
             }
         });
     </script>
