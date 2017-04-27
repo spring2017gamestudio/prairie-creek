@@ -19,9 +19,11 @@
              :host {
                 display: block;
             }
+            
             spirit-team {
                 height: 50vh;
             }
+            
             paper-button {
                 margin-left: 25%;
                 width: 50%;
@@ -29,9 +31,7 @@
         </style>
 
         <div class="text">
-            Congratulations! You have found a spirit at each location,
-            and now they have all come together to protect Prairie Creek
-            Park.
+            Congratulations! You have found a spirit at each location, and now they have all come together to protect Prairie Creek Park.
         </div>
 
         <spirit-team id="team"></spirit-team>
@@ -58,11 +58,21 @@
                     var selected = selectSpirit(this.mapData[i]);
                     array.push(selected.image);
                 }
+                this._shuffle(array);
                 return array;
             },
             _appStateChanged: function (state) {
                 if (state === 'team') {
                     this.$.team.images = this._selectedSpiritImages();
+                }
+            },
+            _shuffle: function (a) {
+                var j, x, i;
+                for (i = a.length; i; i--) {
+                    j = Math.floor(Math.random() * i);
+                    x = a[i - 1];
+                    a[i - 1] = a[j];
+                    a[j] = x;
                 }
             }
         });
