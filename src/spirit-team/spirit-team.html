@@ -1,30 +1,81 @@
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-
-<link rel="import" href="../shared-styles/shared-styles.html">
+<link rel="import"
+      href="../shared-styles/shared-styles.html">
 
 
 <dom-module id="spirit-team">
     <template>
         <style include="shared-styles">
-            :host {
+             :host {
                 display: block;
             }
-            img {
-                width: 20%;
-            }
         </style>
-        <template is="dom-repeat" items="[[images]]">
-            <img src="[[item]]">
+        <template id="imagetemplate"
+                  is="dom-repeat"
+                  items="[[images]]">
+            <spirit-img src="[[item]]"
+                        index="[[index]]"
+                        length="[[images.length]]"></spirit-img>
         </template>
     </template>
     <script>
         Polymer({
             is: 'spirit-team',
             properties: {
-                images: Array
+                images: {
+                    type: Array,
+                    value: function () { return [] }
+                },
             },
 
+            ready: function () {
+                console.log("ready and images are ", this.images);
+            },
+
+            observers: ['_imagesChanged(images.splices)'],
+
+            _imagesChanged: function () {
+                var f = Polymer.dom(this.$.imagetemplate).querySelectorAll('img');
+                console.log('f is ', f);
+            }
+        });
+    </script>
+</dom-module>
+
+<dom-module id="spirit-img">
+    <template>
+        <style>
+             :host {
+                display: block;
+            }
+            
+            img {
+                position: fixed;
+            }
+        </style>
+        <img src="[[src]]">
+    </template>
+    <script>
+        Polymer({
+            is: 'spirit-img',
+            properties: {
+                src: String,
+                index: Number,
+                length: Number,
+            },
+            ready: function () {
+                const offsetFromCenter = Math.abs(this.index - Math.floor(this.length / 2));
+                const width = 50 * Math.pow(0.8, offsetFromCenter);
+                const remaining = 100 - width;
+                const left = this.index / (this.length-1) * remaining;
+
+                var el = this.$$('img');
+                el.style.width = width + '%';
+                el.style['margin-left'] = left + '%'
+                el.style['z-index'] = this.length - offsetFromCenter;
+            }
         });
     </script>
 </dom-module>
