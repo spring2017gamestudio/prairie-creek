@@ -11,6 +11,13 @@
              :host {
                 display: block;
             }
+            #backdrop {
+                width: 95%;
+                margin: auto;
+                height: 50%;
+                background-color: white;
+                opacity: 0.5
+            }
         </style>
         <template id="imagetemplate"
                   is="dom-repeat"
@@ -19,6 +26,7 @@
                         index="[[index]]"
                         length="[[images.length]]"></spirit-img>
         </template>
+        <div id="backdrop"></div>
     </template>
     <script>
         Polymer({
