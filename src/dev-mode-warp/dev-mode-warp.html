@@ -1,0 +1,52 @@
+<link rel="import"
+      href="../../bower_components/polymer/polymer.html">
+<link rel="import"
+      href="../../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../shared-styles/shared-styles.html">
+
+
+<dom-module id="dev-mode-warp">
+    <template>
+        <style  include="shared-styles">
+            :host {
+                display: block;
+            }
+        </style>
+        <div class="debugging">
+          Warp to:
+          <template is="dom-repeat" items="[[locations]]" item="item">
+            <paper-button
+              raised
+              latitude="[[item.latitude]]"
+              longitude="[[item.longitude]]"
+              on-tap="_warpToLocation">
+              [[item.name]]
+            </paper-button>
+          </template>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'dev-mode-warp',
+            properties: {
+                latitude: {
+                  notify: true,
+                  type: Number
+                },
+                longitude: {
+                  notify: true,
+                  type: Number
+                },
+                locations: {
+                  type: Array
+                }
+            },
+
+            _warpToLocation: function(event) {
+              this.latitude = event.model.get('item.latitude');
+              this.longitude = event.model.get('item.longitude');
+            }
+        });
+    </script>
+</dom-module>

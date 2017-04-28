@@ -4,6 +4,7 @@
 <link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 <link rel="import" href="../playable-area/playable-area.html">
+<link rel="import" href="../dev-mode-warp/dev-mode-warp.html">
 
 <dom-module id="title-view">
   <template>
@@ -51,6 +52,9 @@
     <template is="dom-if" if$="[[inPlayableRange]]">
       <paper-button id="play" raised on-tap="_start">Play</paper-button>
     </template>
+    <template is="dom-if" if$="[[devMode.warp]]">
+      <dev-mode-warp latitude="{{latitude}}" longitude="{{longitude}}" locations="[[locations]]"></dev-mode-warp>
+    </template>
   </template>
   <script>
     Polymer({
@@ -59,7 +63,8 @@
       properties: {
         latitude: Number,
         longitude: Number,
-        inPlayableRange: Boolean
+        inPlayableRange: Boolean,
+        devMode: Object
       },
 
       _start: function () {

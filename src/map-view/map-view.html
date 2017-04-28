@@ -13,6 +13,8 @@
       href="../view-behavior/view-behavior.html">
 <link rel="import"
       href="../shared-styles/shared-styles.html">
+<link rel="import"
+      href="../dev-mode-warp/dev-mode-warp.html">
 
 <script src="../visited-icon.js"></script>
 
@@ -74,18 +76,7 @@
       </paper-button>
 
       <template is="dom-if" if$="[[devMode.warp]]">
-        <div class="debugging">
-          Warp to:
-          <template is="dom-repeat" items="[[locations]]" item="item">
-            <paper-button
-              raised
-              latitude="[[item.latitude]]"
-              longitude="[[item.longitude]]"
-              on-tap="_warpToLocation">
-              [[item.name]]
-            </paper-button>
-          </template>
-        </div>
+        <dev-mode-warp latitude="{{latitude}}" longitude="{{longitude}}" locations="[[locations]]"></dev-mode-warp>
       </template>
     </div>
   </template>
@@ -155,11 +146,6 @@
         var longitude = event.detail.latLng.lng();
         this.latitude = latitude;
         this.longitude = longitude;
-      },
-
-      _warpToLocation: function(event) {
-        this.latitude = event.model.get('item.latitude');
-        this.longitude = event.model.get('item.longitude');
       },
 
       _proceed: function() {
