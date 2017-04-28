@@ -16,7 +16,7 @@
 
     <test-fixture id="no-location">
         <template>
-            <title-view hide-image-for-testing>
+            <title-view>
             </title-view>
         </template>
     </test-fixture>
@@ -28,14 +28,14 @@
                 beforeEach(function () {
                     element = fixture('no-location');
                 });
-                it('has disabled the play button', function () {
-                    expect(element.$.play.disabled).to.be.true;
+                it('has no play button', function () {
+                    expect(element.$$('#play')).to.not.be.ok;
                 });
-                it('enables the button when latitude and longitude are set', function (done) {
-                    element.latitude = 0;
-                    element.longitude = 0;
+                it('has button when latitude and longitude are in playable range', function (done) {
+                    element.latitude = 40.122386;
+                    element.longitude = -85.281263;
                     flush(function () {
-                        expect(element.$.play.disabled).to.be.false;
+                        expect(element.$$('#play')).to.be.ok;
                         done();
                     });
                 });

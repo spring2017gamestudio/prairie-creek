@@ -3,6 +3,8 @@
 
 <link rel="import" href="../view-behavior/view-behavior.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
+<link rel="import" href="../playable-area/playable-area.html">
+<link rel="import" href="../dev-mode-warp/dev-mode-warp.html">
 
 <dom-module id="title-view">
   <template>
@@ -10,23 +12,28 @@
        :host {
         display: block;
       }
-      
+
       img {
         width: 90%;
         height: 90%;
         margin: 0 auto;
         display: block;
       }
-      
+
       .text {
         padding-bottom: 1em;
       }
-      
+
       paper-button {
         margin: auto;
         display: block;
       }
     </style>
+    <playable-area
+      latitude="[[latitude]]"
+      longitude="[[longitude]]"
+      in-playable-range="{{inPlayableRange}}">
+    </playable-area>
     <img src="../../images/LogoText.png"></img>
     <container>
       <div class="text">
@@ -35,11 +42,19 @@
       <div class="text">
         Maybe one will approach you!
       </div>
-      <container>
-
-        <paper-button id="play" raised on-tap="_start" disabled disabled$="[[_hasLocation(latitude,longitude)]]">
-          [[buttonText]]
-        </paper-button>
+    </container>
+    <template is="dom-if" if$="[[!inPlayableRange]]">
+      <div class="text">
+        Go to <a href="https://www.google.com/maps/dir/Current+Location/Prairie+Creek+Park,+7801+S+560+E+Rd,+Selma,+IN+47383/@40.2079439,-85.5382922,11z/data=!4m15!1m6!3m5!1s0x881538afad10301f:0x5de41bebe474361b!2sPrairie+Creek+Park!8m2!3d40.1240078!4d-85.2818548!4m7!1m0!1m5!1m1!1s0x881538afad10301f:0x5de41bebe474361b!2m2!1d-85.2818548!2d40.1240078">
+        Prairie Creek Park</a> to play!
+      </div>
+    </template>
+    <template is="dom-if" if$="[[inPlayableRange]]">
+      <paper-button id="play" raised on-tap="_start">Play</paper-button>
+    </template>
+    <template is="dom-if" if$="[[devMode.warp]]">
+      <dev-mode-warp latitude="{{latitude}}" longitude="{{longitude}}" locations="[[locations]]"></dev-mode-warp>
+    </template>
   </template>
   <script>
     Polymer({
@@ -48,27 +63,12 @@
       properties: {
         latitude: Number,
         longitude: Number,
-        buttonText: {
-          type: String,
-          value: 'Acquiring position',
-          computed: '_buttonText(latitude,longitude)'
-        }
+        inPlayableRange: Boolean,
+        devMode: Object
       },
 
       _start: function () {
         this._goToView('map');
-      },
-
-      _hasLocation: function (latitude, longitude) {
-        // This computed function will only be called when latitude and longitude
-        // are specified
-        this.$.play.disabled = false;
-      },
-
-      _buttonText: function (latitude, longitude) {
-        // This computed function will only be called when latitude and longitude
-        // are specified
-        return 'Play!';
       }
     });
   </script>

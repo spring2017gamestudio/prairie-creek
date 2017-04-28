@@ -90,8 +90,10 @@
       <title-view
         name="title"
         app-state="{{appState}}"
-        latitude="[[latitude]]"
-        longitude="[[longitude]]"
+        latitude="{{latitude}}"
+        longitude="{{longitude}}"
+        dev-mode="[[devMode]]"
+        locations="[[mapData]]"
         gps-active>
       </title-view>
       <map-view
