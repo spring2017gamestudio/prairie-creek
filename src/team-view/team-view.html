@@ -19,11 +19,11 @@
              :host {
                 display: block;
             }
-            
+
             spirit-team {
                 height: 50vh;
             }
-            
+
             paper-button {
                 margin-left: 25%;
                 width: 50%;
@@ -38,6 +38,9 @@
 
         <paper-button raised
                       on-tap="_next">Play Again</paper-button>
+        <paper-button id="shareBtn" raised
+                                    on-tap="shareClick">Share</paper-button>
+        <a class="btn btn-small"  href="https://developers.facebook.com/docs/sharing/reference/share-dialog">Share Dialog Documentation</a>
     </template>
     <script>
         Polymer({
@@ -50,6 +53,15 @@
             observers: [
                 '_appStateChanged(appState)'
             ],
+
+            shareClick: function() {
+              FB.ui({
+                method: 'share',
+                display: 'popup',
+                href: 'https://developers.facebook.com/docs/',
+              }, function(response){});
+            },
+
 
             _next: function () {
                 this._goToView('title');
