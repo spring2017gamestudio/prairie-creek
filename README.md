@@ -17,8 +17,9 @@ The game is designed to be played by families or small groups. We hope you enjoy
 
 ## Licensing
 
-The source code for this project is licensed under (probably GPL, TBD soon) 
-and the art assets are made available under (probably CC-BY-SA, TBD soon).
+The source code for this project is licensed under [GPL v3](COPYING)
+and the art assets are made available under 
+[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 
 ## Technical notes
 
