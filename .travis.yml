@@ -1,0 +1,24 @@
+language: node_js
+sudo: required
+dist: trusty
+addons:
+  firefox: latest
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+node_js: '6'
+before_script:
+  - npm install -g bower polymer-cli
+  - bower install
+script: bash ./deploy.sh
+env:
+  global:
+    - ENCRYPTION_LABEL: "7d12bcb643dd"
+    - COMMIT_AUTHOR_EMAIL: "travis@travis-ci.org"
+notifications:
+  slack:
+    - spring2017gamestudio: 6dJBgWAqevmNSXeSJ1R3zWvH
+    - on_success: never
+    - on_failure: always
