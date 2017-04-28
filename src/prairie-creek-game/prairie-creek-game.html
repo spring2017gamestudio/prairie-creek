@@ -12,7 +12,6 @@
 <link rel="import" href="../user-location/user-location.html">
 <link rel="import" href="../shared-styles/shared-styles.html">
 <link rel="import" href="../drop-menu/drop-menu.html">
-<link rel="import" href="../playable-area/playable-area.html">
 <link rel="import" href="../image-cache/image-cache.html">
 
 <link rel="import" href="../title-view/title-view.html">
@@ -62,11 +61,6 @@
       high-accuracy="[[devMode.highAccuracy]]"
       watch="[[devMode.userLocation]]">
     </user-location>
-    <playable-area
-      latitude="[[latitude]]"
-      longitude="[[longitude]]"
-      in-playable-range="{{inPlayableRange}}">
-    </playable-area>
     <current-site latitude="[[latitude]]" longitude="[[longitude]]" sites="[[mapData]]" site="{{currentSite}}"></current-site>
     <iron-localstorage
       name="my-app-storage"
@@ -98,7 +92,6 @@
         app-state="{{appState}}"
         latitude="[[latitude]]"
         longitude="[[longitude]]"
-        in-playable-range="[[inPlayableRange]]"
         gps-active>
       </title-view>
       <map-view
@@ -180,8 +173,7 @@
                 type: Boolean,
                 value: false,
               },
-              gpsError: String,
-              inPlayableRange: Boolean
+              gpsError: String
           },
 
           observers: [
