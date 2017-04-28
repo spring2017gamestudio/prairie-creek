@@ -10,18 +10,18 @@
        :host {
         display: block;
       }
-      
+
       img {
         width: 90%;
         height: 90%;
         margin: 0 auto;
         display: block;
       }
-      
+
       .text {
         padding-bottom: 1em;
       }
-      
+
       paper-button {
         margin: auto;
         display: block;
@@ -35,11 +35,18 @@
       <div class="text">
         Maybe one will approach you!
       </div>
-      <container>
-
-        <paper-button id="play" raised on-tap="_start" disabled disabled$="[[_hasLocation(latitude,longitude)]]">
-          [[buttonText]]
-        </paper-button>
+    </container>
+    <template is="dom-if" if="{{_NotInPlayableOrPCR(devMode.pcr)}}">
+      <div class="text">
+        Go to <a href="https://www.google.com/maps/dir/Current+Location/Prairie+Creek+Park,+7801+S+560+E+Rd,+Selma,+IN+47383/@40.2079439,-85.5382922,11z/data=!4m15!1m6!3m5!1s0x881538afad10301f:0x5de41bebe474361b!2sPrairie+Creek+Park!8m2!3d40.1240078!4d-85.2818548!4m7!1m0!1m5!1m1!1s0x881538afad10301f:0x5de41bebe474361b!2m2!1d-85.2818548!2d40.1240078">
+        Prairie Creek Park</a> to play!
+      </div>
+    </template>
+    <template is="dom-if" if="{{_inPlayableOrPCR(devMode.pcr)}}">
+      <paper-button id="play" raised on-tap="_start" disabled disabled$="[[_hasLocation(latitude,longitude)]]">
+        [[buttonText]]
+      </paper-button>
+    </template>
   </template>
   <script>
     Polymer({
@@ -52,7 +59,25 @@
           type: String,
           value: 'Acquiring position',
           computed: '_buttonText(latitude,longitude)'
-        }
+        },
+        inPlayableRange: {
+          type: Boolean,
+          observer: '_inRangeChange'
+        },
+        devMode: {
+          type: Object
+      },
+
+      _inPlayableOrPCR: function(dev) {
+        return this.inPlayableRange || dev;
+      },
+
+      _NotInPlayableOrPCR: function(dev) {
+        return !this.inPlayableRange && !dev;
+      },
+
+      _inRangeChange: function(e) {
+        console.log('in playable range: ' , e);
       },
 
       _start: function () {

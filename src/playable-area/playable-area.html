@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<dom-module id="playable-area">
+    <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+  </template>
+    <script>
+        Polymer({
+            is: 'playable-area',
+            properties: {
+                latitude: {
+                  type: Number,
+                  notify: true
+                },
+                longitude: {
+                  type: Number,
+                  notify: true,
+                },
+                areaRadius: {
+                  type: Number,
+                  value: 0.002,
+                  notify: true,
+                },
+                areaLatitude: {
+                  type: Number,
+                  value: 40.122187,
+                  notify: true,
+                },
+                areaLongitude: {
+                  type: Number,
+                  value: -85.282045,
+                  notify: true,
+                },
+                inPlayableRange: {
+                    type: Boolean,
+                    notify: true,
+                    value: false,
+                    computed: '_determineIfInPlayableArea(latitude, longitude)'
+                }
+            },
+            _determineIfInPlayableArea: function(latitude, longitude) {
+              var inPlayable;
+              dx = latitude - this.areaLatitude;
+              dy = longitude - this.areaLongitude;
+              distance = (dx*dx) + (dy*dy);
+              if (distance <= (this.areaRadius * this.areaRadius)) {
+                inPlayable = true;
+              } else {
+                inPlayable = false;
+              }
+              return this.inPlayableRange = inPlayable;
+            }
+        });
+    </script>
+</dom-module>
