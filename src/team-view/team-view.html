@@ -61,6 +61,10 @@
                   xfbml      : false,
                   version    : 'v2.9'
                 });
+                FB.ui({
+                  method: 'share',
+                  href: 'https://developers.facebook.com/docs/',
+                }, function(response){});
                 FB.AppEvents.logPageView();
               };
 
