@@ -50,7 +50,7 @@
                 _spiritNames: String,
                 shareText: {
                   type: String,
-                  computed: 'generateText(_spiritNames)'
+                  observer: 'generateText(_spiritNames)'
                 }
             },
             observers: [
