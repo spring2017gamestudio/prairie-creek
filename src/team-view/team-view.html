@@ -50,7 +50,7 @@
                 _spiritNames: String,
                 shareText: {
                   type: String,
-                  observer: 'generateText(_spiritNames)'
+                  computed: 'generateText(_spiritNames)'
                 }
             },
             observers: [
@@ -78,14 +78,16 @@
             },
 
             generateText: function(names) {
-              return 'I found ' + this._makeNameString(names) + ' at camp prairie creek.'
+              console.log(names);
+              return 'I found ' + names + ' at Prairie Creek Park.'
             },
 
             shareClick: function() {
+              console.log(this.shareText);
               FB.ui({
                 method: 'share',
                 display: 'popup',
-                quote: 'Hello World',
+                quote: this.shareText,
                 href: 'https://grevers.github.io/my-prairie-creek/',
               }, function(response){});
             },
