@@ -47,7 +47,11 @@
             behaviors: [ViewBehavior],
             properties: {
                 mapData: Object,
-                _spiritNames: String
+                _spiritNames: String,
+                shareText: {
+                  type: String,
+                  computed: 'generateText(_spiritNames)'
+                }
             },
             observers: [
                 '_appStateChanged(appState)'
@@ -73,10 +77,15 @@
                }(document, 'script', 'facebook-jssdk'));
             },
 
+            generateText: function(names) {
+              return 'I found ' + this._makeNameString(names) + ' at camp prairie creek.'
+            },
+
             shareClick: function() {
               FB.ui({
                 method: 'share',
                 display: 'popup',
+                quote: this.shareText,
                 href: 'https://grevers.github.io/my-prairie-creek/',
               }, function(response){});
             },
