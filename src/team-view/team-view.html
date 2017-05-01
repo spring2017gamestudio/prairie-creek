@@ -40,7 +40,6 @@
                       on-tap="_next">Play Again</paper-button>
         <paper-button id="shareBtn" raised
                                     on-tap="shareClick">Share</paper-button>
-        <a class="btn btn-small"  href="https://developers.facebook.com/docs/sharing/reference/share-dialog">Share Dialog Documentation</a>
     </template>
     <script>
         Polymer({
@@ -61,12 +60,9 @@
                   xfbml      : false,
                   version    : 'v2.9'
                 });
-                FB.ui({
-                  method: 'share',
-                  href: 'https://developers.facebook.com/docs/',
-                }, function(response){});
                 FB.AppEvents.logPageView();
               };
+
 
               (function(d, s, id){
                  var js, fjs = d.getElementsByTagName(s)[0];
@@ -81,7 +77,7 @@
               FB.ui({
                 method: 'share',
                 display: 'popup',
-                href: 'https://developers.facebook.com/docs/',
+                href: 'https://grevers.github.io/my-prairie-creek/',
               }, function(response){});
             },
 
