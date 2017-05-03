@@ -2,7 +2,8 @@
       href="../../bower_components/polymer/polymer.html">
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
-
+<link rel="import"
+      href="../../bower_components/social-media-icons/social-media-icons.html">
 
 <link rel="import"
       href="../spirit-team/spirit-team.html">
@@ -19,14 +20,19 @@
              :host {
                 display: block;
             }
-            
+
             spirit-team {
                 height: 50vh;
             }
-            
+
             paper-button {
                 margin-left: 25%;
                 width: 50%;
+            }
+
+            #fb-share-btn {
+              padding-top: 10%;
+              margin-left: 25%;
             }
         </style>
 
@@ -38,6 +44,10 @@
 
         <paper-button raised
                       on-tap="_next">Play Again</paper-button>
+        <div id="fb-share-btn">
+          <social-media-icons icon="facebook" raised on-tap="shareClick"></social-media-icons>
+        </div>
+        <!-- </paper-button> -->
     </template>
     <script>
         Polymer({
@@ -45,11 +55,51 @@
             behaviors: [ViewBehavior],
             properties: {
                 mapData: Object,
-                _spiritNames: String
+                _spiritNames: String,
+                shareText: {
+                  type: String,
+                  computed: 'generateText(_spiritNames)'
+                }
             },
             observers: [
                 '_appStateChanged(appState)'
             ],
+
+            ready: function() {
+              window.fbAsyncInit = function() {
+                FB.init({
+                  appId      : '1923680841195910',
+                  xfbml      : false,
+                  version    : 'v2.9'
+                });
+                FB.AppEvents.logPageView();
+              };
+
+
+              (function(d, s, id){
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) {return;}
+                 js = d.createElement(s); js.id = id;
+                 js.src = "//connect.facebook.net/en_US/sdk.js";
+                 fjs.parentNode.insertBefore(js, fjs);
+               }(document, 'script', 'facebook-jssdk'));
+            },
+
+            generateText: function(names) {
+              console.log(names);
+              return 'I found ' + names + ' at Prairie Creek Park.'
+            },
+
+            shareClick: function() {
+              console.log(this.shareText);
+              FB.ui({
+                method: 'share',
+                display: 'popup',
+                quote: this.shareText,
+                href: 'https://grevers.github.io/my-prairie-creek/',
+              }, function(response){});
+            },
+
 
             _next: function () {
                 this._goToView('title');
