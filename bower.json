@@ -22,7 +22,8 @@
     "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2",
     "paper-item": "PolymerElements/paper-item#^1.2.1",
     "paper-menu": "PolymerElements/paper-menu#^1.2.2",
-    "paper-input": "PolymerElements/paper-input#^1.1.23"
+    "paper-input": "PolymerElements/paper-input#^1.1.23",
+    "social-links": "convoo/social-links#^0.0.2"
   },
   "devDependencies": {
     "web-component-tester": "^5.0.0"

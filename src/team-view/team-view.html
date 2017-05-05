@@ -2,6 +2,10 @@
       href="../../bower_components/polymer/polymer.html">
 <link rel="import"
       href="../../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../../bower_components/social-links/facebook-link.html">
+<link rel="import"
+      href="../../bower_components/social-links/twitter-link.html">
 
 
 <link rel="import"
@@ -19,14 +23,23 @@
              :host {
                 display: block;
             }
-            
+
             spirit-team {
                 height: 50vh;
             }
-            
+
             paper-button {
                 margin-left: 25%;
                 width: 50%;
+            }
+
+            .social {
+                margin-top: 20px;
+                text-align: center;
+            }
+
+            .social .links {
+                 letter-spacing: 0.5em;
             }
         </style>
 
@@ -38,6 +51,21 @@
 
         <paper-button raised
                       on-tap="_next">Play Again</paper-button>
+
+        <div class="social">
+            <div class="text">Share your adventure!</div>
+            <div class="links">
+                <a href="https://plus.google.com/share?url=http%3A//spiritsatprairiecreek.com"
+                   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+               <img src="https://www.gstatic.com/images/icons/gplus-32.png" alt="Share on Google+"/></a>
+                <twitter-link height="32px"
+                              href="https://twitter.com/share">
+                </twitter-link>
+                <facebook-link height="32px"
+                               href="https://www.facebook.com/sharer/sharer.php?u=http%3A//spiritsatprairiecreek.com&picture=http%3A//spiritsatprairiecreek.com/images/fb-image.png&quote=I+discovered+five+spirits+at+Prairie+Creek+Park%21&title=Spirits+at+Prairie+Creek+Park&description=A+game+for+families+and+small+groups+at+Prairie+Creek+Park+in+East+Central+Indiana">
+                </facebook-link>
+            </div>
+        </div>
     </template>
     <script>
         Polymer({
@@ -63,7 +91,7 @@
                 }
             },
 
-             _selectedSpirits: function () {
+            _selectedSpirits: function () {
                 var array = [];
                 for (var i = 0; i < this.mapData.length; i++) {
                     var selected = selectSpirit(this.mapData[i]);
@@ -83,17 +111,17 @@
                 }
             },
 
-            _toImageArray: function(input) {
+            _toImageArray: function (input) {
                 var array = [];
-                for (var i=0; i < input.length; i++) {
+                for (var i = 0; i < input.length; i++) {
                     array.push(input[i].image);
                 }
                 return array;
             },
 
-            _makeNameString: function(input) {
+            _makeNameString: function (input) {
                 var s = '';
-                for (var i=0; i < input.length; i++) {
+                for (var i = 0; i < input.length; i++) {
                     s += input[i].text.name;
                     if (i < input.length - 1) {
                         s += ', ';
